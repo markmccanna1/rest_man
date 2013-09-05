@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(:version => 20130905174125) do
 
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "order_id"
     t.integer  "manager_id"
     t.string   "status",     :default => "open"
     t.datetime "created_at",                     :null => false
