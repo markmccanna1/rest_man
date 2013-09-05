@@ -4,5 +4,3 @@ FactoryGirl.define do
     menu_item_id 1
   end
 end
-
-
