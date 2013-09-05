@@ -161,9 +161,9 @@ DEPENDENCIES
   factory_girl_rails
   faker
   jquery-rails
+  jquery_mobile_rails
   launchy
   pg
-  jquery_mobile_rails
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)
