@@ -159,6 +159,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   jquery-rails
+  jquery_mobile_rails
   launchy
   pg
   rails (= 3.2.13)
