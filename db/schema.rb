@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905174125) do
+ActiveRecord::Schema.define(:version => 20130905181610) do
 
   create_table "carts", :force => true do |t|
     t.integer  "customer_profile_id"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20130905174125) do
     t.string   "status",                :default => "open"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string  "title"
+    t.integer "menu_id"
+  end
+
+  create_table "customer_profiles", :force => true do |t|
+    t.string   "zip_code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "menu_items", :force => true do |t|
@@ -30,12 +41,41 @@ ActiveRecord::Schema.define(:version => 20130905174125) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "menus", :force => true do |t|
+    t.string  "title"
+    t.integer "restaurant_profile_id"
+  end
+
   create_table "orders", :force => true do |t|
     t.string   "status",       :default => "pending"
     t.integer  "menu_item_id"
     t.integer  "cart_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+  end
+
+  create_table "restaurant_profiles", :force => true do |t|
+    t.string   "restaurant_name"
+    t.string   "account_holder_first_name"
+    t.string   "account_holder_last_name"
+    t.string   "restaurant_url"
+    t.string   "street_address"
+    t.string   "street_address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "phone_number"
+    t.string   "password_digest"
+    t.integer  "profileable_id"
+    t.string   "profileable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end
