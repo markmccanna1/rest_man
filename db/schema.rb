@@ -11,6 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130905170616) do
+
+  create_table "carts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.integer  "manager_id"
+    t.string   "status",     :default => "open"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "orders", :force => true do |t|
+    t.string   "status",       :default => "pending"
+    t.integer  "menu_item_id"
+    t.integer  "cart_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
 
 end
