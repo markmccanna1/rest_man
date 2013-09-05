@@ -6,5 +6,5 @@ describe Category do
   	Category.new(title: nil).should_not be_valid
   end
   it { should belong_to (:menu) }
-  it { should have_many (:menu_itmes) }
+  it { should have_many (:menu_items) }
 end

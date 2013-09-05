@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ManagerProfile do
+describe RestaurantProfile do
   let!(:restaurant_profile) {FactoryGirl.create(:restaurant_profile)}
   it 'has a valid factory' do
   	restaurant_profile.should be_valid

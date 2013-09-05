@@ -8,5 +8,5 @@ describe Menu do
  it 'should validate on title' do
  	FactoryGirl.build(:menu, title: nil).should_not be_valid
  end
- it { should belong_to (:manager_profile) }
+ it { should belong_to (:restaurant_profile) }
 end

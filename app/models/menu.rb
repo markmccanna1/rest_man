@@ -1,5 +1,5 @@
 class Menu < ActiveRecord::Base
   validates_presence_of :title
 
-  belongs_to :manager_profile
+  belongs_to :restaurant_profile
 end
