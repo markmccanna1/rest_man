@@ -18,21 +18,59 @@
 //
 //= require_tree .
 
+var Chair = {
+  init: function(){
+      this.chair = Plan.draw.rect(100,100).attr({fill: 'white', id: 'square'})
+      this.chair.stroke({color: 'black', width: 2})
+      this.chair.draggable()
+      this.addClickEvent()
+  },
+
+  addClickEvent: function(){
+    $('body').on('tap', '#square', function(event) {
+      console.log(5)
+      $.mobile.loadPage('/check_in',{pageContainer: $('#header')})
+    })
+  }
+}
+
+var Plan = {
+  init: function(){
+    this.draw = SVG('floorplan').size('100%','100%')
+    console.log('drawn')
+  },
+
+  create_chair: function(){
+
+  }
+}
+
+
 
 $('document').ready(function() {
   if($('#floorplan').length){
     console.log("element exists");
 
 
-    var draw = SVG('floorplan').size('100%','100%')
-    var rect = draw.rect(100,100).attr({fill: '#f06', id: 'square'})
+    Plan.init()
+    Chair.init()
 
-    rect.draggable()
+    // var draw = SVG('floorplan').size('100%','100%')
+    // var rect = draw.rect(100,100).attr({fill: 'pink', id: 'square'})
+    // rect.stroke({color: 'black', width: 2})
 
 
-    $('body').on('vclick', '#square', function() {
-      alert("you clicked a button jackass")
-    })
+    //we only want the items to be draggable on the page where the restaurant is
+    //creating the floorplan
+    // rect.draggable()
+
+
+
+
+    // $('body').on('tap', '#square', function() {
+    //   $(this)
+
+    // })
 
 
   }
