@@ -1,6 +1,6 @@
 RestMan::Application.routes.draw do
   get '/customer/find/restaurant_profiles', to: "restaurant_profiles#find"
-  get '/restaurant_profiles/find', to: "restaurant_profiles#search" 
+  get '/restaurant_profiles/find', to: "restaurant_profiles#search"
   get 'restaurant_profiles/new', to: "restaurant_profiles#new"
   post 'restaurant_profiles/create', to: "restaurant_profiles#create"
 
@@ -74,7 +74,6 @@ RestMan::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'customer_profiles#new'
-
 
   # See how all your routes lay out with "rake routes"
 
