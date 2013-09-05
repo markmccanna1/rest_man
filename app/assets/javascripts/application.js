@@ -21,4 +21,21 @@
 
 $('document').ready(function() {
 
+  if($('#floorplan').length){
+    console.log("element exists");
+
+
+    var draw = SVG('floorplan').size('100%','100%')
+    var rect = draw.rect(100,100).attr({fill: '#f06', id: 'square'})
+
+    rect.draggable()
+
+
+    $('body').on('vclick', '#square', function() {
+      alert("you clicked a button jackass")
+    })
+
+
+  }
+
 });

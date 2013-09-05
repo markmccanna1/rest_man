@@ -4,7 +4,9 @@ class RestaurantController < ApplicationController
 
   end
 
+
   def check_in
 
   end
+
 end
