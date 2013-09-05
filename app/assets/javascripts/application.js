@@ -10,8 +10,30 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require svg
+//= require svg.draggable
 //= require jquery
 //= require jquery_ujs
-//= require svg
+//= require jquery.mobile
 //
-= require_tree .
+//= require_tree .
+
+
+$('document').ready(function() {
+  if($('#floorplan').length){
+    console.log("element exists");
+
+
+    var draw = SVG('floorplan').size('100%','100%')
+    var rect = draw.rect(100,100).attr({fill: '#f06', id: 'square'})
+
+    rect.draggable()
+
+
+    $('body').on('vclick', '#square', function() {
+      alert("you clicked a button jackass")
+    })
+
+
+  }
+});
