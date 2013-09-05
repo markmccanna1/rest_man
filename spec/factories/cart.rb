@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :cart do
-    user_id 1
-    manager_id 1
+    customer_profile_id 1
+    restaurant_profile_id 1
   end
 end

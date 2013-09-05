@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(:version => 20130905174125) do
 
   create_table "carts", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "manager_id"
-    t.string   "status",     :default => "open"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.integer  "customer_profile_id"
+    t.integer  "restaurant_profile_id"
+    t.string   "status",                :default => "open"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "menu_items", :force => true do |t|

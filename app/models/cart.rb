@@ -1,7 +1,7 @@
 class Cart < ActiveRecord::Base
-  attr_accessible :user_id, :manager_id
+  attr_accessible :customer_profile_id, :restaurant_profile_id
 
-  belongs_to :user
-  belongs_to :manager
+  belongs_to :customer_profile
+  belongs_to :restaurant_profile
   has_many :orders
 end
