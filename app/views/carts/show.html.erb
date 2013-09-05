@@ -1,0 +1,16 @@
+<h1>Cart Page</h1>
+  <% @cart.orders.each do |order| %>
+  <li><%= order.menu_item.name %></li>
+      <%= order.menu_item.price %>
+  <% end %>
+  <br><br><br>
+  <% if @cart.status == "confirmed" %>
+    Pending
+  <% elsif @cart.status == "completed" %>
+    Closed
+  <% end %>
+  <br>
+  <%= link_to "Carts Page", carts_path %>
+  <br>
+  <%= link_to "Order Processed", close_cart_path(@cart), method: :post %>
+

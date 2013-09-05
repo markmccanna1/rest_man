@@ -1,6 +1,10 @@
 class RestaurantProfilesController < ApplicationController
-  
-  before_filter :authorize_restaurant, :except => [:show, :find, :search]
+
+  before_filter :authorize_restaurant, :except => [:new, :create, :show, :find, :search]
+
+  def index
+
+  end
 
   def new
     @restaurant = RestaurantProfile.new
@@ -9,12 +13,12 @@ class RestaurantProfilesController < ApplicationController
 
   def create
     @restaurant = RestaurantProfile.new(params[:restaurant_profile])
-    @user = User.create(params[:user])
+    @user = User.new(params[:user])
     if @restaurant.save
       session[:restaurant_profile_id] = @restaurant.id
       redirect_to customer_find_restaurant_profiles_url
     else
-      redirect_to restaurant_profiles_new_url
+      render :new
     end
   end
 
@@ -30,6 +34,13 @@ class RestaurantProfilesController < ApplicationController
 
   def search
     restaurant = RestaurantProfile.find_by_restaurant_name(params[:name])
-    redirect_to restaurant_profile_url(restaurant) 
+    redirect_to restaurant_profile_url(restaurant)
+  end
+
+  def carts
+    time = current_restaurant_profile.last_cart_processed_at
+    id = current_restaurant_profile.id
+    @carts = Cart.find(:all, :conditions => ["updated_at > ? AND restaurant_profile_id =? AND status ='confirmed'", time, id])
+    render :json => {carts: @carts}
   end
 end

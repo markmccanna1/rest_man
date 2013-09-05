@@ -1,6 +1,5 @@
 class CartsController < ApplicationController
   def index
-    @carts = Cart.all
   end
 
   def show
@@ -22,5 +21,12 @@ class CartsController < ApplicationController
     end
     @cart.update_attributes(status: "confirmed")
     redirect_to restaurant_profile_url(@cart.restaurant_profile_id)
+  end
+
+  def close
+    @cart = Cart.find(params[:id])
+    @cart.update_attributes(status: "completed")
+    current_restaurant_profile.update_attributes(last_cart_processed_at: Time.now)
+    redirect_to carts_path
   end
 end

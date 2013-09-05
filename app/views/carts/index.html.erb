@@ -1,6 +1,5 @@
-<% @carts.each do |cart| %>
-  <h1>Cart for Table #(Insert Table Number)</h1>
-  <% cart.orders.each do |order| %>
-    <h3><%= order.menu_item.name %></h3>
-  <% end %>
-<% end %>
+<div class="active-carts">
+  <h1><%= current_restaurant_profile.restaurant_name %> Open Carts</h1>
+  <ul class="pending-carts">
+  </ul>
+</div>

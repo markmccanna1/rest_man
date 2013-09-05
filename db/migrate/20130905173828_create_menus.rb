@@ -3,6 +3,7 @@ class CreateMenus < ActiveRecord::Migration
   	create_table :menus do |t|
   	  t.string :title
   	  t.belongs_to :restaurant_profile
+      t.timestamps
   	end
   end
 end
