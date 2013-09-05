@@ -89,7 +89,12 @@ RestMan::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 
+<<<<<<< HEAD
   root :to => 'sessions#new'
+=======
+
+  get 'check_in', to: 'restaurant#check_in', as: :check_in
+>>>>>>> example square is draggable and clickable
 
   # See how all your routes lay out with "rake routes"
 
