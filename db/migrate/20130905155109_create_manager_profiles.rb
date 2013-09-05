@@ -1,6 +1,6 @@
 class CreateManagerProfiles < ActiveRecord::Migration
   def change
-    create_table :manager_profiles do |t|
+    create_table :restaurant_profiles do |t|
       t.string :restaurant_name
       t.string :account_holder_first_name
       t.string :account_holder_last_name
