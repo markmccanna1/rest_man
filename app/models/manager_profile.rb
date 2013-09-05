@@ -3,4 +3,5 @@ class ManagerProfile < ActiveRecord::Base
   validates_uniqueness_of :restaurant_name
 
   has_one :user, as: :profileable
+  has_many :menus
 end

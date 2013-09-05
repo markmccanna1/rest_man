@@ -30,4 +30,5 @@ describe ManagerProfile do
     FactoryGirl.build(:manager_profile, restaurant_name: "Bennigan's").should_not be_valid
   end
   it { should have_one(:user) }
+  it { should have_many(:menus) }
 end
