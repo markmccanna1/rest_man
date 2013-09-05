@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130905181610) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "manager_profiles", :force => true do |t|
+  create_table "restaurant_profiles", :force => true do |t|
     t.string   "restaurant_name"
     t.string   "account_holder_first_name"
     t.string   "account_holder_last_name"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130905181610) do
 
   create_table "menus", :force => true do |t|
     t.string  "title"
-    t.integer "manager_profile_id"
+    t.integer "restaurant_profile_id"
   end
 
   create_table "users", :force => true do |t|
