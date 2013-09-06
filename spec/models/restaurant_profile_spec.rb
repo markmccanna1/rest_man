@@ -26,9 +26,6 @@ describe RestaurantProfile do
   it 'validates presence of restaurant name' do
     FactoryGirl.build(:restaurant_profile, restaurant_name: nil).should_not be_valid
   end
-  it 'validates uniqueness of restaurant name' do
-    FactoryGirl.build(:restaurant_profile, restaurant_name: "Bennigan's").should_not be_valid
-  end
   it { should have_one(:user) }
   it { should have_many(:menus) }
 end
