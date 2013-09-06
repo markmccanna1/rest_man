@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    p params
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
       if @user.profileable_type == "CustomerProfile"
