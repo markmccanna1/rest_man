@@ -2,6 +2,19 @@ RestMan::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  resources :restaurant_profiles do
+    resources :menu, only: [:index, :new, :create] do
+      resources :categories, only: [:index, :new, :create] do
+        resources :menu_items, only: [:index, :new, :create], :controller => "menu_items"
+      end
+    end
+  end
+
+  resources :menus, only: [:show, :edit, :update, :destroy]
+  resources :menu_items, only: [:show, :edit, :update, :destroy]
+  resources :categories, only: [:show, :edit, :update, :destroy]
+
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

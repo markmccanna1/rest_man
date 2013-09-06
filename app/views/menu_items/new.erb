@@ -1,0 +1,11 @@
+<div>
+	<%= form_for ([@restaurant_profile, @menu, @category, @menu_item]) do |f| %>
+	  <%= f.label :menu_item_name %>
+	  <%= f.text_field :name, :placeholder => "Item Name" %><br><br>
+	  <%= f.label :menu_item_description %>
+	  <%= f.text_field :description, :placeholder => "Item Description" %><br><br>
+	  <%= f.label :menu_item_price %>
+	  <%= f.text_field :price, :placeholder => "Item Price" %><br><br>
+	  <%= f.submit "Save Item" %>
+	<% end %>
+</div>
