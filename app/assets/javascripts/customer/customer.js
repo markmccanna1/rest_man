@@ -37,7 +37,7 @@ var Table = {
     console.log(dataTag[0])
 
     //creates the form that sends the post request to the db
-    var form = '<form action="/stream" method="post" id="check_in"> <input type="submit" value="Check In"> <input type="hidden" value="'+ elementId + '" name=example[id]> </form>'
+    var form = '<form action="/stream" method="post" id="check_in"> <input type="submit" value="Check In"> <input type="hidden" value="'+ elementId + '" name=example> </form>'
 
 
     $('#header').append(form)

@@ -1,14 +1,12 @@
 class ExampleController < ApplicationController
 
-
   def create
-    puts params[:example]
+    @example = Example.create(text: params[:example])
     redirect_to customer_profiles_path
   end
 
   def new_items
-    content_type :json
-    {hi: "hi" }.to_json
+    examples = Example.all
+    render :json => {examples: examples}
   end
-
 end
