@@ -17,35 +17,66 @@
 //= require jquery.mobile
 //
 //= require_tree .
-
-var Chair = {
-  init: function(){
-      this.chair = Plan.draw.rect(100,100).attr({fill: 'white', class: 'chair'})
-      this.chair.stroke({color: 'black', width: 2})
-      this.chair.draggable()
-      this.addClickEvent()
-  },
-
-  addClickEvent: function(){
-    $('body').on('tap', '.chair', function(event) {
-      console.log(5)
-      $('#check_in').load('/check_in.html')
-
-      // $.mobile.loadPage("/check_in", {pageContainer: $('#')})
-    })
-  }
-}
-
-var Plan = {
+var FloorPlan = {
   init: function(){
     this.draw = SVG('floorplan').size('100%','100%')
-
-  },
-
-  create_chair: function(){
-
   }
 }
+
+var AddItem = {
+  init: function(){
+    this.chairItem()
+    this.tableItem()
+    this.chairCounter = 1
+    this.tableCounter = 1
+  },
+
+  chairItem: function(){
+    this.createChair = FloorPlan.draw.rect(80, 80).attr({fill: 'black', id: 'create_chair'})
+    this.createChair.stroke({color: 'black', width: 2})
+    this.createChair.move("90%", '5%')
+    this.createChair.click(this.addChair)
+  },
+
+  addChair: function (){
+    console.log(AddItem.chairCounter)
+    Chair.init(AddItem.chairCounter)
+    AddItem.chairCounter += 1
+  },
+
+  tableItem: function(){
+    this.createTable = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
+    this.createTable.stroke({color: 'black', width: 2})
+    this.createTable.center('5%', '15%')
+    this.createTable.click(this.addTable)
+  },
+
+  addTable: function (){
+    console.log(AddItem.tableCounter)
+    Table.init(AddItem.tableCounter)
+    AddItem.tableCounter += 1
+  }
+}
+
+var Chair = {
+  init: function(id){
+    this.chair = FloorPlan.draw.rect(40,40).attr({fill: 'white', class: 'chair', id: 'chair' + id})
+    this.chair.stroke({color: 'black', width: 2})
+    this.chair.draggable()
+    this.chair.move('90%', '25%')
+    console.log(SVG.get(this.chair))
+  }
+}
+
+var Table = {
+  init: function(id){
+    this.table = FloorPlan.draw.circle(80,80).attr({fill: 'white', class: 'table', id: 'table' + id})
+    this.table.stroke({color: 'black', width: 2})
+    this.table.draggable()
+    this.table.center('5%', '40%')
+  }
+}
+
 
 
 
@@ -54,8 +85,9 @@ $('document').ready(function() {
     console.log("element exists");
 
 
-    Plan.init()
-    Chair.init()
+    FloorPlan.init()
+    AddItem.init()
+    // Chair.init()
 
     // var draw = SVG('floorplan').size('100%','100%')
     // var rect = draw.rect(100,100).attr({fill: 'pink', id: 'square'})
