@@ -5,7 +5,6 @@ class CustomerProfilesController < ApplicationController
   def create
     @customer = CustomerProfile.new(params[:customer_profile])
     @user = User.create(params[:user])
-    puts @user.id
 	if @customer.save
 		session[:customer_id] = @customer.id
 		redirect_to customer_profiles_url(session[:customer_id])
