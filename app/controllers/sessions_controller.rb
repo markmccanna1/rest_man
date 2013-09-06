@@ -5,12 +5,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:user][:email])
-    if @user && @user.authenticate(params[:user][:password])
-      session[:user_id] = @user.id
-      redirect_to customer_profile_url(session[:user_id])
+    p params
+    @user = User.find_by_email(params[:email])
+    if @user && @user.authenticate(params[:password])
+      if @user.profileable_type == "CustomerProfile"
+        session[:customer_profile_id] = @user.profileable_id
+        puts session[:customer_profile_id]
+      else
+        @user.profileable_type == "RestaurantProfile"
+        session[:restaurant_profile_id] = @user.profileable.id
+      end
+      redirect_to customer_find_restaurant_profiles_url
     else
-      @user = User.new
       render 'new'
     end
   end

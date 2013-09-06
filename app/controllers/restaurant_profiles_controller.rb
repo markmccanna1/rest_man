@@ -1,8 +1,21 @@
 class RestaurantProfilesController < ApplicationController
+  
+  include UserHelper
+
   def new
+    @restaurant = RestaurantProfile.new
+    @restaurant.build_user
   end
 
   def create
+    @restaurant = RestaurantProfile.new(params[:restaurant_profile])
+    @user = User.create(params[:user])
+    if @restaurant.save
+      session[:restaurant_id] = @restaurant.id
+      redirect_to edit_menu_url
+    else
+      redirect_to new_restaurant_profile_url
+    end
   end
 
   def show
