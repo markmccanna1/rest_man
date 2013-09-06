@@ -1,6 +1,6 @@
 class CustomerProfilesController < ApplicationController
 
-  include UserHelper
+  before_filter :authorize_customer
 
   def new
     @customer = CustomerProfile.new
@@ -11,7 +11,7 @@ class CustomerProfilesController < ApplicationController
     @customer = CustomerProfile.new(params[:customer_profile])
     @user = User.create(params[:user])
     if @customer.save
-      session[:customer_id] = @customer.id
+      session[:customer_profile_id] = @customer.id
       redirect_to customer_find_restaurant_profiles_url
     else
       redirect_to new_customer_profile_url

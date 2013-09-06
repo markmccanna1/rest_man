@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
-  include UserHelper
-
+  
   def new
   end
 
@@ -21,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.clear
-    redirect_to root_url, :notice => "You've successfully logged out"
+    redirect_to new_session_url, :notice => "You've successfully logged out"
   end
 end
