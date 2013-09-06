@@ -20,6 +20,8 @@ class RestaurantProfilesController < ApplicationController
 
   def show
     @restaurant = RestaurantProfile.find(params[:id])
+    @menu = @restaurant.menus.first
+    @order = Order.new
   end
 
   def find

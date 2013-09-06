@@ -8,35 +8,20 @@
                     <%= @restaurant.menus.first.categories.first.title %>
                 </h3>
                 <ul>
-                    <% @restaurant.menus.first.categories.first.menu_items.each do |item| %>
-                    <li><%= item.name %></li>
-                    <p><%= item.description %></p>
-                    <p><%= item.price %></p>
-                    <a href="#confirm" class="order_confirmation" data-rel="popup" id="order_confirm">Order this Item</a>
-                  <!--   <div data-role="popup" id="confirm">
-                        <form action="">
-                            <p>Are you sure you want to order this item?</p>
-                            <input type="submit" value="Yes">
-                            <input type="submit" value="No">
-                        </form>
-                    </div> -->
+                    <%= form_tag("/orders", :method => "post") do%>
+                      <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
+                      <% @restaurant.menus.first.categories.first.menu_items.each do |item| %>
+                        <li><%= item.name %></li>
+                        <p><%= item.description %></p>
+                        <p><%= item.price %></p>
+                        <%= check_box_tag "item_ids[]", item.id%>
+                        <%= label_tag :order_item, "Order this Item!" %>
+                      <% end %>
+                        <br>
+                        <br>
+                        <%= submit_tag("Submit Order", :class => "btn btn-success") %>
                     <% end %>
                 </ul>
-            </div>
-            <div data-role="collapsible" data-collapsed="false">
-                <h3>
-                    Section Header
-                </h3>
-            </div>
-            <div data-role="collapsible" data-collapsed="false">
-                <h3>
-                    Section Header
-                </h3>
-            </div>
-            <div data-role="collapsible" data-collapsed="false">
-                <h3>
-                    Section Header
-                </h3>
             </div>
         </div>
     </div>

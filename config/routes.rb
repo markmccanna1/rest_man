@@ -7,9 +7,9 @@ RestMan::Application.routes.draw do
 
   resources :customer_profiles
 
-  resources :carts do
-    resources :orders, only: [:index, :new, :create]
-  end
+  resources :carts
+  resources :orders
+
 
   #resources :sessions
    post '/sessions', :to => 'sessions#create', :as => 'create_session'
