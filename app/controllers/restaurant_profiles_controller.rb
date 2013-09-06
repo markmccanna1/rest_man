@@ -12,9 +12,9 @@ class RestaurantProfilesController < ApplicationController
     @user = User.create(params[:user])
     if @restaurant.save
       session[:restaurant_id] = @restaurant.id
-      redirect_to edit_menu_url
+      redirect_to customer_find_restaurant_profiles_url
     else
-      redirect_to new_restaurant_profile_url
+      redirect_to restaurant_profiles_new_url
     end
   end
 

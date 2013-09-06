@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       if @user.profileable_type == "CustomerProfile"
         session[:customer_profile_id] = @user.profileable_id
-        puts session[:customer_profile_id]
       else
         @user.profileable_type == "RestaurantProfile"
         session[:restaurant_profile_id] = @user.profileable.id
@@ -23,6 +22,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.clear
-    redirect_to root_url :notice => "You've successfully logged out"
+    redirect_to root_url, :notice => "You've successfully logged out"
   end
 end
