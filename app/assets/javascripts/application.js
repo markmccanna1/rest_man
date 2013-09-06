@@ -15,6 +15,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require ./customer/customer
+//= require ./restaurant/restaurant
 
 
 
