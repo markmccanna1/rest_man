@@ -1,6 +1,16 @@
 RestMan::Application.routes.draw do
   get '/customer/find/restaurant_profiles', to: "restaurant_profiles#find"
   get '/restaurant_profiles/find', to: "restaurant_profiles#search" 
+  get 'restaurant_profiles/new', to: "restaurant_profiles#new"
+  post 'restaurant_profiles/create', to: "restaurant_profiles#create"
+
+  resources :customer_profiles
+
+  #resources :sessions
+   post '/sessions', :to => 'sessions#create', :as => 'create_session'
+   get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
+   delete '/logout', :to => 'sessions#destroy', :as => 'logout'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -63,7 +73,7 @@ RestMan::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'restaurant_profiles#find'
+  root :to => 'customer_profiles#new'
 
 
   # See how all your routes lay out with "rake routes"
