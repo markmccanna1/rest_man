@@ -4,6 +4,11 @@ class RestaurantProfilesController < ApplicationController
 
   include UserHelper
 
+
+  def index
+
+  end
+
   def new
     @restaurant = RestaurantProfile.new
     @restaurant.build_user
