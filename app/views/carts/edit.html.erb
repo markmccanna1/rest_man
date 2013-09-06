@@ -1,7 +1,7 @@
 <h1>Your Cart</h1>
 
 <ul>
-   <%= form_tag("/carts/<%= @cart.id %>", :method => "put") do%>
+   <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
     <% @cart.orders.each do |order|%>
       <li><%= order.menu_item.name %></li>
       <p><%= order.menu_item.description %></p>
@@ -11,6 +11,6 @@
     <% end %>
       <br>
       <br>
-      <%= submit_tag("Confirm Order!", :class => "btn btn-success") %>
+      <%= submit_tag("Confirm Order!") %>
   <% end %>
 </ul>

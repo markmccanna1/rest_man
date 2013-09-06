@@ -15,10 +15,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
-  $('#order_confirm').on('click', function(e){
-    e.preventDefault();
-    alert('clicked');
-  })
-$(document).ready(function(){
-})
