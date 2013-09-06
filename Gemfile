@@ -21,7 +21,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery_mobile_rails'
 
 group :development, :test do
     gem 'rspec-rails'
