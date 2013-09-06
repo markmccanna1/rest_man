@@ -161,12 +161,9 @@ DEPENDENCIES
   factory_girl_rails
   faker
   jquery-rails
-<<<<<<< HEAD
+  jquery_mobile_rails
   launchy
   pg
-=======
-  jquery_mobile_rails
->>>>>>> example square is draggable and clickable
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)
