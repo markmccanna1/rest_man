@@ -2,20 +2,20 @@ class CustomerProfilesController < ApplicationController
 
   include UserHelper
 
-  def create
-    @customer = CustomerProfile.new(params[:customer_profile])
-    @user = User.create(params[:user])
-	  if @customer.save
-		  session[:customer_id] = @customer.id
-		  redirect_to customer_find_restaurant_profiles_url
-	  else
-		  redirect_to new_customer_profile_url
-	  end
-  end
-
   def new
     @customer = CustomerProfile.new
     @customer.build_user
+  end
+
+  def create
+    @customer = CustomerProfile.new(params[:customer_profile])
+    @user = User.create(params[:user])
+    if @customer.save
+      session[:customer_id] = @customer.id
+      redirect_to customer_find_restaurant_profiles_url
+    else
+      redirect_to new_customer_profile_url
+    end
   end
 
   def edit
