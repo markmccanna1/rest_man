@@ -2,6 +2,8 @@ class RestaurantProfilesController < ApplicationController
 
   before_filter :authorize_restaurant, :except => [:show, :find, :search]
 
+  include UserHelper
+
   def new
     @restaurant = RestaurantProfile.new
     @restaurant.build_user
