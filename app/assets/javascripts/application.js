@@ -17,28 +17,42 @@
 //= require_tree .
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //= require ./customer/customer
 //= require ./restaurant/restaurant
 =======
 
 var Chair = {
 =======
+=======
+
+
+
+
+
+
+
+//change the function of this, you want to make it like abis,
+//you click a table and you add the number of seats you want at a table
+>>>>>>> repurpising chair creation to via table, you get the right table when you click the object
 var FloorPlan = {
 >>>>>>> added a js panel object that lets you create tables and chairs with the proper id
   init: function(){
     this.draw = SVG('floorplan').size('100%','100%')
+    this.tables = new Array()
   }
 }
 
-var AddItem = {
+var Buttons = {
   init: function(){
-    this.chairItem()
-    this.tableItem()
+    this.chairButton()
+    this.tableButton()
+    //do we want the chair counter on the table object?
     this.chairCounter = 1
     this.tableCounter = 1
   },
 
-  chairItem: function(){
+  chairButton: function(){
     this.createChair = FloorPlan.draw.rect(80, 80).attr({fill: 'black', id: 'create_chair'})
     this.createChair.stroke({color: 'black', width: 2})
     this.createChair.move("90%", '5%')
@@ -46,12 +60,12 @@ var AddItem = {
   },
 
   addChair: function (){
-    console.log(AddItem.chairCounter)
-    Chair.init(AddItem.chairCounter)
-    AddItem.chairCounter += 1
+    console.log(Buttons.chairCounter)
+    Chair.init(Buttons.chairCounter)
+    Buttons.chairCounter += 1
   },
 
-  tableItem: function(){
+  tableButton: function(){
     this.createTable = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
     this.createTable.stroke({color: 'black', width: 2})
     this.createTable.center('5%', '15%')
@@ -59,9 +73,9 @@ var AddItem = {
   },
 
   addTable: function (){
-    console.log(AddItem.tableCounter)
-    Table.init(AddItem.tableCounter)
-    AddItem.tableCounter += 1
+    table = Table.init(Buttons.tableCounter)
+    FloorPlan.tables.push(table)
+    Buttons.tableCounter += 1
   }
 }
 
@@ -71,49 +85,62 @@ var Chair = {
     this.chair.stroke({color: 'black', width: 2})
     this.chair.draggable()
     this.chair.move('90%', '25%')
-    console.log(SVG.get(this.chair))
+    this.chair.click(this.addClickEvent)
+    return this
+  },
+
+  addClickEvent: function(){
+    console.log("chair")
+
   }
+
+
+
 }
 
+//this appends a button to the header, and then triggers the styling
+// $('#header').append('<button> Check in </button>').trigger('create')
+
+
+//should i extract out this object into 2 methods, the uber object which holds the array,
+//and a smaller object that contains the information of a single table
 var Table = {
   init: function(id){
-    this.table = FloorPlan.draw.circle(80,80).attr({fill: 'white', class: 'table', id: 'table' + id})
+    this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
     this.table.stroke({color: 'black', width: 2})
     this.table.draggable()
-    this.table.center('5%', '40%')
+    this.table.center('5%', '35%')
+    this.table.click(this.addClickEvent)
+    this.chairs = new Array()
+    return this
+  },
+
+  addClickEvent: function(){
+    elementId = this.attr('id')
+
+    table = Table.getTableById(elementId)
+    console.log(table)
+      // $('#header').append('<form data-' + this.table.id'> ').trigger('create')
+
+
+  },
+
+  getTableById: function(id){
+    // console.log(id)
+    // console.log(FloorPlan.tables)
+    // console.log(FloorPlan.tables[0].table.attr('id'))
+    table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
+    })
+    // console.log(table[0].table.attr('id'))
+    // console.log(table[0])
+    return table[0]
   }
 }
-
-
-
 
 $('document').ready(function() {
   if($('#floorplan').length){
-    console.log("element exists");
-
-
     FloorPlan.init()
-    AddItem.init()
-    // Chair.init()
-
-    // var draw = SVG('floorplan').size('100%','100%')
-    // var rect = draw.rect(100,100).attr({fill: 'pink', id: 'square'})
-    // rect.stroke({color: 'black', width: 2})
-
-
-    //we only want the items to be draggable on the page where the restaurant is
-    //creating the floorplan
-    // rect.draggable()
-
-
-
-
-    // $('body').on('tap', '#square', function() {
-    //   $(this)
-
-    // })
-
-
+    Buttons.init()
   }
 });
 >>>>>>> example square is draggable and clickable
