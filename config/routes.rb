@@ -1,4 +1,7 @@
 RestMan::Application.routes.draw do
+  get '/customer/find/restaurant_profiles', to: "restaurant_profiles#find"
+  get '/restaurant_profiles/find', to: "restaurant_profiles#search" 
+  resources :restaurant_profiles
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
