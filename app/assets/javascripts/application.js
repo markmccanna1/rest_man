@@ -18,84 +18,40 @@
 //= require_tree .
 
 
-
-
-
-
-
 //change the function of this, you want to make it like abis,
 //you click a table and you add the number of seats you want at a table
 var FloorPlan = {
   init: function(){
-    this.draw = SVG('floorplan').size('100%','100%')
+    this.drawing = SVG('floorplan').size('100%','100%')
     this.tables = new Array()
   }
 }
 
-// var Buttons = {
-//   init: function(){
-//     this.chairButton()
-//     this.tableButton()
-//     //do we want the chair counter on the table object?
-//     this.chairCounter = 1
-//     this.tableCounter = 1
-//   },
-
-//   chairButton: function(){
-//     this.createChair = FloorPlan.draw.rect(80, 80).attr({fill: 'black', id: 'create_chair'})
-//     this.createChair.stroke({color: 'black', width: 2})
-//     this.createChair.move("90%", '5%')
-//     this.createChair.click(this.addChair)
-//   },
-
-//   addChair: function (){
-//     console.log(Buttons.chairCounter)
-//     Chair.init(Buttons.chairCounter)
-//     Buttons.chairCounter += 1
-//   },
-
-//   tableButton: function(){
-//     this.createTable = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
-//     this.createTable.stroke({color: 'black', width: 2})
-//     this.createTable.center('5%', '15%')
-//     this.createTable.click(this.addTable)
-//   },
-
-//   addTable: function (){
-//     table = Table.init(Buttons.tableCounter)
-//     FloorPlan.tables.push(table)
-//     Buttons.tableCounter += 1
-//   }
-// }
-
-// var Chair = {
-//   init: function(id){
-//     this.chair = FloorPlan.draw.rect(40,40).attr({fill: 'white', class: 'chair', id: 'chair' + id})
-//     this.chair.stroke({color: 'black', width: 2})
-//     this.chair.draggable()
-//     this.chair.move('90%', '25%')
-//     this.chair.click(this.addClickEvent)
-//     return this
-//   },
-
-//   addClickEvent: function(){
-//     console.log("chair")
-
-//   }
-
-
-
-// }
-
 //how the fuck do you want to implement chairs you dumbfuck, sleep on it
 function Chair(id) {
+  //what properties do you want it to have?
 }
 
 
 var AddTableButton = {
   init: function(){
-    this.drawing = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
+    var nested = FloorPlan.drawing.nested()
+
+    //set the svg element id
+    nested.attr({id: 'create_table'})
+    console.log(nested)
+
+    this.width = 120
+    this.height = 120
+    this.drawing = nested.circle(120, 120).attr({fill: 'white'})
+
+
+    console.log(this.drawing)
+    // , id: 'create_table'
     this.drawing.stroke({color: 'black', width: 2})
+    this.addForeignObject()
+
+    //i dont like these positions
     this.drawing.center('5%', '15%')
     this.drawing.click(this.addClickEvent)
     this.tableCounter = 1
@@ -103,34 +59,61 @@ var AddTableButton = {
   },
 
   addClickEvent: function(){
-    //create tables
-    var table = new Table(this.tableCounter)
+    var table = new Table(AddTableButton.tableCounter)
+    AddTableButton.tableCounter += 1
     AddTableButton.tables.push(table)
-    console.log(AddTableButton.tables)
+  },
+
+  //this method adds a foreign object and can probably be extracted into its own object literal, or at least the code is very similar
+  addForeignObject: function(){
+    var foreignObject = document.createElement( 'foreignobject' );
+    foreignObject.setAttribute('x', 150)
+    foreignObject.setAttribute('y', 150)
+    foreignObject.setAttribute('width', this.width)
+    foreignObject.setAttribute('height', this.height)
+    var body = document.createElement('body')
+    $(body).append('<div> hi </div')
+    $(foreignObject).append(body)
+    document.getElementById( 'create_table' ).appendChild( foreignObject );
+  },
+
+    getTableById: function(id){
+    // console.log(id)
+    // console.log(FloorPlan.tables)
+    // console.log(FloorPlan.tables[0].table.attr('id'))
+    table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
+    })
+    // console.log(table[0].table.attr('id'))
+    // console.log(table[0])
+    return table[0]
   }
 
 }
 
-//this appends a button to the header, and then triggers the styling
-// $('#header').append('<button> Check in </button>').trigger('create')
-
-
-//should i extract out this object into 2 methods, the uber object which holds the array,
-//and a smaller object that contains the information of a single table
-
 function Table(id) {
-  this.drawing = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id })
+  var nested = FloorPlan.drawing.nested()
+  this.drawing = nested.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id })
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
-  this.drawing.center('5%', '35%')
+  //i dont like these positions
+  this.drawing.center('5%', '45%')
   this.drawing.click(this.addClickEvent)
-  this.chairCounter = 1
+  this.chairCounter = 0
   this.chairs = new Array()
 }
 
 Table.prototype = {
   addClickEvent: function(){
+
+    //in this click event, popup a form for this particular table...
+    console.log(this)
+    console.log(this.attr('id'))
+    //in this click event, the this is the svg element....
+    //how do you access its actual dom element...
+    //you need to be able to access the js elements chairs array
     //create an event where you can edit the number of chairs per table
+    //do i need to put the counter on another object?
+    
   },
 
   returnChairs: function(){
@@ -141,46 +124,21 @@ Table.prototype = {
   //you have to make the 'chairs' variable dependend on their form submission... kinky
 }
 
-// var Table = {
-//   init: function(id){
-//     this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
-//     this.table.stroke({color: 'black', width: 2})
-//     this.table.draggable()
-//     this.table.center('5%', '35%')
-//     this.table.click(this.addClickEvent)
-//     this.chairs = new Array()
-//     return this
-//   },
-
-//   addClickEvent: function(){
-//     elementId = this.attr('id')
-//     console.log(elementId)
-//     table = Table.getTableById(elementId)
-//     console.log(table)
-//       // $('#header').append('<form data-' + this.table.id'> ').trigger('create')
-
-
-//   },
-
-//   getTableById: function(id){
-//     // console.log(id)
-//     // console.log(FloorPlan.tables)
-//     // console.log(FloorPlan.tables[0].table.attr('id'))
-//     table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
-//     })
-//     // console.log(table[0].table.attr('id'))
-//     // console.log(table[0])
-//     return table[0]
-//   }
-// }
 
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
     AddTableButton.init()
-    table = new Table(1)
+    // table = new Table(1)
     //returns an array of chairs
-    console.log(table.returnChairs())
+    // console.log(table.returnChairs())
     // Buttons.init()
+
+
+    var foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject' );
+var body = document.createElement( 'body' ); // you cannot create bodies with .apend("<body />") for some reason
+$(foreignObject).attr("x", 0).attr("y", 0).attr("width", 100).attr("height", 100).append(body);
+$(body).append("<div>real auto</div>");
+$("#group").append(foreignObject);
   }
 });
