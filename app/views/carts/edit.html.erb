@@ -1,0 +1,16 @@
+<h1>Your Cart</h1>
+
+<ul>
+   <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
+    <% @cart.orders.each do |order|%>
+      <li><%= order.menu_item.name %></li>
+      <p><%= order.menu_item.description %></p>
+      <p><%= order.menu_item.price %></p>
+      <%= check_box_tag "item_ids[]", order.menu_item.id, checked = true%>
+      <%= label_tag :order_item, "Confirm this Item!" %>
+    <% end %>
+      <br>
+      <br>
+      <%= submit_tag("Confirm Order!") %>
+  <% end %>
+</ul>

@@ -1,0 +1,6 @@
+<% @carts.each do |cart| %>
+  <h1>Cart for Table #(Insert Table Number)</h1>
+  <% cart.orders.each do |order| %>
+    <h3><%= order.menu_item.name %></h3>
+  <% end %>
+<% end %>
