@@ -1,6 +1,6 @@
 class CustomerProfilesController < ApplicationController
 
-  before_filter :authorize_customer
+  before_filter :authorize_customer, :except => [:new, :create]
 
   def new
     @customer = CustomerProfile.new
@@ -9,12 +9,12 @@ class CustomerProfilesController < ApplicationController
 
   def create
     @customer = CustomerProfile.new(params[:customer_profile])
-    @user = User.create(params[:user])
+    @user = User.new(params[:user])
     if @customer.save
       session[:customer_profile_id] = @customer.id
       redirect_to customer_find_restaurant_profiles_url
     else
-      redirect_to new_customer_profile_url
+      render :new
     end
   end
 
@@ -31,7 +31,7 @@ class CustomerProfilesController < ApplicationController
 	  if @customer.update_attributes(email: params[:customer_profile][:email]) && @customer.save
 	    redirect_to customer_profiles_url
 	  else
-	    redirect_to edit_customer_profiles_url(@customer)
+	    render :edit
 	  end
   end
 end
