@@ -61,7 +61,7 @@ var AddTableButton = {
     this.drawing = nested.circle(120, 120).attr({fill: 'white'})
 
 
-    console.log(this.drawing)
+    // console.log(this.drawing)
     // , id: 'create_table'
     this.drawing.stroke({color: 'black', width: 2})
     this.addForeignObject()
