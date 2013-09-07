@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_restaurant_profile
-    @restaurant_profile ||= CustomerProfile.find_by_id(session[:restaurant_profile_id])
+    @restaurant_profile ||= RestaurantProfile.find_by_id(session[:restaurant_profile_id])
   end
 
   def authorize_customer

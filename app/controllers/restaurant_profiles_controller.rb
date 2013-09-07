@@ -1,6 +1,9 @@
 class RestaurantProfilesController < ApplicationController
-  
+
   before_filter :authorize_restaurant, :except => [:new, :create, :show, :find, :search]
+
+  def index
+  end
 
   def new
     @restaurant = RestaurantProfile.new
@@ -22,5 +25,12 @@ class RestaurantProfilesController < ApplicationController
     @restaurant = RestaurantProfile.find(params[:id])
     @menu = @restaurant.menus.first
     @order = Order.new
+  end
+
+  def carts
+    time = current_restaurant_profile.last_cart_processed_at
+    id = current_restaurant_profile.id
+    @carts = Cart.find(:all, :conditions => ["updated_at > ? AND restaurant_profile_id =? AND status ='confirmed'", time, id])
+    render :json => {carts: @carts}
   end
 end

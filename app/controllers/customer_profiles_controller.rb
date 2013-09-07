@@ -2,20 +2,23 @@ class CustomerProfilesController < ApplicationController
 
   before_filter :authorize_customer, :except => [:new, :create]
 
-  def new
-    @customer = CustomerProfile.new
-    @customer.build_user
+  def index
   end
 
   def create
     @customer = CustomerProfile.new(params[:customer_profile])
     @user = User.new(params[:user])
-    if @customer.save
-      session[:customer_profile_id] = @customer.id
-      redirect_to customer_find_restaurant_profiles_url
-    else
-      render :new
-    end
+	  if @customer.save
+		  session[:customer_id] = @customer.id
+		  redirect_to customer_find_restaurant_profiles_url
+	  else
+		  render :new
+	  end
+  end
+
+  def new
+    @customer = CustomerProfile.new
+    @customer.build_user
   end
 
   def edit

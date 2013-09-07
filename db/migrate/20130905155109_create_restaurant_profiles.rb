@@ -10,7 +10,6 @@ class CreateRestaurantProfiles < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :zip_code
-      
       t.timestamps
     end
   end

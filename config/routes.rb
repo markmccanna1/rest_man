@@ -1,8 +1,10 @@
+
 RestMan::Application.routes.draw do
   get '/customer/find/restaurant_profiles', to: "customer_profiles#find"  
   get '/customer_profiles/find', to: "customer_profiles#search" 
   get 'restaurant_profiles/new', to: "restaurant_profiles#new"
   post 'restaurant_profiles/create', to: "restaurant_profiles#create"
+  post '/carts/:id/close', to: "carts#close", as: "close_cart"
 
   resources :customer_profiles
   resources :carts
@@ -26,6 +28,7 @@ RestMan::Application.routes.draw do
   resources :menu_items, only: [:show, :edit, :update, :destroy]
   resources :categories, only: [:show, :edit, :update, :destroy]
 
+  
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
@@ -73,8 +76,8 @@ RestMan::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'sessions#new'
 
+  root :to => 'sessions#new'
 
   # See how all your routes lay out with "rake routes"
 
