@@ -66,14 +66,14 @@ var AddTableButton = {
 
   //this method adds a foreign object and can probably be extracted into its own object literal, or at least the code is very similar
   addForeignObject: function(){
-    var foreignObject = document.createElement( 'foreignobject' );
-    foreignObject.setAttribute('x', 150)
-    foreignObject.setAttribute('y', 150)
+    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
+    foreignObject.setAttribute('x', 0)
+    foreignObject.setAttribute('y', 0)
     foreignObject.setAttribute('width', this.width)
     foreignObject.setAttribute('height', this.height)
     var body = document.createElement('body')
-    $(body).append('<div> hi </div')
     $(foreignObject).append(body)
+    $(body).append('<div> Click to Create a Table</div>')
     document.getElementById( 'create_table' ).appendChild( foreignObject );
   },
 
