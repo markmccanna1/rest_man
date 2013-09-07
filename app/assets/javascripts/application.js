@@ -108,6 +108,11 @@ var Chair = {
 
 //should i extract out this object into 2 methods, the uber object which holds the array,
 //and a smaller object that contains the information of a single table
+
+function Table(id) {
+  this.drawing = FloorPlan.draw.circle(100,100).attr({fill: 'white', })
+}
+
 var Table = {
   init: function(id){
     this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
