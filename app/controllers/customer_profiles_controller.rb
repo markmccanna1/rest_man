@@ -2,10 +2,7 @@ class CustomerProfilesController < ApplicationController
 
   before_filter :authorize_customer, :except => [:new, :create]
 
-  include UserHelper
-
   def index
-
   end
 
   def create

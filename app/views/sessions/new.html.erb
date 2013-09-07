@@ -1,18 +1,17 @@
 <h1>Log in</h1>
 
 <div>
-
 <%= form_tag create_session_url do %>
-  <p>
+    <p>
     <%= label_tag :email %><br />
     <%= text_field_tag :email, params[:email] %>
-  </p>
-  <p>
+    </p>
+    <p>
     <%= label_tag :password %><br />
     <%= password_field_tag :password %>
-  </p>
-  <p class="button"><%= submit_tag "Log in" %></p>
-<% end %>
+    </p>
+    <p class="button"><%= submit_tag "Log in" %></p>
+  <% end %>
 </div>
 
 <div>

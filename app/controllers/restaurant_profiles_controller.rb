@@ -3,7 +3,6 @@ class RestaurantProfilesController < ApplicationController
   before_filter :authorize_restaurant, :except => [:new, :create, :show, :find, :search]
 
   def index
-
   end
 
   def new
