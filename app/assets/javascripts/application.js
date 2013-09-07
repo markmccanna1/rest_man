@@ -14,7 +14,6 @@
 //= require svg.draggable
 //= require jquery
 //= require jquery_ujs
-//= require jquery.mobile
 //
 //= require_tree .
 
@@ -107,7 +106,7 @@ var Table = {
 
   addClickEvent: function(){
     elementId = this.attr('id')
-
+    console.log(elementId)
     table = Table.getTableById(elementId)
     console.log(table)
       // $('#header').append('<form data-' + this.table.id'> ').trigger('create')
