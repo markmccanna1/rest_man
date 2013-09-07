@@ -10,6 +10,7 @@ class MenuItemsController < ApplicationController
   end
 
   def create
+    # do you need form validation / error display at all here?
   	@category = Category.find(params[:category_id])
   	@category.menu_items.create(params[:menu_item])
   	redirect_to new_restaurant_profile_menu_category_menu_item_path
