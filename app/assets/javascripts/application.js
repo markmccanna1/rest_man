@@ -80,15 +80,25 @@ var AddTableButton = {
   },
 
   addForeignObject: function(){
+<<<<<<< HEAD
     var foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject' );
+=======
+    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
+>>>>>>> updated namespacing
     foreignObject.setAttribute('x', 0)
     foreignObject.setAttribute('y', 0)
     foreignObject.setAttribute('width', this.width)
     foreignObject.setAttribute('height', this.height)
     var body = document.createElement('body')
+<<<<<<< HEAD
     $(body).append('<div> hi </div>')
     $(foreignObject).append(body)
     document.getElementById( 'createTable' ).appendChild( foreignObject );
+=======
+    $(foreignObject).append(body)
+    $(body).append('<div> Click to Create a Table</div>')
+    document.getElementById( 'create_table' ).appendChild( foreignObject );
+>>>>>>> updated namespacing
   },
 
     getTableById: function(id){
