@@ -5,7 +5,8 @@ RestMan::Application.routes.draw do
   post 'restaurant_profiles/create', to: "restaurant_profiles#create"
 
   resources :customer_profiles
-
+  resources :carts
+  resources :orders
   #resources :sessions
    post '/sessions', :to => 'sessions#create', :as => 'create_session'
    get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
@@ -13,7 +14,6 @@ RestMan::Application.routes.draw do
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
   resources :restaurant_profiles do
     resources :menu, only: [:index, :new, :create] do
       resources :categories, only: [:index, :new, :create] do

@@ -4,5 +4,5 @@ class Order < ActiveRecord::Base
   belongs_to :menu_item
   belongs_to :cart
 
-  validates_presence_of :menu_item_id, :cart_id
+  # validates_presence_of :menu_item_id, :cart_id
 end
