@@ -10,7 +10,7 @@ RestMan::Application.routes.draw do
   #resources :sessions
    post '/sessions', :to => 'sessions#create', :as => 'create_session'
    get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
-   delete '/logout', :to => 'sessions#destroy', :as => 'logout'
+   post '/logout', :to => 'sessions#destroy', :as => 'logout'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -75,7 +75,7 @@ RestMan::Application.routes.draw do
   # just remember to delete public/index.html.
 
 
-  root :to => 'customer_profiles#new'
+  root :to => 'sessions#new'
 
 
 

@@ -26,7 +26,6 @@ var Table = {
   addClickEvent: function(){
     elementId = this.attr('id')
     table = Table.getTableById(elementId)
-    //this appends a button to the header, and then triggers the styling
     console.log(elementId)
 
     var idPat = /\d/
