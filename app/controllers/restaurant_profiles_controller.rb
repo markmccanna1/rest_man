@@ -27,15 +27,6 @@ class RestaurantProfilesController < ApplicationController
     @order = Order.new
   end
 
-  def find
-    @restaurants = RestaurantProfile.all
-  end
-
-  def search
-    restaurant = RestaurantProfile.find_by_restaurant_name(params[:name])
-    redirect_to restaurant_profile_url(restaurant)
-  end
-
   def carts
     time = current_restaurant_profile.last_cart_processed_at
     id = current_restaurant_profile.id
