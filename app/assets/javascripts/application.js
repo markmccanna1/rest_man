@@ -38,7 +38,7 @@ var AddTableButton = {
     var nested = FloorPlan.drawing.nested()
 
     //set the svg element id
-    nested.attr({id: 'create_table'})
+    nested.attr({id: 'createTable'})
     console.log(nested)
 
     this.width = 120
@@ -64,7 +64,6 @@ var AddTableButton = {
     AddTableButton.tables.push(table)
   },
 
-  //this method adds a foreign object and can probably be extracted into its own object literal, or at least the code is very similar
   addForeignObject: function(){
     var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
     foreignObject.setAttribute('x', 0)
@@ -72,19 +71,14 @@ var AddTableButton = {
     foreignObject.setAttribute('width', this.width)
     foreignObject.setAttribute('height', this.height)
     var body = document.createElement('body')
+    $(body).append('<div> hi </div>')
     $(foreignObject).append(body)
-    $(body).append('<div> Click to Create a Table</div>')
-    document.getElementById( 'create_table' ).appendChild( foreignObject );
+    document.getElementById( 'createTable' ).appendChild( foreignObject );
   },
 
     getTableById: function(id){
-    // console.log(id)
-    // console.log(FloorPlan.tables)
-    // console.log(FloorPlan.tables[0].table.attr('id'))
     table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
     })
-    // console.log(table[0].table.attr('id'))
-    // console.log(table[0])
     return table[0]
   }
 
@@ -92,7 +86,9 @@ var AddTableButton = {
 
 function Table(id) {
   var nested = FloorPlan.drawing.nested()
-  this.drawing = nested.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id })
+  
+  nested.attr({id: 'svg_table' + id})
+  this.drawing = nested.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
   //i dont like these positions
@@ -133,12 +129,5 @@ $('document').ready(function() {
     //returns an array of chairs
     // console.log(table.returnChairs())
     // Buttons.init()
-
-
-    var foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject' );
-var body = document.createElement( 'body' ); // you cannot create bodies with .apend("<body />") for some reason
-$(foreignObject).attr("x", 0).attr("y", 0).attr("width", 100).attr("height", 100).append(body);
-$(body).append("<div>real auto</div>");
-$("#group").append(foreignObject);
   }
 });
