@@ -1,6 +1,6 @@
 RestMan::Application.routes.draw do
-  get '/customer/find/restaurant_profiles', to: "restaurant_profiles#find"
-  get '/restaurant_profiles/find', to: "restaurant_profiles#search" 
+  get '/customer/find/restaurant_profiles', to: "customer_profiles#find"  
+  get '/customer_profiles/find', to: "customer_profiles#search" 
   get 'restaurant_profiles/new', to: "restaurant_profiles#new"
   post 'restaurant_profiles/create', to: "restaurant_profiles#create"
 
