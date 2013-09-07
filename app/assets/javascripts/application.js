@@ -47,58 +47,82 @@ var FloorPlan = {
   }
 }
 
-var Buttons = {
-  init: function(){
-    this.chairButton()
-    this.tableButton()
-    //do we want the chair counter on the table object?
-    this.chairCounter = 1
-    this.tableCounter = 1
-  },
+// var Buttons = {
+//   init: function(){
+//     this.chairButton()
+//     this.tableButton()
+//     //do we want the chair counter on the table object?
+//     this.chairCounter = 1
+//     this.tableCounter = 1
+//   },
 
-  chairButton: function(){
-    this.createChair = FloorPlan.draw.rect(80, 80).attr({fill: 'black', id: 'create_chair'})
-    this.createChair.stroke({color: 'black', width: 2})
-    this.createChair.move("90%", '5%')
-    this.createChair.click(this.addChair)
-  },
+//   chairButton: function(){
+//     this.createChair = FloorPlan.draw.rect(80, 80).attr({fill: 'black', id: 'create_chair'})
+//     this.createChair.stroke({color: 'black', width: 2})
+//     this.createChair.move("90%", '5%')
+//     this.createChair.click(this.addChair)
+//   },
 
-  addChair: function (){
-    console.log(Buttons.chairCounter)
-    Chair.init(Buttons.chairCounter)
-    Buttons.chairCounter += 1
-  },
+//   addChair: function (){
+//     console.log(Buttons.chairCounter)
+//     Chair.init(Buttons.chairCounter)
+//     Buttons.chairCounter += 1
+//   },
 
-  tableButton: function(){
-    this.createTable = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
-    this.createTable.stroke({color: 'black', width: 2})
-    this.createTable.center('5%', '15%')
-    this.createTable.click(this.addTable)
-  },
+//   tableButton: function(){
+//     this.createTable = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
+//     this.createTable.stroke({color: 'black', width: 2})
+//     this.createTable.center('5%', '15%')
+//     this.createTable.click(this.addTable)
+//   },
 
-  addTable: function (){
-    table = Table.init(Buttons.tableCounter)
-    FloorPlan.tables.push(table)
-    Buttons.tableCounter += 1
-  }
+//   addTable: function (){
+//     table = Table.init(Buttons.tableCounter)
+//     FloorPlan.tables.push(table)
+//     Buttons.tableCounter += 1
+//   }
+// }
+
+// var Chair = {
+//   init: function(id){
+//     this.chair = FloorPlan.draw.rect(40,40).attr({fill: 'white', class: 'chair', id: 'chair' + id})
+//     this.chair.stroke({color: 'black', width: 2})
+//     this.chair.draggable()
+//     this.chair.move('90%', '25%')
+//     this.chair.click(this.addClickEvent)
+//     return this
+//   },
+
+//   addClickEvent: function(){
+//     console.log("chair")
+
+//   }
+
+
+
+// }
+
+//how the fuck do you want to implement chairs you dumbfuck, sleep on it
+function Chair(id) {
 }
 
-var Chair = {
-  init: function(id){
-    this.chair = FloorPlan.draw.rect(40,40).attr({fill: 'white', class: 'chair', id: 'chair' + id})
-    this.chair.stroke({color: 'black', width: 2})
-    this.chair.draggable()
-    this.chair.move('90%', '25%')
-    this.chair.click(this.addClickEvent)
-    return this
+
+var AddTableButton = {
+  init: function(){
+    this.drawing = FloorPlan.draw.circle(120, 120).attr({fill: 'black', id: 'create_table'})
+    this.drawing.stroke({color: 'black', width: 2})
+    this.drawing.center('5%', '15%')
+    this.drawing.click(this.addClickEvent)
+    this.tableCounter = 1
+    this.tables = new Array()
   },
 
   addClickEvent: function(){
-    console.log("chair")
-
+    //create tables
+    var table = new Table(this.tableCounter)
+    AddTableButton.tables.push(table)
+    console.log(AddTableButton.tables)
   }
-
-
 
 }
 
@@ -110,46 +134,69 @@ var Chair = {
 //and a smaller object that contains the information of a single table
 
 function Table(id) {
-  this.drawing = FloorPlan.draw.circle(100,100).attr({fill: 'white', })
+  this.drawing = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id })
+  this.drawing.stroke({color: 'black', width: 2})
+  this.drawing.draggable()
+  this.drawing.center('5%', '35%')
+  this.drawing.click(this.addClickEvent)
+  this.chairCounter = 1
+  this.chairs = new Array()
 }
 
-var Table = {
-  init: function(id){
-    this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
-    this.table.stroke({color: 'black', width: 2})
-    this.table.draggable()
-    this.table.center('5%', '35%')
-    this.table.click(this.addClickEvent)
-    this.chairs = new Array()
-    return this
-  },
-
+Table.prototype = {
   addClickEvent: function(){
-    elementId = this.attr('id')
-    console.log(elementId)
-    table = Table.getTableById(elementId)
-    console.log(table)
-      // $('#header').append('<form data-' + this.table.id'> ').trigger('create')
-
-
+    //create an event where you can edit the number of chairs per table
   },
 
-  getTableById: function(id){
-    // console.log(id)
-    // console.log(FloorPlan.tables)
-    // console.log(FloorPlan.tables[0].table.attr('id'))
-    table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
-    })
-    // console.log(table[0].table.attr('id'))
-    // console.log(table[0])
-    return table[0]
+  returnChairs: function(){
+    return this.chairs
   }
+  //when you add chairs you want to increment the chair counter on the object
+  //what happens if they remove chairs?
+  //you have to make the 'chairs' variable dependend on their form submission... kinky
 }
+
+// var Table = {
+//   init: function(id){
+//     this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
+//     this.table.stroke({color: 'black', width: 2})
+//     this.table.draggable()
+//     this.table.center('5%', '35%')
+//     this.table.click(this.addClickEvent)
+//     this.chairs = new Array()
+//     return this
+//   },
+
+//   addClickEvent: function(){
+//     elementId = this.attr('id')
+//     console.log(elementId)
+//     table = Table.getTableById(elementId)
+//     console.log(table)
+//       // $('#header').append('<form data-' + this.table.id'> ').trigger('create')
+
+
+//   },
+
+//   getTableById: function(id){
+//     // console.log(id)
+//     // console.log(FloorPlan.tables)
+//     // console.log(FloorPlan.tables[0].table.attr('id'))
+//     table = FloorPlan.tables.filter(function(element) {return element.table.attr('id') === id
+//     })
+//     // console.log(table[0].table.attr('id'))
+//     // console.log(table[0])
+//     return table[0]
+//   }
+// }
 
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
-    Buttons.init()
+    AddTableButton.init()
+    table = new Table(1)
+    //returns an array of chairs
+    console.log(table.returnChairs())
+    // Buttons.init()
   }
 });
 >>>>>>> example square is draggable and clickable
