@@ -5,9 +5,7 @@ var Stream = {
   },
 
   update: function() {
-    console.log(1)
     $.get('/new_items', function(data){
-        console.log(3)
         console.log(data)
     })
   }
