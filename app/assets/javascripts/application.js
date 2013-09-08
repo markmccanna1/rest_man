@@ -39,6 +39,12 @@ var FloorPlan = {
   init: function(){
     this.drawing = SVG('floorplan').size('100%','100%')
     this.tables = new Array()
+  },
+
+  getTableById: function(id){
+    var table = FloorPlan.tables.filter(function(element) {return element.drawing.attr('id') === id
+      })
+    return table[0]
   }
 }
 
@@ -86,9 +92,10 @@ var AddTableButton = {
 >>>>>>> updated namespacing
     foreignObject.setAttribute('x', 0)
     foreignObject.setAttribute('y', 0)
-    foreignObject.setAttribute('width', this.width)
+    foreignObject.setAttribute('width', '100%')
     foreignObject.setAttribute('height', this.height)
     var body = document.createElement('body')
+<<<<<<< HEAD
 <<<<<<< HEAD
     $(body).append('<div> hi </div>')
     $(foreignObject).append(body)
@@ -104,35 +111,49 @@ var AddTableButton = {
     var table = FloorPlan.tables.filter(function(element) {return element.drawing.attr('id') === id
     })
     return table[0]
+=======
+    $(body).append('<div> Click here to create a table </div>')
+    $(foreignObject).append(body)
+    document.getElementById( 'createTable' ).appendChild( foreignObject );
+>>>>>>> added a form that takes a value for num chairs per table
   }
-
 }
 
 function Form(tableId) {
   this.tableId = tableId
-  this.addDomElements()
+  this.addForeignObject()
 }
 
 Form.prototype = {
-  addDomElements: function(){
-    // console.log(this.tableId)
-
-    var table = AddTableButton.getTableById(this.tableId)
-    console.log(table)
+  addForeignObject: function(){
+    var table = FloorPlan.getTableById(this.tableId)
     var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', 0)
+    foreignObject.setAttribute('x', '80%')
     foreignObject.setAttribute('y', 0)
-    foreignObject.setAttribute('width', table.width)
-    foreignObject.setAttribute('height', table.height)
+    foreignObject.setAttribute('width', '100%')
+    foreignObject.setAttribute('height', '100%')
+    foreignObject.setAttribute('id', 'foreign' + this.tableId)
     var body = document.createElement('body')
-    $(body).append(this.form  )
+    $(body).append(this.form())
+    console.log('#form' + this.tableId)
     $(foreignObject).append(body)
     document.getElementById('svg_' + this.tableId ).appendChild( foreignObject )
+    this.submitEvent(this.tableId)
   },
 
   form: function(tableId){
-    var chairForm = '<form><input type="text"><input type="submit"></form>'
+    console.log(this.tableId)
+    var chairForm = this.tableId + '<form id="form'+ this.tableId +'"> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form>'
     return chairForm
+  },
+
+  submitEvent: function(tableId){
+    $('#form' + this.tableId).submit(function(event){
+      event.preventDefault()
+      numChairs = $('#numChairs').val()
+      var table = FloorPlan.getTableById(tableId)
+      table.setChairs(numChairs)
+    })
   }
 
 
@@ -141,6 +162,7 @@ Form.prototype = {
 function Table(id) {
   var nested = FloorPlan.drawing.nested()
   nested.attr({id: 'svg_table' + id})
+  // this.id = 'table' + id
   this.width = 100
   this.height = 100
   this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
@@ -148,31 +170,16 @@ function Table(id) {
   this.drawing.draggable()
   //i dont like these positions
   this.drawing.center('5%', '45%')
-  this.drawing.click(this.addClickEvent)
-  this.chairCounter = 0
+  // this.drawing.click(this.addClickEvent)
   this.chairs = new Array()
 }
 
 Table.prototype = {
-  addClickEvent: function(){
+  
 
-
-
-
-    //in this click event, popup a form for this particular table...
-    // console.log(this)
-    // console.log(this.attr('id'))
-
-    var tableId = this.attr('id')
-
+  clickEvent: function(){
+    var tableId = this.drawing.attr('id')
     var form = new Form(tableId)
-    //in this click event, the this is the svg element....
-    //how do you access its actual dom element...
-    //you need to be able to access the js elements chairs array
-    //create an event where you can edit the number of chairs per table
-    //do i need to put the counter on another object?
-    // addForeignObject
-    
   },
 
   returnChairs: function(){
@@ -191,14 +198,29 @@ Table.prototype = {
     $(body).append('<div> hi </div>')
     $(foreignObject).append(body)
     document.getElementById( 'createTable' ).appendChild( foreignObject );
+  },
+
+  setChairs: function(numChairs){
+    console.log(numChairs)
+    for (var i = 0; i < numChairs; i++){
+      
+    } 
   }
 }
-
 
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
     AddTableButton.init()
+    var selectedItem = null
+    $('body').on("click", ".table", function(e){
+      if(this.id != selectedItem){
+        var table = FloorPlan.getTableById(this.id)
+        table.clickEvent()
+        $('#foreign' + selectedItem).remove()
+        selectedItem = this.id
+      } 
+    })
     // table = new Table(1)
     //returns an array of chairs
     // console.log(table.returnChairs())
