@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130907153826) do
+ActiveRecord::Schema.define(:version => 20130907215527) do
 
   create_table "carts", :force => true do |t|
     t.integer  "customer_profile_id"
@@ -39,6 +39,12 @@ ActiveRecord::Schema.define(:version => 20130907153826) do
     t.datetime "updated_at",            :null => false
   end
 
+  create_table "floor_plans", :force => true do |t|
+    t.integer  "restaurant_profile_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
   create_table "menu_items", :force => true do |t|
     t.string   "name",        :null => false
     t.string   "description"
@@ -49,8 +55,10 @@ ActiveRecord::Schema.define(:version => 20130907153826) do
   end
 
   create_table "menus", :force => true do |t|
-    t.string  "title"
-    t.integer "restaurant_profile_id"
+    t.string   "title"
+    t.integer  "restaurant_profile_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "orders", :force => true do |t|
@@ -73,7 +81,20 @@ ActiveRecord::Schema.define(:version => 20130907153826) do
     t.string   "zip_code"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
-    t.datetime "last_cart_processed_at",    :default => '2013-09-07 16:04:32'
+    t.datetime "last_cart_processed_at",    :default => '2013-09-07 21:50:15'
+  end
+
+  create_table "seats", :force => true do |t|
+    t.integer  "customer_profile_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "table_id"
+  end
+
+  create_table "tables", :force => true do |t|
+    t.integer  "floor_plan_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

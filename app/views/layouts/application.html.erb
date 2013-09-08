@@ -8,9 +8,15 @@
   <%= csrf_meta_tags %>
   <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 </head>
-<body>
-<div>
-  <p><%= link_to "Log Out", logout_path, method: :post%></p>
+<body class="<%= params[:controller] %>">
+  <header>
+    <h2>RestMan</h2>
+    <% if current_customer_profile || current_restaurant_profile %>
+      <div class="log-out">
+        <span><%= link_to "Log Out", logout_path, method: :post%></span>
+      </div>
+    <% end %>
+  </header>
 <%= yield %>
 </body>
 </html>

@@ -1,9 +1,11 @@
+
 class CartsController < ApplicationController
   def index
   end
 
   def show
-    @cart = Cart.find(params[:id])
+    @cart = Cart.find(session[:cart_id])
+    @restaurant = RestaurantProfile.find(@cart.restaurant_profile_id)
   end
 
   def edit
@@ -19,7 +21,11 @@ class CartsController < ApplicationController
       order = @cart.orders.find_by_menu_item_id(destroy_order)
       order.destroy
     end
+
     @cart.update_attributes(status: "confirmed")
+    @cart.orders.each do |order|
+      order.update_attributes(status:"confirmed")
+    end
     redirect_to restaurant_profile_url(@cart.restaurant_profile_id)
   end
 
