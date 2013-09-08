@@ -27,6 +27,7 @@ RestMan::Application.routes.draw do
       end
     end 
   end
+
   resources :floor_plan do
     resources :table do
       resources :seats, only: [:new, :create]
@@ -34,6 +35,7 @@ RestMan::Application.routes.draw do
   end
 
   post 'categories/menus_items/import', :to => 'categories#import', :as => 'import_menu_items'
+
   resources :menus, only: [:show, :edit, :update, :destroy]
   resources :menu_items, only: [:show, :edit, :update, :destroy]
   resources :categories, only: [:show, :edit, :update, :destroy]

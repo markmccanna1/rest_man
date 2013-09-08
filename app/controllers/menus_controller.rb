@@ -11,4 +11,9 @@ class MenusController < ApplicationController
   	render :partial => 'import_form'
     end
   end
+
+  def import
+    Menu.import(params[:file])
+    redirect_to root_path
+  end
 end
