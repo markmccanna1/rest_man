@@ -1,34 +1,34 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
-//
-//= require svg
-//= require svg.draggable
-//= require jquery
-//= require jquery_ujs
-//= require_tree .
-//= require ./customer/customer
-//= require ./restaurant/restaurant
+  // This is a manifest file that'll be compiled into application.js, which will include all the files
+  // listed below.
+  //
+  // Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+  // or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+  //
+  // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+  // the compiled file.
+  //
+  // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+  // GO AFTER THE REQUIRES BELOW.
+  //
+  //= require svg
+  //= require svg.draggable
+  //= require jquery
+  //= require jquery_ujs
+  //
+  //= require_tree .
 
 
-var Chair = {
-
-//change the function of this, you want to make it like abis,
-//you click a table and you add the number of seats you want at a table
-
+  //maybe you want a list of tables that lets you select the one you click on the list
+  //can you make it so that the item is only draggable if its inside the box?
 var FloorPlan = {
   init: function(){
+    //this cuts off items if theyre below the pixel line, you have to dynamically resize the 
+    //svg drawing area as the size of the parent changes
     this.drawing = SVG('floorplan').size('100%','100%')
     this.drawing.attr({id: 'floor'})
+    this.drawing.stroke({color: 'black', width: 2})
     this.tables = new Array()
+    // this.tableGroups = new Array()
   },
 
   getTableById: function(id){
@@ -58,14 +58,17 @@ function Chair(id, tableId) {
   nested.attr({id: 'svg_' + tableId + 'chair' + id})
   var table = FloorPlan.getTableById(this.tableId)
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
+  this.drawing.draggable()
   // table.group.add(this.drawing)
-}
+    // this.group.add(this.drawing)
+  // table.group.add(this.drawing)
+  }
 
 Chair.prototype = {
   clickEvent: function(){
     
+    }
   }
-}
 
 var AddTableButton = {
   init: function(){
@@ -76,45 +79,33 @@ var AddTableButton = {
     this.drawing = nested.circle(120, 120).attr({fill: 'white'})
     this.drawing.stroke({color: 'black', width: 2})
     this.addForeignObject()
-    this.drawing.center('5%', '15%')
+    this.drawing.center(100, 100)
     this.drawing.click(this.addClickEvent)
     this.tableCounter = 1
-  },
+},
 
-  addClickEvent: function(){
-    var table = new Table(AddTableButton.tableCounter)
-    AddTableButton.tableCounter += 1
-    FloorPlan.tables.push(table)
-  },
+addClickEvent: function(){
+  var table = new Table(AddTableButton.tableCounter)
+  AddTableButton.tableCounter += 1
+  FloorPlan.tables.push(table)
+},
 
-  addForeignObject: function(){
-    var foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject' );
-    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', 0)
-    foreignObject.setAttribute('y', 0)
-    foreignObject.setAttribute('width', '100%')
-    foreignObject.setAttribute('height', this.height)
-    var body = document.createElement('body')
-    $(body).append('<div> hi </div>')
-    $(foreignObject).append(body)
-    document.getElementById( 'createTable' ).appendChild( foreignObject );
-    $(foreignObject).append(body)
-    $(body).append('<div> Click to Create a Table</div>')
-    document.getElementById( 'create_table' ).appendChild( foreignObject );
-  },
-
-  getTableById: function(id){
-    var table = FloorPlan.tables.filter(function(element) {return element.drawing.attr('id') === id
-    })
-    return table[0]
-    $(body).append('<div> Click here to create a table </div>')
-    $(foreignObject).append(body)
-    document.getElementById( 'createTable' ).appendChild( foreignObject );
-  }
+addForeignObject: function(){
+  var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
+  foreignObject.setAttribute('x', 0)
+  foreignObject.setAttribute('y', 0)
+  foreignObject.setAttribute('width', '100%')
+  foreignObject.setAttribute('height', '100%')
+  var body = document.createElement('body')
+  $(body).append('<div> Click here to create a table </div>')
+  $(foreignObject).append(body)
+  document.getElementById( 'createTable' ).appendChild( foreignObject );
 }
+  }
 
 function Form(tableId) {
   this.tableId = tableId
+  console.log(5)
   this.addForeignObject()
 }
 
@@ -122,7 +113,7 @@ Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
     var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', '80%')
+    foreignObject.setAttribute('x', 800)
     foreignObject.setAttribute('y', 0)
     foreignObject.setAttribute('width', '100%')
     foreignObject.setAttribute('height', '100%')
@@ -142,12 +133,12 @@ Form.prototype = {
   },
 
   submitEvent: function(tableId){
-    $('#form' + this.tableId).submit(function(event){
-      event.preventDefault()
-      numChairs = $('#numChairs').val()
-      var table = FloorPlan.getTableById(tableId)
-      table.createChairs(numChairs)
-    })
+  $('#form' + this.tableId).submit(function(event){
+    event.preventDefault()
+    numChairs = $('#numChairs').val()
+    var table = FloorPlan.getTableById(tableId)
+    table.createChairs(numChairs)
+  })
   }
 }
 
@@ -157,17 +148,18 @@ function Table(id) {
   console.log(nested)
   this.width = 100
   this.height = 100
-  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
+  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'hi', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
   this.drawing.center('5%', '45%')
   // this.group = FloorPlan.drawing.group()
+  // this.group.attr({id: 'groupTable' + id})
   // this.group.add(this.drawing)
   this.drawing.click(this.ClickEvent)
 }
 
 Table.prototype = {
-  
+
   clickEvent: function(){
     var tableId = this.drawing.attr('id')
     var form = new Form(tableId)
@@ -206,17 +198,19 @@ $('document').ready(function() {
     FloorPlan.init()
     AddTableButton.init()
     var selectedItem = null
-    $('body').on("click", ".table", function(e){
+    $('body').on("click", '.table' , function(e){
+      alert(5)
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
         console.log(this.id) //ellipse id
         console.log(table) //js table object
         table.clickEvent()
+        console.log(5)
         $('#foreign' + selectedItem).remove()
         selectedItem = this.id
       } 
     })
-     $('body').on("click", ".chair", function(e){
+    $('body').on("click", ".chair", function(e){
       console.log(this)
       if(this.id != selectedItem){
         var chair = FloorPlan.getChairById(this.id)
@@ -225,3 +219,4 @@ $('document').ready(function() {
     })
   }
 });
+ 
