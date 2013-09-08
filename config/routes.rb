@@ -87,7 +87,6 @@ RestMan::Application.routes.draw do
 
   root :to => 'sessions#new'
 
-
   get 'check_in', to: 'restaurant#check_in', as: :check_in
 
   # See how all your routes lay out with "rake routes"

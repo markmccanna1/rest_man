@@ -161,13 +161,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  jquery_mobile_rails
->>>>>>> example square is draggable and clickable
-=======
->>>>>>> tap event triggers button load, bugs with many loads though
   rails (= 3.2.13)
   rspec-rails
   sass-rails (~> 3.2.3)
