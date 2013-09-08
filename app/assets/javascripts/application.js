@@ -43,13 +43,18 @@ var FloorPlan = {
 
   getTableById: function(id){
     var table = FloorPlan.tables.filter(function(element) {return element.drawing.attr('id') === id
-      })
+    })
     return table[0]
   }
 }
 
+
+//you want to arrange the chairs equidistant around the circle...
+
 //how the fuck do you want to implement chairs you dumbfuck, sleep on it
 function Chair(id) {
+  this.id = id
+  // this.id = 'chair' + id
   //what properties do you want it to have?
 }
 
@@ -185,25 +190,26 @@ Table.prototype = {
   returnChairs: function(){
     return this.chairs
   },
-  //when you add chairs you want to increment the chair counter on the object
-  //what happens if they remove chairs?
-  //you have to make the 'chairs' variable dependend on their form submission... kinky
-  addForeignObject: function(){
-    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', 0)
-    foreignObject.setAttribute('y', 0)
-    foreignObject.setAttribute('width', this.width)
-    foreignObject.setAttribute('height', this.height)
-    var body = document.createElement('body')
-    $(body).append('<div> hi </div>')
-    $(foreignObject).append(body)
-    document.getElementById( 'createTable' ).appendChild( foreignObject );
-  },
+  // //when you add chairs you want to increment the chair counter on the object
+  // //what happens if they remove chairs?
+  // //you have to make the 'chairs' variable dependend on their form submission... kinky
+  // addForeignObject: function(){
+  //   var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
+  //   foreignObject.setAttribute('x', 0)
+  //   foreignObject.setAttribute('y', 0)
+  //   foreignObject.setAttribute('width', this.width)
+  //   foreignObject.setAttribute('height', this.height)
+  //   var body = document.createElement('body')
+  //   $(body).append('<div> hi </div>')
+  //   $(foreignObject).append(body)
+  //   document.getElementById( 'createTable' ).appendChild( foreignObject );
+  // },
 
   setChairs: function(numChairs){
     console.log(numChairs)
     for (var i = 0; i < numChairs; i++){
-      
+      chair = new Chair(i)
+      this.chairs.push(chair)
     } 
   }
 }
@@ -221,10 +227,6 @@ $('document').ready(function() {
         selectedItem = this.id
       } 
     })
-    // table = new Table(1)
-    //returns an array of chairs
-    // console.log(table.returnChairs())
-    // Buttons.init()
   }
 });
 >>>>>>> example square is draggable and clickable
