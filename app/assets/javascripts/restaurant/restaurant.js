@@ -29,6 +29,18 @@ var Stream = {
   }
 }
 
+var newMenu = {
+  hideButton: function(){
+    $(".create-menu-button").on('click', function(e){
+      $(".create-menu-button").hide()
+      var restId = $('h1').data('id')
+      $.get("/restaurant_profiles/"+ restId +"/menus/new", function(response){
+        $(".new-menu").append(response)
+      })
+    })
+  }
+}
+
 $('document').ready(function() {
   if ($('body.restaurant_profiles').length) {
     Stream.init()
@@ -36,5 +48,7 @@ $('document').ready(function() {
   if ($('.active-carts').length){
     Carts.init()
   }
+  newMenu.hideButton();
 });
+
 
