@@ -14,7 +14,7 @@ RestMan::Application.routes.draw do
    post '/logout', :to => 'sessions#destroy', :as => 'logout'
 
    post '/check_in', :to => 'seats#check_in', :as => 'check_in'
-   post '/check_out', :to => 'seats#check_out', :as => 'check_out'
+   post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
    resources :seats, only: [:index]
 
   # The priority is based upon order of creation:

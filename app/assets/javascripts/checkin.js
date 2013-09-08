@@ -1,13 +1,3 @@
-var url_id = window.location.pathname.split('/').reverse()[1]
-
-  $.getJSON("/restaurant_profiles/" + url_id + "/floor_plan", function(data){
-    var seatTaken = $.each(data, function(k,v) {
-      $.each(v, function(i, l){
-        var color_seat = $('div[id="seat' + l.id + '"]')
-        color_seat.css('background-color', "red")
-      })
-    })
-  })
 
 $(document).ready(function(){
   $('.seat').on('click', function(e){
@@ -22,4 +12,16 @@ $(document).ready(function(){
         $(this).addClass('taken');
     }
   })
+  var url_id = window.location.pathname.split('/').reverse()[1]
+
+  if ($('body.floor_plan').length) {
+    $.getJSON("/restaurant_profiles/" + url_id + "/floor_plan", function(data){
+      var seatTaken = $.each(data, function(k,v) {
+        $.each(v, function(i, l){
+          var color_seat = $('div[id="seat' + l.id + '"]')
+          color_seat.css('background-color', "red")
+        })
+      })
+    })
+  }
 });
