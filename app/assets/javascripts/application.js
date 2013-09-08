@@ -1,4 +1,3 @@
-<<<<<<< HEAD
   // This is a manifest file that'll be compiled into application.js, which will include all the files
   // listed below.
   //
@@ -65,8 +64,6 @@ function Chair(id, tableId) {
   // table.group.add(this.drawing)
     // this.group.add(this.drawing)
   // table.group.add(this.drawing)
-
-  }
 
 }
 
@@ -197,23 +194,13 @@ function Table(id) {
   console.log(nested)
   this.width = 100
   this.height = 100
-<<<<<<< HEAD
-  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'hi', id: 'table' + id})
+  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
   this.drawing.center('5%', '45%')
   // this.group = FloorPlan.drawing.group()
   // this.group.attr({id: 'groupTable' + id})
   // this.group.add(this.drawing)
-=======
-  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
-  this.drawing.stroke({color: 'black', width: 2})
-  this.drawing.draggable()
-  this.drawing.center('5%', '45%')
-  this.group = FloorPlan.drawing.group()
-  this.group.attr({id: 'groupTable' + id})
-  this.group.add(this.drawing)
->>>>>>> origin/floor_plan
   this.drawing.click(this.ClickEvent)
 }
 
@@ -260,7 +247,7 @@ $('document').ready(function() {
     // $('body').on("click", '.table' , function(e){
     //   alert(5)
 
-    $('body').on("click", ".table", function(e){
+    $('body').on("click",".table", function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
         console.log(this.id) //ellipse id
