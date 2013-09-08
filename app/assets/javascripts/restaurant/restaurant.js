@@ -30,13 +30,20 @@ var Stream = {
 }
 
 var newMenu = {
-  hideButton: function(){
+  init: function(){
     $(".create-menu-button").on('click', function(e){
       $(".create-menu-button").hide()
       var restId = $('h1').data('id')
       $.get("/restaurant_profiles/"+ restId +"/menus/new", function(response){
         $(".new-menu").append(response)
       })
+    })
+  },
+  create: function(){
+    alert('ready')
+    $('h1').on('submit', '.create-menu-form', function(e){
+      e.preventDefault();
+      alert('click')
     })
   }
 }
@@ -48,7 +55,17 @@ $('document').ready(function() {
   if ($('.active-carts').length){
     Carts.init()
   }
-  newMenu.hideButton();
+  newMenu.init();
+  $('body').on('submit', '.create-menu-form', function(e){
+      e.preventDefault();
+      var token = $('meta[name="csrf-token"]').attr('content')
+      var url = $('.create-menu-form').attr('action')
+      var title = $('#new-menu-title').val()
+      $.post(url, {menu_title: title, authenticity_token: token}, function(r){
+        $(".new-menu").append(r)
+        $('.create-menu-form').remove()
+      })            
+    })
 });
 
 

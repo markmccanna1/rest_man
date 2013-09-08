@@ -6,6 +6,10 @@ class MenusController < ApplicationController
   end
 
   def create
+  	@menu = Menu.new(title: params[:menu_title], restaurant_profile_id: params[:restaurant_profile_id])
+  	if @menu.save
+  	render :partial => 'import_form'
+    end
   end
 
   def import
