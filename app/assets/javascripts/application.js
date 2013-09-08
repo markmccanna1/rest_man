@@ -17,11 +17,18 @@
 //
 //= require_tree .
 
+
+//maybe you want a list of tables that lets you select the one you click on the list
+//can you make it so that the item is only draggable if its inside the box?
 var FloorPlan = {
   init: function(){
+    //this cuts off items if theyre below the pixel line, you have to dynamically resize the 
+    //svg drawing area as the size of the parent changes
     this.drawing = SVG('floorplan').size('100%','100%')
     this.drawing.attr({id: 'floor'})
+    this.drawing.stroke({color: 'black', width: 2})
     this.tables = new Array()
+    this.tableGroups = new Array()
   },
 
   getTableById: function(id){
@@ -51,6 +58,9 @@ function Chair(id, tableId) {
   nested.attr({id: 'svg_' + tableId + 'chair' + id})
   var table = FloorPlan.getTableById(this.tableId)
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
+  this.drawing.draggable()
+  // table.group.add(this.drawing)
+    // this.group.add(this.drawing)
   // table.group.add(this.drawing)
 }
 
@@ -69,7 +79,7 @@ var AddTableButton = {
     this.drawing = nested.circle(120, 120).attr({fill: 'white'})
     this.drawing.stroke({color: 'black', width: 2})
     this.addForeignObject()
-    this.drawing.center('5%', '15%')
+    this.drawing.center(100, 100)
     this.drawing.click(this.addClickEvent)
     this.tableCounter = 1
   },
@@ -85,7 +95,7 @@ var AddTableButton = {
     foreignObject.setAttribute('x', 0)
     foreignObject.setAttribute('y', 0)
     foreignObject.setAttribute('width', '100%')
-    foreignObject.setAttribute('height', this.height)
+    foreignObject.setAttribute('height', '100%')
     var body = document.createElement('body')
     $(body).append('<div> Click here to create a table </div>')
     $(foreignObject).append(body)
@@ -102,7 +112,7 @@ Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
     var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', '80%')
+    foreignObject.setAttribute('x', 800)
     foreignObject.setAttribute('y', 0)
     foreignObject.setAttribute('width', '100%')
     foreignObject.setAttribute('height', '100%')
@@ -141,8 +151,9 @@ function Table(id) {
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
   this.drawing.center('5%', '45%')
-  // this.group = FloorPlan.drawing.group()
-  // this.group.add(this.drawing)
+  this.group = FloorPlan.drawing.group()
+  this.group.attr({id: 'groupTable' + id})
+  this.group.add(this.drawing)
   this.drawing.click(this.ClickEvent)
 }
 
