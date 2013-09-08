@@ -1,14 +1,12 @@
 class SeatsController < ApplicationController
-  def index
-    @seats = Seat.all
-    puts session[:customer_profile_id]
-  end
+
+  before_filter :authorize_restaurant, :except => [:check_in, :index]
 
   def check_in
     seat = Seat.find(params[:seat_id])
-    puts session[:customer_profile_id]
-    # seat.customer_profile_id = session[:customer_profile_id]
-    puts 'sesssssssssssssssssssion'
+    seat.update_attributes(customer_profile_id: session[:customer_profile_id])
+    puts seat.customer_profile_id
     redirect_to seats_url
   end
+
 end
