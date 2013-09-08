@@ -1,6 +1,5 @@
+<div class="container">
 <h1>Log in</h1>
-
-<div>
 <%= form_tag create_session_url do %>
     <p>
     <%= label_tag :email %><br />
@@ -12,9 +11,10 @@
     </p>
     <p class="button"><%= submit_tag "Log in" %></p>
   <% end %>
+
+  <div>
+    <p><%= link_to "Customer Sign Up?", new_customer_profile_path(@customer_profile) %></p>
+    <p><%= link_to "Restaurant Sign Up?", new_restaurant_profile_path(@restaurant_profile) %></p>
+  </div>
 </div>
 
-<div>
-  <p><%= link_to "Customer Sign Up?", new_customer_profile_path(@customer_profile) %></p>
-  <p><%= link_to "Restaurant Sign Up?", new_restaurant_profile_path(@restaurant_profile) %></p>
-</div>
