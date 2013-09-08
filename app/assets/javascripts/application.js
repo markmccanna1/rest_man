@@ -38,6 +38,7 @@ var FloorPlan = {
 >>>>>>> added a js panel object that lets you create tables and chairs with the proper id
   init: function(){
     this.drawing = SVG('floorplan').size('100%','100%')
+    this.drawing.attr({id: 'floor'})
     this.tables = new Array()
   },
 
@@ -157,7 +158,7 @@ Form.prototype = {
       event.preventDefault()
       numChairs = $('#numChairs').val()
       var table = FloorPlan.getTableById(tableId)
-      table.setChairs(numChairs)
+      table.createChairs(numChairs)
     })
   }
 
@@ -168,6 +169,7 @@ function Table(id) {
   var nested = FloorPlan.drawing.nested()
   nested.attr({id: 'svg_table' + id})
   // this.id = 'table' + id
+  console.log(nested)
   this.width = 100
   this.height = 100
   this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
@@ -175,8 +177,8 @@ function Table(id) {
   this.drawing.draggable()
   //i dont like these positions
   this.drawing.center('5%', '45%')
-  // this.drawing.click(this.addClickEvent)
-  this.chairs = new Array()
+  this.group = FloorPlan.drawing.group()
+  this.drawing.click(this.ClickEvent)
 }
 
 Table.prototype = {
@@ -190,27 +192,46 @@ Table.prototype = {
   returnChairs: function(){
     return this.chairs
   },
-  // //when you add chairs you want to increment the chair counter on the object
-  // //what happens if they remove chairs?
-  // //you have to make the 'chairs' variable dependend on their form submission... kinky
-  // addForeignObject: function(){
-  //   var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-  //   foreignObject.setAttribute('x', 0)
-  //   foreignObject.setAttribute('y', 0)
-  //   foreignObject.setAttribute('width', this.width)
-  //   foreignObject.setAttribute('height', this.height)
-  //   var body = document.createElement('body')
-  //   $(body).append('<div> hi </div>')
-  //   $(foreignObject).append(body)
-  //   document.getElementById( 'createTable' ).appendChild( foreignObject );
-  // },
 
-  setChairs: function(numChairs){
+  createChairs: function(numChairs){
     console.log(numChairs)
+    this.chairs = null
+    this.chairs = new Array()
     for (var i = 0; i < numChairs; i++){
       chair = new Chair(i)
       this.chairs.push(chair)
-    } 
+    }
+    // console.log(this)
+    // console.log(this)
+    //draw the chairs, group them around their table... 
+    console.log(this.chairs)
+    this.placeChairs(this)
+  },
+
+  placeChairs: function(table){
+    var table = table 
+    //group the chairs with the table
+    //get the tables position
+    var tableX= table.drawing.attr('cx')
+    var tableY= table.drawing.attr('cy')
+    //get the diameter of the table...
+    var radius = this.width / 2.0
+    var pi = 3.141593
+    var areaOfTable = pi * radius * radius
+    var circum = pi * this.width * 1.2
+    // console.log(this.chairs.length)
+    var spaceBetweenChairs = circum / this.chairs.length
+    console.log(spaceBetweenChairs)
+    console.log(circum)
+    console.log(areaOfTable)
+    console.log(areaOfTable * 1.2)
+
+    console.log(this.chairs)
+    //get the position of the table, put the chairs equidistant around it
+    $.each(this.chairs, function(index, value) {
+      console.log(value)
+      value.drawing = FloorPlan.drawing.rect(50,50)
+    })
   }
 }
 
