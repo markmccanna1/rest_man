@@ -1,0 +1,34 @@
+@media (min-width: 600px) and (max-width: 960px){
+  .container{
+    background-color: green;
+  }
+}
+
+
+@media (max-width: 600px){
+body{
+  margin: 0;
+}
+
+header {
+  background-color: blue;
+}
+
+header h2 {
+  margin-top: 0;
+  display: inline;
+}
+
+header .log-out {
+  float: right;
+}
+
+.container{
+  background-color: #d31919;
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  border-radius: 10px;
+}
+
+}
