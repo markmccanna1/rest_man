@@ -25,6 +25,11 @@ RestMan::Application.routes.draw do
         resources :menu_items, only: [:index, :new, :create], :controller => "menu_items"
       end
     end
+    resources :floor_plan do
+      resources :table do
+        resources :seats, only: [:new, :create]
+      end
+    end
   end
 
   resources :menus, only: [:show, :edit, :update, :destroy]
