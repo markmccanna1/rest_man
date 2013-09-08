@@ -1,6 +1,9 @@
 class FloorPlanController < ApplicationController
+
+# before_filter :authorize_restaurant, :except => [:index]
+
   def index
-    @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
+    @restaurant = RestaurantProfile.find(params[:restaurant_profile_id])
     seats = @restaurant.floor_plan.tables.first.seats
     taken_seats = []
     seats.each do |seat|
@@ -24,13 +27,5 @@ class FloorPlanController < ApplicationController
 
   def test
     puts 'hey there sexy lady'
-    
-  end
-
-  def check_out
-    seat = Seat.find(params[:seat_id])
-    seat.update_attributes(customer_profile_id: nil)
-    puts seat.customer_profile_id
-    redirect_to seats_url
   end
 end
