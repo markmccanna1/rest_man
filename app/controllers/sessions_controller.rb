@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       else
         @user.profileable_type == "RestaurantProfile"
         session[:restaurant_profile_id] = @user.profileable.id
-        redirect_to restaurant_profile_floor_plan_index_url(@user.profileable)
+        redirect_to restaurant_profiles_url
       end
     else
       render 'new'
