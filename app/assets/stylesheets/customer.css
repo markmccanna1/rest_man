@@ -8,10 +8,11 @@
 @media (max-width: 600px){
 body{
   margin: 0;
+  background-color: #0c0a38;
 }
 
 header {
-  background-color: blue;
+  background-color: #d35d26;
 }
 
 header h2 {
@@ -24,11 +25,16 @@ header .log-out {
 }
 
 .container{
-  background-color: #d31919;
+  background-color: #ba4c16;
   width: 300px;
   text-align: center;
   margin: auto;
   border-radius: 10px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 }
