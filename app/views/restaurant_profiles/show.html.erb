@@ -23,6 +23,9 @@
                     <% end %>
                 </ul>
             </div>
+            <% if @cart %>
+                <%= link_to "My cart", cart_url(@cart) %>
+            <% end %>
         </div>
     </div>
 </div>
