@@ -6,7 +6,10 @@ class SeatsController < ApplicationController
     seat = Seat.find(params[:seat_id])
     seat.update_attributes(customer_profile_id: session[:customer_profile_id])
     restaurant = seat.table.floor_plan.restaurant_profile
-    redirect_to seats_url
+    respond_to do |format|
+      format.html { redirect_to restaurant_profile_url(restaurant) }
+      format.js
+    end
   end
 
 end
