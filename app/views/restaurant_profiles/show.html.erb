@@ -3,11 +3,11 @@
 <div data-role="page" id="page2">
     <div data-role="content">
         <div data-role="collapsible-set">
-            <div id="menu" data-role="collapsible" data-collapsed="false">
+            <div data-role="collapsible" data-collapsed="false">
+                <ul class="accordion">
                 <h3>
                     <%= @restaurant.menus.last.categories.last.title %>
                 </h3>
-                <ul>
                     <%= form_tag("/orders", :method => "post") do%>
                       <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
                       <% @restaurant.menus.last.categories.last.menu_items.each do |item| %>
