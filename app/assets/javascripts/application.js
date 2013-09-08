@@ -17,9 +17,6 @@
 //
 //= require_tree .
 
-
-//change the function of this, you want to make it like abis,
-//you click a table and you add the number of seats you want at a table
 var FloorPlan = {
   init: function(){
     this.drawing = SVG('floorplan').size('100%','100%')
@@ -31,39 +28,47 @@ var FloorPlan = {
     var table = FloorPlan.tables.filter(function(element) {return element.drawing.attr('id') === id
     })
     return table[0]
+  }, 
+
+  getChairById: function(id){
+    console.log(id)
+    var chairs = new Array()
+    $.each(this.tables, function(index, value) {
+      $.each(value.chairs, function(index, value) {
+        chairs.push(value)
+      })
+    })
+    var chair = chairs.filter(function(element) {return element.drawing.attr('id') === id})
+    console.log(chair[0])
+    return chair[0]
   }
 }
 
-
-//you want to arrange the chairs equidistant around the circle...
-
-//how the fuck do you want to implement chairs you dumbfuck, sleep on it
-function Chair(id) {
+function Chair(id, tableId) {
   this.id = id
-  // this.id = 'chair' + id
-  //what properties do you want it to have?
+  this.tableId = tableId
+  var nested = FloorPlan.drawing.nested()
+  nested.attr({id: 'svg_' + tableId + 'chair' + id})
+  var table = FloorPlan.getTableById(this.tableId)
+  this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
+  // table.group.add(this.drawing)
 }
 
+Chair.prototype = {
+  clickEvent: function(){
+    
+  }
+}
 
 var AddTableButton = {
   init: function(){
     var nested = FloorPlan.drawing.nested()
-
-    //set the svg element id
     nested.attr({id: 'createTable'})
-    // console.log(nested)
-
     this.width = 120
     this.height = 120
     this.drawing = nested.circle(120, 120).attr({fill: 'white'})
-
-
-    // console.log(this.drawing)
-    // , id: 'create_table'
     this.drawing.stroke({color: 'black', width: 2})
     this.addForeignObject()
-
-    //i dont like these positions
     this.drawing.center('5%', '15%')
     this.drawing.click(this.addClickEvent)
     this.tableCounter = 1
@@ -124,29 +129,25 @@ Form.prototype = {
       table.createChairs(numChairs)
     })
   }
-
-
 }
 
 function Table(id) {
   var nested = FloorPlan.drawing.nested()
   nested.attr({id: 'svg_table' + id})
-  // this.id = 'table' + id
   console.log(nested)
   this.width = 100
   this.height = 100
   this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
-  //i dont like these positions
   this.drawing.center('5%', '45%')
-  this.group = FloorPlan.drawing.group()
+  // this.group = FloorPlan.drawing.group()
+  // this.group.add(this.drawing)
   this.drawing.click(this.ClickEvent)
 }
 
 Table.prototype = {
   
-
   clickEvent: function(){
     var tableId = this.drawing.attr('id')
     var form = new Form(tableId)
@@ -157,43 +158,25 @@ Table.prototype = {
   },
 
   createChairs: function(numChairs){
-    console.log(numChairs)
+    var tableId = this.drawing.attr('id')
     this.chairs = null
     this.chairs = new Array()
     for (var i = 0; i < numChairs; i++){
-      chair = new Chair(i)
+      chair = new Chair(i,tableId)
       this.chairs.push(chair)
     }
-    // console.log(this)
-    // console.log(this)
-    //draw the chairs, group them around their table... 
     console.log(this.chairs)
     this.placeChairs(this)
   },
 
   placeChairs: function(table){
-    var table = table 
-    //group the chairs with the table
-    //get the tables position
     var tableX= table.drawing.attr('cx')
     var tableY= table.drawing.attr('cy')
-    //get the diameter of the table...
-    var radius = this.width / 2.0
-    var pi = 3.141593
-    var areaOfTable = pi * radius * radius
-    var circum = pi * this.width * 1.2
-    // console.log(this.chairs.length)
-    var spaceBetweenChairs = circum / this.chairs.length
-    console.log(spaceBetweenChairs)
-    console.log(circum)
-    console.log(areaOfTable)
-    console.log(areaOfTable * 1.2)
-
-    console.log(this.chairs)
-    //get the position of the table, put the chairs equidistant around it
+    var counter = 1
     $.each(this.chairs, function(index, value) {
-      console.log(value)
-      value.drawing = FloorPlan.drawing.rect(50,50)
+      console.log(value.drawing)
+      value.drawing.move(tableX, tableY + (75 * counter))
+      counter += 1
     })
   }
 }
@@ -206,9 +189,18 @@ $('document').ready(function() {
     $('body').on("click", ".table", function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
+        console.log(this.id) //ellipse id
+        console.log(table) //js table object
         table.clickEvent()
         $('#foreign' + selectedItem).remove()
         selectedItem = this.id
+      } 
+    })
+     $('body').on("click", ".chair", function(e){
+      console.log(this)
+      if(this.id != selectedItem){
+        var chair = FloorPlan.getChairById(this.id)
+        chair.clickEvent()
       } 
     })
   }
