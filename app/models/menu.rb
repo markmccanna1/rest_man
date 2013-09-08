@@ -5,5 +5,10 @@ class Menu < ActiveRecord::Base
   belongs_to :restaurant_profile
   has_many :categories
 
+  def self.import(file)
+  	CSV.foreach(file.path, headers: true) do |row|
+  	  MenuItem.create! row.to_hash
+  	end
+  end
 end
 
