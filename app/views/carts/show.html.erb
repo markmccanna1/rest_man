@@ -1,16 +1,25 @@
-<h1>Cart Page</h1>
+<h1>Items the Customer Has Ordered (cart)</h1>
   <% @cart.orders.each do |order| %>
   <li><%= order.menu_item.name %></li>
       <%= order.menu_item.price %>
   <% end %>
   <br><br><br>
-  <% if @cart.status == "confirmed" %>
-    Pending
-  <% elsif @cart.status == "completed" %>
-    Closed
-  <% end %>
-  <br>
-  <%= link_to "Carts Page", carts_path %>
-  <br>
-  <%= link_to "Order Processed", close_cart_path(@cart), method: :post %>
 
+  <% if @cart.status == "confirmed" %>
+    Order Status: Pending - (Order has not been completed by restaurant)
+  <% elsif @cart.status == "completed" %>
+    Order Status: Closed - (Order received and delivered to customer/processed)
+  <% elsif @cart.status == "open"%>
+    Please go back and confirm your order
+    <br>
+    <%= link_to "Confirm my order", edit_cart_path(@cart) %>
+  <% end %>
+  <% if session[:restaurant_profile_id] %>
+    <br>
+    <%= link_to "Show All Customers' Carts Page", carts_path %>
+    <br>
+    <%= link_to "Close Out This Order", close_cart_path(@cart), method: :post %>
+  <% else %>
+    <br>
+    <%= link_to "Back to Menu", restaurant_profile_path(@restaurant)%>
+  <% end %>
