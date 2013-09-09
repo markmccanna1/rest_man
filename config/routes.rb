@@ -25,16 +25,12 @@ RestMan::Application.routes.draw do
       resources :categories, only: [:index, :new, :create] do
         resources :menu_items, only: [:index, :new, :create], :controller => "menu_items"
       end
-<<<<<<< HEAD
     end 
-=======
+  end
+  resources :floor_plan do
+    resources :table do
+      resources :seats, only: [:new, :create]
     end
-    resources :floor_plan do
-      resources :table do
-        resources :seats, only: [:new, :create]
-      end
-    end
->>>>>>> 3d103a53c22a115ab2f7ef6404f4e6ea53ed4351
   end
 
   post '/menus/import', :to => 'menus#import', :as => 'import_menu'
