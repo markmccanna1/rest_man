@@ -7,15 +7,10 @@ $(document).ready(function(){
     if ($(this).hasClass('taken')){
       $.post('/check_out', {seat_id: seat_id, token: token})
         $(this).removeClass('taken');
-        // $(this).css('background-color', 'green')
     } else {
       alert("inside checkin, you should not see me")
-      $.post('/check_in', {seat_id: seat_id, token: token})//, function(response){
+      $.post('/check_in', {seat_id: seat_id, token: token})
         $(this).addClass('taken');
-        console.log(this)
-      //   $('body').html(response);
-      //   console.log(response)
-      // });
     }
   });
   var url_id = window.location.pathname.split('/').reverse()[1];
@@ -26,7 +21,6 @@ $(document).ready(function(){
       var seatTaken = $.each(data, function(k,v) {
         $.each(v, function(i, l){
           var color_seat = $('div[id="seat' + l.id + '"]')
-          // color_seat.css('background-color', "red")
           color_seat.addClass('taken')
         })
       })
