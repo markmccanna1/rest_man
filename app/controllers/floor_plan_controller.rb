@@ -26,6 +26,21 @@ class FloorPlanController < ApplicationController
   end
 
   def test
-    puts 'hey there sexy lady'
+    # when you save you destroy everything in it to make sure there are no duplicates
+    # if you save a table and it has less tables than it had before, there will be a hanger-on
+    floor_plan = params[:floorplan]
+    @floorplan = FloorPlan.create(restaurant_profile_id: current_restaurant_profile.id)
+    floor_plan.each do |key, value|
+      table = @floorplan.tables.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key)
+        value["chairs"].each do |key, value|
+          table.seats.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key)
+        end
+      end
+    render :json => {hello: 'helloooooo'}
+  end
+
+
+  def get_floor_plan
+    
   end
 end

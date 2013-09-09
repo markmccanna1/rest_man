@@ -131,7 +131,7 @@ function Table(id) {
   // this.drawing.attr({class: 'wtf'})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
-  this.drawing.center('5%', '45%')
+  this.drawing.center(100, 150)
   // this.group = FloorPlan.drawing.group()
   // this.group.attr({id: 'groupTable' + id})
   // this.group.add(this.drawing)
@@ -190,7 +190,7 @@ var SaveButton = {
       console.log(SaveButton.tablesHash)
       // tables = 
       var token = $('meta[name="csrf-token"]').attr('content')
-      $.post('/test', {authenticity_token: token}, function(r){
+      $.post('/test', {authenticity_token: token, floorplan: SaveButton.tablesHash}, function(r){
       }) 
     })
   }

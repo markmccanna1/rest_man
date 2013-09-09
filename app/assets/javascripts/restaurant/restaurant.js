@@ -13,21 +13,7 @@ var Carts = {
       })
     })
   }
-}
-
-
-// var Stream = {
-
-//   init: function(){
-//     window.setInterval(this.update, 5000)
-//   },
-
-//   update: function() {
-//     $.get('/new_items', function(data){
-//         console.log(data)
-//     })
-//   }
-// }
+} 
 
 var newMenu = {
   init: function(){
@@ -49,9 +35,6 @@ var newMenu = {
 }
 
 $('document').ready(function() {
-  // if ($('body.restaurant_profiles').length) {
-  //   Stream.init()
-  // }
   if ($('.active-carts').length){
     Carts.init()
   }

@@ -94,6 +94,7 @@ RestMan::Application.routes.draw do
 
   post 'test', :to => 'floor_plan#test', :as => 'test'
   get 'check_in', to: 'restaurant#check_in', as: :check_in
+  get 'floor_plan', :to => 'floor_plan#get_it', as: :get_floor_plan
 
   # See how all your routes lay out with "rake routes"
 
