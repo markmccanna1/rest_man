@@ -8,7 +8,6 @@ $(document).ready(function(){
       $.post('/check_out', {seat_id: seat_id, token: token})
         $(this).removeClass('taken');
     } else {
-      alert("inside checkin, you should not see me")
       $.post('/check_in', {seat_id: seat_id, token: token})
         $(this).addClass('taken');
     }
