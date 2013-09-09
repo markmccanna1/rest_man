@@ -3,12 +3,17 @@ class CartsController < ApplicationController
   def index
     id = current_restaurant_profile.id
     @confirmed_carts = Cart.find(:all, :conditions => ["restaurant_profile_id =? AND status ='confirmed'", id])
-    puts @confirmed_carts
+    @confirmed_carts.each do |cart|
+      @seat = CustomerProfile.find(cart.customer_profile_id).seat
+      @table = @seat.table
+    end
   end
 
   def show
     @cart = Cart.find(params[:id])
     @restaurant = RestaurantProfile.find(@cart.restaurant_profile_id)
+    @seat = CustomerProfile.find(@cart.customer_profile_id).seat
+    @table = @seat.table
   end
 
   def edit
