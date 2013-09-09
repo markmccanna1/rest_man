@@ -27,6 +27,10 @@ class RestaurantProfilesController < ApplicationController
     @order = Order.new
   end
 
+  def dashboard
+    render :dashboard
+  end
+
   def carts
     time = current_restaurant_profile.last_cart_processed_at
     id = current_restaurant_profile.id

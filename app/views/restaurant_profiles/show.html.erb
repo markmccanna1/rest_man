@@ -5,12 +5,12 @@
         <div data-role="collapsible-set">
             <div data-role="collapsible" data-collapsed="false">
                 <h3>
-                    <%= @restaurant.menus.first.categories.first.title %>
+                    <%= @restaurant.menus.last.categories.last.title %>
                 </h3>
                 <ul>
                     <%= form_tag("/orders", :method => "post") do%>
                       <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
-                      <% @restaurant.menus.first.categories.first.menu_items.each do |item| %>
+                      <% @restaurant.menus.last.categories.last.menu_items.each do |item| %>
                         <li><%= item.name %></li>
                         <p><%= item.description %></p>
                         <p><%= item.price %></p>
