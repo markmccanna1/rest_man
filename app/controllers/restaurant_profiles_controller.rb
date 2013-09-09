@@ -3,6 +3,7 @@ class RestaurantProfilesController < ApplicationController
   before_filter :authorize_restaurant, :except => [:new, :create, :show, :find, :search]
 
   def index
+    @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
   end
 
   def new
@@ -22,6 +23,9 @@ class RestaurantProfilesController < ApplicationController
   end
 
   def show
+    if session[:cart_id]
+      @cart = Cart.find(session[:cart_id])
+    end
     @restaurant = RestaurantProfile.find(params[:id])
     @menu = @restaurant.menus.first
     @order = Order.new

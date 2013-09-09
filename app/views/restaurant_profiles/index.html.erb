@@ -1,6 +1,7 @@
-Stream
-<div>
-  <ul="stream">
+<h1><%= @restaurant.restaurant_name %> Dashboard</h1>
 
-  </ul>
-</div>
+<ul>
+  <li><%= link_to "Current FloorPlan", restaurant_profile_floor_plan_index_url(@restaurant) %></li>
+  <li><%#= link_to "Add New FloorPlan", new_restaurant_profile_floor_plan(@restaurant) %></li>
+  <li><%= link_to "View Outstanding Order", carts_url %></li>
+</ul>

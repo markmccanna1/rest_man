@@ -1,0 +1,61 @@
+@media (min-width: 600px) and (max-width: 960px){
+  .container{
+    background-color: green;
+  }
+}
+
+
+@media (max-width: 600px){
+body{
+  margin: 0;
+  background-color: grey;
+}
+
+header {
+  background-color: #d35d26;
+}
+
+header h2 {
+  margin-top: 0;
+  display: inline;
+  margin-left: 10px;
+}
+
+header .log-out {
+  float: right;
+}
+
+.container{
+  background-color: #ba4c16;
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  border-radius: 10px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.search {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ui-input-search{
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.results{
+  background-color: white;
+  width: 200px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.restaurant_name{
+  text-align: center;
+}
+}

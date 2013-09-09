@@ -1,13 +1,13 @@
-<h1><%= @restaurant.menus.first.title %></h1>
+<h1 class="restaurant_name"><%= @restaurant.menus.first.title %></h1>
 
 <div data-role="page" id="page2">
     <div data-role="content">
         <div data-role="collapsible-set">
             <div data-role="collapsible" data-collapsed="false">
+                <ul class="accordion">
                 <h3>
                     <%= @restaurant.menus.first.categories.first.title %>
                 </h3>
-                <ul>
                     <%= form_tag("/orders", :method => "post") do%>
                       <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
                       <% @restaurant.menus.first.categories.first.menu_items.each do |item| %>
@@ -23,6 +23,9 @@
                     <% end %>
                 </ul>
             </div>
+            <% if @cart %>
+                <%= link_to "My cart", cart_url(@cart) %>
+            <% end %>
         </div>
     </div>
 </div>

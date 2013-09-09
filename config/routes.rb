@@ -1,4 +1,3 @@
-
 RestMan::Application.routes.draw do
   get '/customer/find/restaurant_profiles', to: "customer_profiles#find"  
   get '/customer_profiles/find', to: "customer_profiles#search" 
@@ -15,6 +14,10 @@ RestMan::Application.routes.draw do
    get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
    post '/logout', :to => 'sessions#destroy', :as => 'logout'
 
+   post '/check_in', :to => 'seats#check_in', :as => 'check_in'
+   post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
+   resources :seats, only: [:index]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
   resources :restaurant_profiles do
@@ -22,7 +25,16 @@ RestMan::Application.routes.draw do
       resources :categories, only: [:index, :new, :create] do
         resources :menu_items, only: [:index, :new, :create], :controller => "menu_items"
       end
+<<<<<<< HEAD
     end 
+=======
+    end
+    resources :floor_plan do
+      resources :table do
+        resources :seats, only: [:new, :create]
+      end
+    end
+>>>>>>> 3d103a53c22a115ab2f7ef6404f4e6ea53ed4351
   end
 
   post '/menus/import', :to => 'menus#import', :as => 'import_menu'
@@ -30,7 +42,7 @@ RestMan::Application.routes.draw do
   resources :menu_items, only: [:show, :edit, :update, :destroy]
   resources :categories, only: [:show, :edit, :update, :destroy]
 
-  
+
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
