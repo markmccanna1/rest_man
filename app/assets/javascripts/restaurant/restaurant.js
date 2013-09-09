@@ -5,7 +5,8 @@ var Carts = {
   },
 
   update: function(){
-    $.get('/restaurant_profiles/1/carts', function(data){
+    var url_id = parseInt(($('h1').attr('id')).split('').reverse()[0])
+    $.get('/restaurant_profiles/'+ url_id + '/carts', function(data){
       var test = $.each(data, function(k,v) {
         $.each(v, function(i, l){
           if($("#" + l.id + "").length == 0) {
@@ -45,5 +46,3 @@ $('document').ready(function() {
       })
     })
 });
-
-

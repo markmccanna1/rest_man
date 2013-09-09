@@ -6,12 +6,12 @@
   <br><br><br>
 
   <% if @cart.status == "confirmed" %>
-    Order Status: Pending - (Order has not been completed by restaurant)
+    Order Status: Pending - (Order has not been completed)
   <% elsif @cart.status == "completed" %>
     Order Status: Closed - (Order received and delivered to customer/processed)
   <% elsif @cart.status == "open"%>
     Please go back and confirm your order
-    <br>
+  <br>
     <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <% end %>
   <% if session[:restaurant_profile_id] %>
