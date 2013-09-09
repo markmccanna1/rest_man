@@ -9,6 +9,7 @@ RestMan::Application.routes.draw do
 
   resources :customer_profiles
   resources :carts
+  match 'restaurant_profiles/:id/carts' => 'restaurant_profiles#carts'
   resources :orders
   #resources :sessions
    post '/sessions', :to => 'sessions#create', :as => 'create_session'

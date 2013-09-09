@@ -26,7 +26,7 @@ class RestaurantProfilesController < ApplicationController
     if session[:cart_id]
       @cart = Cart.find(session[:cart_id])
     end
-    @restaurant = RestaurantProfile.find(params[:id])
+    @restaurant = RestaurantProfirale.find(params[:id])
     @menu = @restaurant.menus.first
     @order = Order.new
   end

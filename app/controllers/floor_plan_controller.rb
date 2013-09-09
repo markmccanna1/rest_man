@@ -19,9 +19,10 @@ before_filter :authorize_restaurant, :except => [:index]
   end
 
   def check_out
+    puts "i'm in the checkout in the floor_plan controller"
     seat = Seat.find(params[:seat_id])
     @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
     seat.update_attributes(customer_profile_id: nil)
-    redirect_to restaurant_profile_floor_plan_index_url(@restaurant)
+    render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
   end
 end
