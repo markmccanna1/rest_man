@@ -23,10 +23,9 @@
 
 //maybe you want a list of tables that lets you select the one you click on the list
 //can you make it so that the item is only draggable if its inside the box?
+
 var FloorPlan = {
   init: function(){
-    //this cuts off items if theyre below the pixel line, you have to dynamically resize the 
-    //svg drawing area as the size of the parent changes
     this.drawing = SVG('floorplan').size('100%','100%')
     this.drawing.attr({id: 'floor'})
     this.drawing.stroke({color: 'black', width: 2})
@@ -102,17 +101,7 @@ function Form(tableId) {
 Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
-    // var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    // foreignObject.setAttribute('x', 800)
-    // foreignObject.setAttribute('y', 0)
-    // foreignObject.setAttribute('width', '100%')
-    // foreignObject.setAttribute('height', '100%')
-    // foreignObject.setAttribute('id', 'foreign' + this.tableId)
-    // var body = document.createElement('body')
     $('#input_forms').append(this.form())
-    // console.log('#form' + this.tableId)
-    // $(foreignObject).append(body)
-    // document.getElementById('svg_' + this.tableId ).appendChild( foreignObject )
     console.log(this)
     this.submitEvent(this.tableId)
   },
@@ -184,11 +173,32 @@ Table.prototype = {
   }
 }
 
+//create a table list object somewhere
+
+var SaveButton = {
+  init: function(){
+    $('body').on('click', '#save', function(e){
+      //save the elements position and scale and type...
+      //you want to send an aray of
+      tables = {tableId = {positionX: x, positionY: y, width: w, height: h, chairs = {chairId = positionX: x,  }}}
+      
+      tables = 
+      // $.post('url', {menu_title: title, authenticity_token: token}, function(r){
+      // $(".new-menu").append(r)
+      // $('.create-menu-form').remove()
+      // }) 
+    })
+  }
+}
+
+
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
     AddTableButton.init()
+    SaveButton.init()
     var selectedItem = null
+    var nested = FloorPlan.drawing.nested()
     $('body').on('click', 'ellipse', function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
