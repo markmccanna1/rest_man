@@ -1,5 +1,6 @@
 <h3>You have successfully created a new menu. Please upload your menu items!</h3>
 <%= form_tag import_menu_path, multipart: true do %>
   <%= file_field_tag :file %>
+  <%= hidden_field_tag %>
   <%= submit_tag "Import" %>
 <% end %>
