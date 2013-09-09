@@ -3,7 +3,7 @@
   <h1 id="rest<%= current_restaurant_profile.id %>"><%= current_restaurant_profile.restaurant_name %> Open Carts</h1>
   <ul>
     <% @confirmed_carts.each do |cart| %>
-    <li><a href="carts/<%= cart.id %>" id="<%= cart.id %>"><%= cart.id %></a></li>
+    <li><a href="carts/<%= cart.id %>" id="<%= cart.id %>">Cart #<%= cart.id %>  Table <%= @table.id %> Seat <%= @seat.id %></a></li>
     <% end %>
   </ul>
   <ul class="pending-carts">
