@@ -1,9 +1,14 @@
+
 class CartsController < ApplicationController
   def index
+    id = current_restaurant_profile.id
+    @confirmed_carts = Cart.find(:all, :conditions => ["restaurant_profile_id =? AND status ='confirmed'", id])
+    puts @confirmed_carts
   end
 
   def show
     @cart = Cart.find(params[:id])
+    @restaurant = RestaurantProfile.find(@cart.restaurant_profile_id)
   end
 
   def edit
@@ -19,14 +24,17 @@ class CartsController < ApplicationController
       order = @cart.orders.find_by_menu_item_id(destroy_order)
       order.destroy
     end
+    current_restaurant_profile.update_attributes(last_cart_processed_at: Time.now)
     @cart.update_attributes(status: "confirmed")
+    @cart.orders.each do |order|
+      order.update_attributes(status:"confirmed")
+    end
     redirect_to restaurant_profile_url(@cart.restaurant_profile_id)
   end
 
   def close
     @cart = Cart.find(params[:id])
     @cart.update_attributes(status: "completed")
-    current_restaurant_profile.update_attributes(last_cart_processed_at: Time.now)
     redirect_to carts_path
   end
 end
