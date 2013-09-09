@@ -5,8 +5,6 @@ var FloorPlan = {
   }
 }
 
-//should i extract out this object into 2 methods, the uber object which holds the array,
-//and a smaller object that contains the information of a single table
 var Table = {
   init: function(id){
     this.table = FloorPlan.draw.circle(100,100).attr({fill: 'white', class: 'table', id: 'table' + id})
@@ -15,9 +13,7 @@ var Table = {
     this.table.center('5%', '35%')
     this.table.click(this.addClickEvent)
 
-    //dummy code to make it clickable
     FloorPlan.tables.push(this)
-
 
     this.chairs = new Array()
     return this
@@ -30,24 +26,15 @@ var Table = {
 
     var idPat = /\d/
 
-    //get the integer that refers to the objects id on the page
     var dataTag = idPat.exec(elementId)[0]
 
     console.log(dataTag[0])
 
-    //creates the form that sends the post request to the db
     var form = '<form action="/stream" method="post" id="check_in"> <input type="submit" value="Check In"> <input type="hidden" value="'+ elementId + '" name=example> </form>'
 
-
-    $('#header').append(form)
+  $('#header').append(form)
     table.table.fill('black')
-    //turn off the click event on the svg element
     Table.table.click(null)
-
-
-    // $('#header').append('<form data-' + table.id + '> <input type="submit" value="check in"></form>').trigger('create')
-
-
   },
 
   getTableById: function(id){
@@ -63,7 +50,6 @@ $('document').ready(function() {
   }
   if($('#floorplan').length){
     FloorPlan.init()
-    // Buttons.init()
     Table.init(1)
   }
 });
