@@ -9,13 +9,18 @@ $(document).ready(function(){
         $(this).removeClass('taken');
       });
     } else {
-      $.post('/check_in', {seat_id: seat_id, token: token});
+      alert("inside checkin, you should not see me")
+      $.post('/check_in', {seat_id: seat_id, token: token})//, function(response){
         $(this).addClass('taken');
+      //   $('body').html(response);
+      //   console.log(response)
+      // });
     }
   });
   var url_id = window.location.pathname.split('/').reverse()[1];
 
   if ($('body.floor_plan').length) {
+    $.ajaxSetup({cache: false})
     $.getJSON("/restaurant_profiles/" + url_id + "/floor_plan", function(data){
       var seatTaken = $.each(data, function(k,v) {
         $.each(v, function(i, l){
