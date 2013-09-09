@@ -40,7 +40,7 @@ var FloorPlan = {
   }, 
 
   getChairById: function(id){
-    console.log(id)
+    // console.log(id)
     var chairs = new Array()
     $.each(this.tables, function(index, value) {
       $.each(value.chairs, function(index, value) {
@@ -48,7 +48,7 @@ var FloorPlan = {
       })
     })
     var chair = chairs.filter(function(element) {return element.drawing.attr('id') === id})
-    console.log(chair[0])
+    // console.log(chair[0])
     return chair[0]
   }
 }
@@ -102,7 +102,7 @@ Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
     $('#input_forms').append(this.form())
-    console.log(this)
+    // console.log(this)
     this.submitEvent(this.tableId)
   },
 
@@ -124,7 +124,7 @@ Form.prototype = {
 function Table(id) {
   var nested = FloorPlan.drawing.nested()
   nested.attr({id: 'svg_table' + id})
-  console.log(nested)
+  // console.log(nested)
   this.width = 100
   this.height = 100
   this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
@@ -149,6 +149,8 @@ Table.prototype = {
     return this.chairs
   },
 
+
+  //you have to make sure you remove the old chair svg squares, fool
   createChairs: function(numChairs){
     var tableId = this.drawing.attr('id')
     this.chairs = null
@@ -157,7 +159,7 @@ Table.prototype = {
       chair = new Chair(i,tableId)
       this.chairs.push(chair)
     }
-    console.log(this.chairs)
+    // console.log(this.chairs)
     this.placeChairs(this)
   },
 
@@ -166,7 +168,7 @@ Table.prototype = {
     var tableY= table.drawing.attr('cy')
     var counter = 1
     $.each(this.chairs, function(index, value) {
-      console.log(value.drawing)
+      // console.log(value.drawing)
       value.drawing.move(tableX, tableY + (75 * counter))
       counter += 1
     })
@@ -178,15 +180,18 @@ Table.prototype = {
 var SaveButton = {
   init: function(){
     $('body').on('click', '#save', function(e){
-      //save the elements position and scale and type...
-      //you want to send an aray of
-      tables = {tableId = {positionX: x, positionY: y, width: w, height: h, chairs = {chairId = positionX: x,  }}}
-      
-      tables = 
-      // $.post('url', {menu_title: title, authenticity_token: token}, function(r){
-      // $(".new-menu").append(r)
-      // $('.create-menu-form').remove()
-      // }) 
+      SaveButton.tablesHash = {}
+      $.each(FloorPlan.tables, function(Tableindex, table){
+        SaveButton.tablesHash[table.drawing.attr('id')] = {positionX: table.drawing.attr('cx'), positionY: table.drawing.attr('cy'), width: table.width, height: table.height, chairs: {}}
+          $.each(table.chairs, function(index, chair) {
+            SaveButton.tablesHash[table.drawing.attr('id')].chairs[chair.drawing.attr('id')] = {positionX: chair.drawing.attr('x'), positionY: chair.drawing.attr('y'), width: chair.drawing.attr('width'), height: chair.drawing.attr('height')}
+          })
+      })
+      console.log(SaveButton.tablesHash)
+      // tables = 
+      var token = $('meta[name="csrf-token"]').attr('content')
+      $.post('/test', {authenticity_token: token}, function(r){
+      }) 
     })
   }
 }
@@ -202,8 +207,8 @@ $('document').ready(function() {
     $('body').on('click', 'ellipse', function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
-        console.log(this.id) //ellipse id
-        console.log(table) //js table object
+        // console.log(this.id) //ellipse id
+        // console.log(table) //js table object
         table.clickEvent()
         $('#form' + selectedItem).remove()
         selectedItem = this.id
@@ -212,7 +217,7 @@ $('document').ready(function() {
     // alert('body')
     $('body').on("click", ".chair", function(e){
       alert('wtf')
-      console.log(this)
+      // console.log(this)
       if(this.id != selectedItem){
         var chair = FloorPlan.getChairById(this.id)
         chair.clickEvent()

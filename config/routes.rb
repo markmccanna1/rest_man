@@ -10,13 +10,14 @@ RestMan::Application.routes.draw do
   resources :carts
   resources :orders
   #resources :sessions
-   post '/sessions', :to => 'sessions#create', :as => 'create_session'
-   get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
-   post '/logout', :to => 'sessions#destroy', :as => 'logout'
 
-   post '/check_in', :to => 'seats#check_in', :as => 'check_in'
-   post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
-   resources :seats, only: [:index]
+  post '/sessions', :to => 'sessions#create', :as => 'create_session'
+  get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
+  post '/logout', :to => 'sessions#destroy', :as => 'logout'
+
+  post '/check_in', :to => 'seats#check_in', :as => 'check_in'
+  post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
+  resources :seats, only: [:index]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -91,6 +92,7 @@ RestMan::Application.routes.draw do
 
   root :to => 'sessions#new'
 
+  post 'test', :to => 'floor_plan#test', :as => 'test'
   get 'check_in', to: 'restaurant#check_in', as: :check_in
 
   # See how all your routes lay out with "rake routes"
