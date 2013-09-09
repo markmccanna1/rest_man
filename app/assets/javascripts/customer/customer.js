@@ -12,7 +12,9 @@ var Table = {
     this.table.draggable()
     this.table.center('5%', '35%')
     this.table.click(this.addClickEvent)
+
     FloorPlan.tables.push(this)
+
     this.chairs = new Array()
     return this
   },
@@ -21,11 +23,16 @@ var Table = {
     elementId = this.attr('id')
     table = Table.getTableById(elementId)
     console.log(elementId)
+
     var idPat = /\d/
+
     var dataTag = idPat.exec(elementId)[0]
+
     console.log(dataTag[0])
+
     var form = '<form action="/stream" method="post" id="check_in"> <input type="submit" value="Check In"> <input type="hidden" value="'+ elementId + '" name=example> </form>'
-    $('#header').append(form)
+
+  $('#header').append(form)
     table.table.fill('black')
     Table.table.click(null)
   },
