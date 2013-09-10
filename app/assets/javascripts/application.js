@@ -29,6 +29,7 @@ var FloorPlan = {
     this.drawing.attr({id: 'floor'})
     this.drawing.stroke({color: 'black', width: 2})
     this.tables = new Array()
+    this.tableGroups = new Array()
   },
 
   getTableById: function(id){
@@ -57,11 +58,23 @@ var FloorPlan = {
 function Chair(id, tableId) {
   this.id = id
   this.tableId = tableId
-  var nested = FloorPlan.drawing.nested()
-  nested.attr({id: 'svg_' + tableId + 'chair' + id})
+  // var nested = FloorPlan.drawing.nested()
+  // nested.attr({id: 'svg_' + tableId + 'chair' + id})
+  this.width = 35
+  this.height = 35
+
   var table = FloorPlan.getTableById(this.tableId)
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
   this.drawing.draggable()
+  this.drawing = FloorPlan.drawing.rect(this.width,this.height).attr({class: 'chair', id: tableId + 'chair' + id})
+
+  table.group.add(this.drawing)
+
+
+  // this.drawing.draggable()
+  // table.group.add(this.drawing)
+    // this.group.add(this.drawing)
+  // table.group.add(this.drawing)
 }
 
 Chair.prototype = {
@@ -101,12 +114,43 @@ Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
     $('#input_forms').append(this.form())
+    $('#form' + this.tableId).append(this.changeSizeButtons(table))
+    this.increaseTableSizeEvent(table)
+    this.decreaseTableSizeEvent(table)
+    // console.log(this)
     this.submitEvent(this.tableId)
   },
 
   form: function(tableId){
     var chairForm = '<div id="form'+ this.tableId + '">' + this.tableId + '<form> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>'
     return chairForm
+  },
+
+  changeSizeButtons: function(table){
+    var buttons = 'Size of Table <button id="increase"> Increase </button> <button id="decrease"> Decrease </button>'
+    return buttons
+  },
+
+  increaseTableSizeEvent: function(table){
+    $('#increase').on('click', function(event) {
+      var width = table.width
+      var height = table.height
+      table.drawing.size(width + 10, height + 10)
+      table.width += 10
+      table.height += 10
+      table.placeChairs(table)
+    })
+  },
+
+  decreaseTableSizeEvent: function(table){
+    $('#decrease').click(function(event) {
+      var width = table.width
+      var height = table.height
+      table.drawing.size(width - 10, height - 10)
+      table.width -= 10
+      table.height -= 10
+      table.placeChairs(table)
+    })
   },
 
   submitEvent: function(tableId){
@@ -122,12 +166,21 @@ Form.prototype = {
 function Table(id) {
   var nested = FloorPlan.drawing.nested()
   nested.attr({id: 'svg_table' + id})
+  // var nested = FloorPlan.drawing.nested()
+  // nested.attr({id: 'svg_table' + id})
   this.width = 100
   this.height = 100
-  this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
+  // this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
+  this.drawing = FloorPlan.drawing.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
-  this.drawing.draggable()
+  // this.drawing.draggable()
   this.drawing.center(100, 150)
+
+  this.group = FloorPlan.drawing.group()
+  this.group.attr({id: 'groupTable' + id})
+  this.group.add(this.drawing)
+  this.group.draggable()
+  FloorPlan.tableGroups.push(this.group)
   this.drawing.click(this.ClickEvent)
 }
 
@@ -135,15 +188,31 @@ Table.prototype = {
 
   clickEvent: function(){
     var tableId = this.drawing.attr('id')
-    var form = new Form(tableId)
+    var tableMenu = new Form(tableId)
   },
 
   returnChairs: function(){
     return this.chairs
   },
 
+  //you have to make sure you remove the old chair svg squares, fool
   createChairs: function(numChairs){
     var tableId = this.drawing.attr('id')
+
+    console.log(this)
+    // console.log(table.chairs)
+    // $.each(table.chairs, function(index, chair) {
+    //   console.log(index)
+    //   console.log(chairs)
+    // })
+
+    if (this.chairs != null) {
+      $.each(this.chairs, function(key, chair) {
+        console.log(chair.drawing.attr('id'))
+        $('#' + chair.drawing.attr('id')).remove()
+      })
+    }
+
     this.chairs = null
     this.chairs = new Array()
     for (var i = 0; i < numChairs; i++){
@@ -159,8 +228,37 @@ Table.prototype = {
     var counter = 1
     $.each(this.chairs, function(index, value) {
       value.drawing.move(tableX, tableY + (75 * counter))
+    var scalar = table.chairs.length
+    var tableX= table.drawing.attr('cx')
+    var tableY= table.drawing.attr('cy')
+    var counter = 0
+    var hypotSide = (table.width / 2.0) * 1.75
+    var degreeSpacing = 360.0 / this.chairs.length
+    $.each(this.chairs, function(index, value) {
+      var circleDegree = degreeSpacing * counter
+      var insideAngle = circleDegree % 90.0
+      var oppositeSide = (hypotSide * table.getSin(insideAngle) ) / table.getSin(90)
+      var otherAngle = 90 - insideAngle
+      var otherSide = (hypotSide * table.getSin(otherAngle) ) / table.getSin(90)
+      if (circleDegree >= 270){
+        value.drawing.center(tableX - otherSide, tableY - oppositeSide)
+      } else if (circleDegree >= 180) {
+        value.drawing.center(tableX - oppositeSide, tableY + otherSide)
+      } else if (circleDegree >= 90) {
+        value.drawing.center(tableX + otherSide, tableY + oppositeSide)
+      } else if (circleDegree > 0) {
+        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
+      } else if (circleDegree === 0) {
+        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
+      } else {
+        value.drawing.center(tableX + oppositeSide, tableY + otherSide)
+      }
       counter += 1
     })
+  },
+
+  getSin: function(degrees){
+    return Math.sin(degrees * (Math.PI / 180))
   }
 }
 
@@ -174,6 +272,7 @@ var SaveButton = {
             SaveButton.tablesHash[table.drawing.attr('id')].chairs[chair.drawing.attr('id')] = {positionX: chair.drawing.attr('x'), positionY: chair.drawing.attr('y'), width: chair.drawing.attr('width'), height: chair.drawing.attr('height')}
           })
       })
+      console.log(SaveButton.tablesHash)
       var token = $('meta[name="csrf-token"]').attr('content')
       $.post('/test', {authenticity_token: token, floorplan: SaveButton.tablesHash}
       )
@@ -200,6 +299,7 @@ $('document').ready(function() {
     // alert('body')
     $('body').on("click", ".chair", function(e){
       alert('wtf')
+    $('body').on("click", "rect", function(e){
       if(this.id != selectedItem){
         var chair = FloorPlan.getChairById(this.id)
         chair.clickEvent()
