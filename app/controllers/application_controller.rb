@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # protect_from_forgery
+  protect_from_forgery
   helper_method :current_customer_profile, :current_restaurant_profile
 
   def current_customer_profile
