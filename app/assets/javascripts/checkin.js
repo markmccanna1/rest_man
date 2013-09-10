@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   $('.seat').on('click', function(e){
     var seat_id = $(this).data('seat-id');
