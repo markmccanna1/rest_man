@@ -1,2 +1,3 @@
 module ExampleHelper
+  # wtf?
 end

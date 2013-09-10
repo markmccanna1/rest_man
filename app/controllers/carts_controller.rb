@@ -1,9 +1,10 @@
 
 class CartsController < ApplicationController
   def index
-    id = current_restaurant_profile.id
-    @confirmed_carts = Cart.find(:all, :conditions => ["restaurant_profile_id =? AND status ='confirmed'", id])
+    # instead of setting conditions for sql queries in the controller, use a scope that takes an argument
+    @confirmed_carts = Cart.find(:all, :conditions => ["restaurant_profile_id =? AND status ='confirmed'", current_restaurant_profile.id])
     @confirmed_carts.each do |cart|
+      # I'm confused, you're overwrite these two intsance variables each time you iterate in this loop
       @seat = CustomerProfile.find(cart.customer_profile_id).seat
       @table = @seat.table
     end
@@ -21,6 +22,8 @@ class CartsController < ApplicationController
   end
 
   def update
+    # move as much of this logic to the model or a pricate controller method...
+    # this current code is very difficult to follow
     @cart = Cart.find(params[:id])
     cart_array = @cart.orders.map { |i| i.menu_item_id }
     update_array = (params[:item_ids]).map { |i| i.to_i }

@@ -11,6 +11,8 @@ before_filter :authorize_restaurant, :except => [:index]
         taken_seats << seat
       end
      end
+    # does this respond to both html and json formats?
+    # if not, get rid of respond_to
     respond_to do |format|
     format.html
     msg = {seats: taken_seats}
