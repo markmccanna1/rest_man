@@ -4,13 +4,14 @@ $(document).ready(function(){
     var token = $('meta[name="csrf-token"]').attr('content');
 
     if ($(this).hasClass('taken')){
-      $.post('/check_out', {seat_id: seat_id, token: token})
+      $.post('/check_out', {seat_id: seat_id, authenticity_token: token})
         $(this).removeClass('taken');
     } else {
-      $.post('/check_in', {seat_id: seat_id, token: token})
+        $.post('/check_in', {seat_id: seat_id, authenticity_token: token})
         $(this).addClass('taken');
     }
   });
+
   var url_id = window.location.pathname.split('/').reverse()[1];
 
   if ($('body.floor_plan').length) {
