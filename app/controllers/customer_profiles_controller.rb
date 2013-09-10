@@ -31,7 +31,7 @@ class CustomerProfilesController < ApplicationController
 
   def update
     @customer = CustomerProfile.find(params[:id])
-	  if @customer.update_attributes(email: params[:customer_profile][:email]) && @customer.save
+	  if @customer.update_attributes(email: params[:customer_profile][:email])
 	    redirect_to customer_profiles_url
 	  else
 	    render :edit
