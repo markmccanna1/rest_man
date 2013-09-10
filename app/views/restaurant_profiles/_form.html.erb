@@ -1,67 +1,70 @@
-<%= form_for @restaurant do |f| %>
-  <%= f.fields_for :user do |u| %>
-    <% if @restaurant.errors.any? %>
-      <div class="error_messages">
-        <h2>Please try again.</h2>
-        <ul>
-          <% for message in @restaurant.errors.full_messages %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
+<div class="container"
+  <h1>Restaurant Sign Up</h1>
+    <%= form_for @restaurant do |f| %>
+      <%= f.fields_for :user do |u| %>
+        <% if @restaurant.errors.any? %>
+          <div class="error_messages">
+            <h2>Please try again.</h2>
+            <ul>
+              <% for message in @restaurant.errors.full_messages %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <p>
+          <%= f.label :restaurant_name %><br />
+          <%= f.text_field :restaurant_name %>
+        </p>
+        <p>
+          <%= f.label :account_holder_first_name %><br />
+          <%= f.text_field :account_holder_first_name %>
+        </p>
+        <p>
+          <%= f.label :account_holder_last_name %><br />
+          <%= f.text_field :account_holder_last_name %>
+        </p>
+        <p>
+          <%= f.label :restaurant_url %><br />
+          <%= f.text_field :restaurant_url %>
+        </p>
+        <p>
+          <%= f.label :street_address %><br />
+          <%= f.text_field :street_address %>
+        </p>
+        <p>
+          <%= f.label :street_address_2 %><br />
+          <%= f.text_field :street_address_2 %>
+        </p>
+        <p>
+          <%= f.label :city %><br />
+          <%= f.text_field :city %>
+        </p>
+        <p>
+          <%= f.label :state %><br />
+          <%= f.text_field :state %>
+        </p>
+        <p>
+          <%= f.label :zip_code %><br />
+          <%= f.text_field :zip_code %>
+        </p>
+        <p>
+          <%= u.label :email %><br />
+          <%= u.text_field :email %>
+        </p>
+        <p>
+          <%= u.label :phone_number %><br />
+          <%= u.text_field :phone_number %>
+        </p>
+        <p>
+          <%= u.label :password %><br />
+          <%= u.password_field :password %>
+        </p>
+        <p>
+          <%= u.label :password_confirmation %><br />
+          <%= u.password_field :password_confirmation %>
+        </p>
+        <p><%= f.submit "Create Account", class: "button"%></p>
+      <% end %>
     <% end %>
-    <p>
-      <%= f.label :restaurant_name %><br />
-      <%= f.text_field :restaurant_name %>
-    </p>
-    <p>
-      <%= f.label :account_holder_first_name %><br />
-      <%= f.text_field :account_holder_first_name %>
-    </p>
-    <p>
-      <%= f.label :account_holder_last_name %><br />
-      <%= f.text_field :account_holder_last_name %>
-    </p>
-    <p>
-      <%= f.label :restaurant_url %><br />
-      <%= f.text_field :restaurant_url %>
-    </p>
-    <p>
-      <%= f.label :street_address %><br />
-      <%= f.text_field :street_address %>
-    </p>
-    <p>
-      <%= f.label :street_address_2 %><br />
-      <%= f.text_field :street_address_2 %>
-    </p>
-    <p>
-      <%= f.label :city %><br />
-      <%= f.text_field :city %>
-    </p>
-    <p>
-      <%= f.label :state %><br />
-      <%= f.text_field :state %>
-    </p>
-    <p>
-      <%= f.label :zip_code %><br />
-      <%= f.text_field :zip_code %>
-    </p>
-    <p>
-      <%= u.label :email %><br />
-      <%= u.text_field :email %>
-    </p>
-    <p>
-      <%= u.label :phone_number %><br />
-      <%= u.text_field :phone_number %>
-    </p>  
-    <p>
-      <%= u.label :password %><br />
-      <%= u.password_field :password %>
-    </p>
-    <p>
-      <%= u.label :password_confirmation %><br />
-      <%= u.password_field :password_confirmation %>
-    </p>
-    <p class="button"><%= f.submit %></p>
-  <% end %>
-<% end %>
+</div>
