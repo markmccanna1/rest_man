@@ -7,6 +7,7 @@ class RestaurantProfile < ActiveRecord::Base
   has_many :menus
   has_many :examples
   has_one :floor_plan
+  has_many :carts
 
   validates_presence_of :restaurant_name, :street_address, :account_holder_first_name, :account_holder_last_name, :city, :state, :zip_code
 

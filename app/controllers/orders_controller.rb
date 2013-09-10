@@ -5,16 +5,10 @@ class OrdersController < ApplicationController
 
   def create
     restaurant = params[:profile_id]
-    puts session[:cart_id]
     if session[:cart_id]
-      puts "cart id already exists"
-      puts session[:cart_id]
       cart = Cart.find(session[:cart_id])
     else
       cart = Cart.new(customer_profile_id: session[:customer_profile_id], restaurant_profile_id: params[:profile_id])
-
-      puts "setting new cart id"
-      puts session[:cart_id]
     end
 
     params[:item_ids].each do |i|

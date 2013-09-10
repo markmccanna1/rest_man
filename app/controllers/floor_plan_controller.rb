@@ -22,7 +22,7 @@ class FloorPlanController < ApplicationController
     seat = Seat.find(params[:seat_id])
     @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
     seat.update_attributes(customer_profile_id: nil)
-    redirect_to restaurant_profile_floor_plan_index_url(@restaurant)
+    render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
   end
 
   def test

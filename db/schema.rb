@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(:version => 20130909191139) do
   end
 
   create_table "menus", :force => true do |t|
-    t.string  "title"
-    t.integer "restaurant_profile_id"
+    t.string   "title"
+    t.integer  "restaurant_profile_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "orders", :force => true do |t|
@@ -79,7 +81,20 @@ ActiveRecord::Schema.define(:version => 20130909191139) do
     t.string   "zip_code"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
-    t.datetime "last_cart_processed_at",    :default => '2013-09-07 16:04:32'
+    t.datetime "last_cart_processed_at",    :default => '2013-09-07 21:50:15'
+  end
+
+  create_table "seats", :force => true do |t|
+    t.integer  "customer_profile_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "table_id"
+  end
+
+  create_table "tables", :force => true do |t|
+    t.integer  "floor_plan_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "seats", :force => true do |t|

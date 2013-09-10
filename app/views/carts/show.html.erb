@@ -1,4 +1,4 @@
-<h1>Items the Customer Has Ordered (cart)</h1>
+<h1>Items for Table <%= @table.id %> Seat <%= @seat.id %></h1>
   <% @cart.orders.each do |order| %>
   <li><%= order.menu_item.name %></li>
       <%= order.menu_item.price %>
@@ -6,7 +6,7 @@
   <br><br><br>
 
   <% if @cart.status == "confirmed" %>
-    Order Status: Pending - (Order has not been completed by restaurant)
+    Order Status: Pending - (Order has not been completed)
   <% elsif @cart.status == "completed" %>
     Order Status: Closed - (Order received and delivered to customer/processed)
   <% elsif @cart.status == "open"%>

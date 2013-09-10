@@ -5,10 +5,13 @@ var Carts = {
   },
 
   update: function(){
-    $.get('/restaurant_profiles/carts', function(data){
+    var url_id = parseInt(($('h1').attr('id')).split('').reverse()[0])
+    $.get('/restaurant_profiles/'+ url_id + '/carts', function(data){
       var test = $.each(data, function(k,v) {
         $.each(v, function(i, l){
-          $('.pending-carts').append('<li><a href="carts/' + l.id + '">' + l.id + '</a></li>')
+          if($("#" + l.id + "").length == 0) {
+          $('.pending-carts').append('<li><a id="' + l.id + '" href="carts/' + l.id + '">' + l.id + '</a></li>')
+          }
         })
       })
     })
@@ -47,8 +50,6 @@ $('document').ready(function() {
       $.post(url, {menu_title: title, authenticity_token: token}, function(r){
         $(".new-menu").append(r)
         $('.create-menu-form').remove()
-      })            
+      })
     })
 });
-
-
