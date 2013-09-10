@@ -29,8 +29,8 @@ RestMan::Application.routes.draw do
     end 
   end
 
-  resources :floor_plan do
-    resources :table do
+  resources :floor_plans do
+    resources :tables do
       resources :seats, only: [:new, :create]
     end
   end
@@ -94,7 +94,7 @@ RestMan::Application.routes.draw do
 
   post 'test', :to => 'floor_plan#test', :as => 'test'
   get 'check_in', to: 'restaurant#check_in', as: :check_in
-  get 'floor_plan', :to => 'floor_plan#get_it', as: :get_floor_plan
+  get 'get_floor_plan', :to => 'floor_plan#get_floor_plan', as: :get_floor_plan
 
   # See how all your routes lay out with "rake routes"
 

@@ -128,7 +128,6 @@ function Table(id) {
   this.width = 100
   this.height = 100
   this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
-  // this.drawing.attr({class: 'wtf'})
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.draggable()
   this.drawing.center(100, 150)
