@@ -4,6 +4,7 @@ class CartsController < ApplicationController
   end
 
   def show
+    puts session[:cart_id]
     @cart = Cart.find(session[:cart_id])
     @restaurant = RestaurantProfile.find(@cart.restaurant_profile_id)
   end
