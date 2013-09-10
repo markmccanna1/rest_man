@@ -1,5 +1,12 @@
 <h1 data-id=<%=current_restaurant_profile.id%> id="restaurant-dashboard-header">Welcome to the Dashboard for <%= current_restaurant_profile.restaurant_name %></h1>
 
+
+<ul>
+  <li><%= link_to "Current FloorPlan", floor_plan_url(@restaurant) %></li>
+  <li><%= link_to "Add New FloorPlan", new_floor_plan_url(@restaurant) %></li>
+  <li><%= link_to "View Outstanding Orders", carts_url %></li>
+</ul>
+
 <% if flash[:notice] %>
   <div id="notice"><%= flash[:notice] %></div>
 <% end %>

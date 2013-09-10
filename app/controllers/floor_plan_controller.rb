@@ -1,6 +1,6 @@
 class FloorPlanController < ApplicationController
 
-# before_filter :authorize_restaurant, :except => [:index]
+before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
 
   def index
     @restaurant = RestaurantProfile.find(params[:restaurant_profile_id])
@@ -18,6 +18,10 @@ class FloorPlanController < ApplicationController
     end
   end
 
+  def new
+    @floor_plan = FloorPlan.new
+  end
+
   def check_out
     seat = Seat.find(params[:seat_id])
     @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
@@ -25,24 +29,40 @@ class FloorPlanController < ApplicationController
     render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
   end
 
+  def show
+    @floor_plan = FloorPlan.find(params[:id])
+    taken_seats = []
+    @floor_plan.seats.each do |seat|
+      if seat.customer_profile_id != nil
+        taken_seats << seat
+      end
+    end
+    respond_to do |format|
+      format.html
+      msg = {seats: taken_seats}
+      format.json {render :json => msg}
+    end
+  end
+
   def test
     # when you save you destroy everything in it to make sure there are no duplicates
     # if you save a table and it has less tables than it had before, there will be a hanger-on
     floor_plan = params[:floorplan]
     @floorplan = FloorPlan.create(restaurant_profile_id: current_restaurant_profile.id)
+    @restaurant = @floorplan.restaurant_profile
     floor_plan.each do |key, value|
       table = @floorplan.tables.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key)
         value["chairs"].each do |key, value|
-          table.seats.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key)
+          table.seats.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key, floor_plan_id: @floorplan.id)
         end
       end
-    render :json => {hello: 'helloooooo'}
+    render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
   end
 
-
   def get_floor_plan
-    @foor_plan = FloorPlan.find(8)
-    @tables = @foor_plan.tables
+    @floor_plan = FloorPlan.find(params[:id])
+    # @floor_plan.restaurant_profile.id#current_restaurant_profile.floor_plan
+    @tables = @floor_plan.tables
     response_hash = {}
     @tables.each do |table|
       p table
