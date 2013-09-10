@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
       cart = Cart.new(customer_profile_id: session[:customer_profile_id], restaurant_profile_id: params[:profile_id])
     end
 
+    # too much controller action logic! move to model or lib or private method
     params[:item_ids].each do |i|
       item_id = i.to_i
       menu_item = MenuItem.find(item_id)

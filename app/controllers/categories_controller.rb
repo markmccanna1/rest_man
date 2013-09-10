@@ -1,9 +1,12 @@
 class CategoriesController < ApplicationController
-before_filter :authorize_restaurant, :except => [:show] 
- 
+before_filter :authorize_restaurant, :except => [:show]
+
  def import
    @menu = Menu.find(params[:id])
    @category = Category.import(params[:file], @menu)
+
+   # does this controller action respond to other request formats other than html? if not, the respond_to |format|
+   # is unnecessary
    respond_to do |format|
      if @category == "success"
        format.html {
@@ -12,7 +15,7 @@ before_filter :authorize_restaurant, :except => [:show]
        }
       else
       	format.html {
-        flash[:notice] = 'Menu Upload Failed'		
+        flash[:notice] = 'Menu Upload Failed'
       	}
       	redirect_to restaurant_dashboard_path
      end

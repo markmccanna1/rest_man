@@ -31,7 +31,7 @@ class CustomerProfilesController < ApplicationController
 
   def update
     @customer = CustomerProfile.find(params[:id])
-	  if @customer.update_attributes(email: params[:customer_profile][:email]) && @customer.save
+	  if @customer.update_attributes(email: params[:customer_profile][:email]) # this is unnecessary, update_attributes saves the record  - && @customer.save
 	    redirect_to customer_profiles_url
 	  else
 	    render :edit
@@ -43,7 +43,8 @@ class CustomerProfilesController < ApplicationController
 
   def search
     query = params[:query].split.map {|term| "%#{term}%" }
-    sql = "restaurant_name LIKE ? OR city LIKE ? OR state LIKE?" 
+    # move this to a model scope that takes an argument
+    sql = "restaurant_name LIKE ? OR city LIKE ? OR state LIKE?"
     @restaurants = RestaurantProfile.where([sql, query, query, query])
     render "customer_profiles/find"
   end
