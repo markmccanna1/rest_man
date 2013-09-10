@@ -99,7 +99,7 @@ drawChair.prototype = {
   var nested = loadTables.drawing.nested()
   // nested.attr({id: 'svg_' + tableId + 'chair' + id})
   // var table = FloorPlan.getTableById(this.tableId)
-  this.drawing = nested.rect(this.width, this.height).attr({class: 'chair', id: this.html})
+  this.drawing = nested.rect(this.width, this.height).attr({class: 'chair', id: this.htmlId})
   this.drawing.move(this.positionX, this.positionY)
   }
 }
@@ -143,10 +143,11 @@ var loadTables = {
     // this.tables = new Array()
     $.each(this.floorPlan, function(key, value) {
       console.log(value)
-      $.each(value, function(tableId, tableValues){
+      $.each(value, function(tableId, tableValues){ 
         var id = tableId
         new drawTable(tableValues.positionX, tableValues.positionY, tableValues.width, tableValues.height, id) 
         $.each(tableValues.seats, function(seatId, seatValues){
+          console.log(seatId)
           new drawChair(seatValues.positionX, seatValues.positionY, seatValues.width, seatValues.height, seatId)
         })
       })
