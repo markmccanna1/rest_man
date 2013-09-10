@@ -16,7 +16,7 @@ var Carts = {
       })
     })
   }
-}
+} 
 
 var newMenu = {
   init: function(){
@@ -26,6 +26,13 @@ var newMenu = {
       $.get("/restaurant_profiles/"+ restId +"/menus/new", function(response){
         $(".new-menu").append(response)
       })
+    })
+  },
+  create: function(){
+    alert('ready')
+    $('h1').on('submit', '.create-menu-form', function(e){
+      e.preventDefault();
+      alert('click')
     })
   }
 }
