@@ -22,6 +22,8 @@ function UserException(message){
   this.message = message
   this.name = "UserException"
 }
+//maybe you want a list of tables that lets you select the one you click on the list
+//can you make it so that the item is only draggable if its inside the box?
 
 var FloorPlan = {
   init: function(){
@@ -55,13 +57,11 @@ var FloorPlan = {
   }
 }
 
-function Chair(id, tableId) {
+function Chair(id, tableId, size) {
   this.id = id
   this.tableId = tableId
-  // var nested = FloorPlan.drawing.nested()
-  // nested.attr({id: 'svg_' + tableId + 'chair' + id})
-  this.width = 35
-  this.height = 35
+  this.width = size
+  this.height = size
 
   var table = FloorPlan.getTableById(this.tableId)
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
@@ -69,12 +69,6 @@ function Chair(id, tableId) {
   this.drawing = FloorPlan.drawing.rect(this.width,this.height).attr({class: 'chair', id: tableId + 'chair' + id})
 
   table.group.add(this.drawing)
-
-
-  // this.drawing.draggable()
-  // table.group.add(this.drawing)
-    // this.group.add(this.drawing)
-  // table.group.add(this.drawing)
 }
 
 Chair.prototype = {
@@ -114,11 +108,32 @@ Form.prototype = {
   addForeignObject: function(){
     var table = FloorPlan.getTableById(this.tableId)
     $('#input_forms').append(this.form())
-    $('#form' + this.tableId).append(this.changeSizeButtons(table))
+    $('#form' + this.tableId).append(this.changeTableSizeButtons(table))
+    $('#form' + this.tableId).append(this.changeChairSizeButtons(table))
+    $('#form' + this.tableId).append(this.deleteTableButton(table))
     this.increaseTableSizeEvent(table)
     this.decreaseTableSizeEvent(table)
-    // console.log(this)
+    this.increaseChairSizeEvent(table)
+    this.decreaseChairSizeEvent(table)
+    this.deleteButtonEvent(table)
     this.submitEvent(this.tableId)
+  },
+
+  deleteTableButton: function(table){
+    var button = '<button id="delete"> Delete Table </button>'
+    return button
+    // $('#' + chair.drawing.attr('id')).remove()
+  },
+
+  deleteButtonEvent: function(table){
+    $('#delete').on('click', function(event) {
+      if (table.chairs != null) {
+        $.each(table.chairs, function(index, chair) {
+          $('#' + chair.drawing.attr('id')).remove()
+        })
+      }
+    $('#' + table.drawing.attr('id')).remove()
+    })
   },
 
   form: function(tableId){
@@ -126,13 +141,46 @@ Form.prototype = {
     return chairForm
   },
 
-  changeSizeButtons: function(table){
-    var buttons = 'Size of Table <button id="increase"> Increase </button> <button id="decrease"> Decrease </button>'
+  changeTableSizeButtons: function(table){
+    var buttons = 'Size of Table <button id="increase_t"> Increase </button> <button id="decrease_t"> Decrease </button>'
     return buttons
   },
 
+  changeChairSizeButtons: function(table){
+    var buttons = 'Size of Chairs <button id="increase_c"> Increase </button> <button id="decrease_c"> Decrease </button>'
+    return buttons
+  },
+
+  increaseChairSizeEvent: function(table){
+    $('#increase_c').on('click', function(event) {
+      var width = table.chairSize
+      var height = table.chairSize
+      if (table.chairs != null) {
+        $.each(table.chairs, function(key, chair) {
+          chair.drawing.size(width + 2, height + 2)
+        })
+      }
+      table.chairSize += 2
+      table.placeChairs(table)
+    })
+  },
+
+  decreaseChairSizeEvent: function(table){
+    $('#decrease_c').on('click', function(event) {
+      var width = table.chairSize
+      var height = table.chairSize
+      if (table.chairs != null) {
+        $.each(table.chairs, function(key, chair) {
+          chair.drawing.size(width - 2, height - 2)
+        })
+      }
+      table.chairSize -= 2
+      table.placeChairs(table)
+    })
+  },
+
   increaseTableSizeEvent: function(table){
-    $('#increase').on('click', function(event) {
+    $('#increase_t').on('click', function(event) {
       var width = table.width
       var height = table.height
       table.drawing.size(width + 10, height + 10)
@@ -143,7 +191,7 @@ Form.prototype = {
   },
 
   decreaseTableSizeEvent: function(table){
-    $('#decrease').click(function(event) {
+    $('#decrease_t').click(function(event) {
       var width = table.width
       var height = table.height
       table.drawing.size(width - 10, height - 10)
@@ -170,16 +218,14 @@ function Table(id) {
   // nested.attr({id: 'svg_table' + id})
   this.width = 100
   this.height = 100
-  // this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing = FloorPlan.drawing.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
   this.drawing.stroke({color: 'black', width: 2})
-  // this.drawing.draggable()
   this.drawing.center(100, 150)
-
   this.group = FloorPlan.drawing.group()
   this.group.attr({id: 'groupTable' + id})
   this.group.add(this.drawing)
   this.group.draggable()
+  this.chairSize = 28
   FloorPlan.tableGroups.push(this.group)
   this.drawing.click(this.ClickEvent)
 }
@@ -198,25 +244,16 @@ Table.prototype = {
   //you have to make sure you remove the old chair svg squares, fool
   createChairs: function(numChairs){
     var tableId = this.drawing.attr('id')
-
-    console.log(this)
-    // console.log(table.chairs)
-    // $.each(table.chairs, function(index, chair) {
-    //   console.log(index)
-    //   console.log(chairs)
-    // })
-
     if (this.chairs != null) {
       $.each(this.chairs, function(key, chair) {
         console.log(chair.drawing.attr('id'))
         $('#' + chair.drawing.attr('id')).remove()
       })
     }
-
     this.chairs = null
     this.chairs = new Array()
     for (var i = 0; i < numChairs; i++){
-      chair = new Chair(i,tableId)
+      chair = new Chair(i,tableId, this.chairSize)
       this.chairs.push(chair)
     }
     this.placeChairs(this)
@@ -232,7 +269,7 @@ Table.prototype = {
     var tableX= table.drawing.attr('cx')
     var tableY= table.drawing.attr('cy')
     var counter = 0
-    var hypotSide = (table.width / 2.0) * 1.75
+    var hypotSide = (table.width / 2.0) * 1.5
     var degreeSpacing = 360.0 / this.chairs.length
     $.each(this.chairs, function(index, value) {
       var circleDegree = degreeSpacing * counter
