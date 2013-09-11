@@ -1,3 +1,4 @@
+
 class CustomerProfilesController < ApplicationController
 
   before_filter :confirm_logged_in, :except => [:new, :create]
@@ -33,8 +34,8 @@ class CustomerProfilesController < ApplicationController
 
   def update
     @customer = CustomerProfile.find(params[:id])
-	  if @customer.update_attributes(email: params[:customer_profile][:email])
-	    redirect_to customer_profiles_url
+	  if @customer.update_attributes(params[:customer_profile])
+	    redirect_to customer_find_restaurant_profiles_url
 	  else
 	    render :edit
 	  end
