@@ -35,9 +35,12 @@
 
     </div>
     <nav class="customer_nav">
-    <% if @cart %>
-    <%= link_to "My cart", cart_url(@cart) %>
-    <% end %>
+        <ul>
+            <li class="left_option"><%= link_to "Something" %></li>
+        <% if @cart %>
+            <li class="right_option"><%= link_to "My cart", cart_url(@cart) %></li>
+        <% end %>
+        </ul>
     </nav>
 </div>
 
