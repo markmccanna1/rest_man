@@ -12,9 +12,14 @@ RestMan::Application.routes.draw do
   match 'restaurant_profiles/:id/carts' => 'restaurant_profiles#carts'
   resources :orders
   #resources :sessions
-   post '/sessions', :to => 'sessions#create', :as => 'create_session'
-   get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
-   post '/logout', :to => 'sessions#destroy', :as => 'logout'
+
+  post '/sessions', :to => 'sessions#create', :as => 'create_session'
+  get '/sessions/new', :to => 'sessions#new', :as => 'new_session'
+  post '/logout', :to => 'sessions#destroy', :as => 'logout'
+
+  post '/check_in', :to => 'seats#check_in', :as => 'check_in'
+  post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
+  resources :seats, only: [:index]
 
    post '/check_in', :to => 'seats#check_in', :as => 'check_in'
    post '/check_out', :to => 'floor_plan#check_out', :as => 'check_out'
@@ -28,14 +33,21 @@ RestMan::Application.routes.draw do
         resources :menu_items, only: [:index, :new, :create], :controller => "menu_items"
       end
     end
-    resources :floor_plan do
-      resources :table do
-        resources :seats, only: [:new, :create]
-      end
+    # resources :floor_plan do
+    #   resources :table do
+    #     resources :seats, only: [:new, :create]
+    #   end
+    # end
+  end
+
+  resources :floor_plan do
+    resources :tables do
+      resources :seats, only: [:new, :create]
     end
   end
 
   post 'categories/menus_items/import', :to => 'categories#import', :as => 'import_menu_items'
+
   resources :menus, only: [:show, :edit, :update, :destroy]
   resources :menu_items, only: [:show, :edit, :update, :destroy]
   resources :categories, only: [:show, :edit, :update, :destroy]
@@ -90,6 +102,10 @@ RestMan::Application.routes.draw do
   # just remember to delete public/index.html.
 
   root :to => 'sessions#new'
+
+  post 'test', :to => 'floor_plan#test', :as => 'test'
+  get 'check_in', to: 'restaurant#check_in', as: :check_in
+  get 'get_floor_plan', :to => 'floor_plan#get_floor_plan', as: :get_floor_plan
 
   # See how all your routes lay out with "rake routes"
 

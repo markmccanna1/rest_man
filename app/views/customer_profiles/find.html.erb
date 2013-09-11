@@ -1,4 +1,4 @@
-<div data-role="page" id="page1">
+<div class="find-restaurant" data-role="page" id="page1">
 
     <div class="search" data-role="content">
         <form action="/customer_profiles/find/" method ="get" id="search_form">
@@ -6,13 +6,13 @@
                 <input name="query" class="ui-input-search" id="filter" placeholder="Find a Restaurant" value="" type="search">
                 <span id="filter-count"></span>
             </div>
-            <input type="submit" data-inline="true" value="Submit" id="submit">
+            <input type="submit" data-inline="true" value="Search" id="submit" class="button">
         </form>
         <br>
     <div class="results">
         <% if @restaurants %>
           <% @restaurants.each do |restaurant| %>
-            <li><%= link_to restaurant.restaurant_name, restaurant_profile_floor_plan_index_path(restaurant) %></li>
+            <li><%= link_to restaurant.restaurant_name, floor_plan_url(restaurant.floor_plan.id) %></li>
           <% end %>
         <% end %>
     </div>

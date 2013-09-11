@@ -1,9 +1,9 @@
 .seat {
   width: 200px;
   height: 200px;
-  background-color: green;
+  fill: green;
 }
 
 .taken{
-  background-color: red;
+  fill: red;
 }

@@ -32,6 +32,7 @@ class RestaurantProfilesController < ApplicationController
   end
 
   def dashboard
+    @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
     render :dashboard
   end
 
