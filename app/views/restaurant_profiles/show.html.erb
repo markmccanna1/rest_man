@@ -1,46 +1,43 @@
-<div data-role="page" id="page2">
-    <div data-role="content">
-        <div data-role="collapsible-set">
-            <div data-role="collapsible" data-collapsed="false">
-                <ul>
-                    <%= form_tag("/orders", :method => "post") do%>
-                    <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
-                    <% @restaurant.menus.each do |menu| %>
-                    <h1><%= menu.title %></h1>
-                    <% menu.categories.each do |category| %>
-                    <section class="accordion">
-                        <a href="#<%= category.title %>" id="<%= category.title %>">
-                            <h2><%= category.title %></h2>
-                        </a>
-                        <div class="hidden_item">
-                        <% category.menu_items.each do |item| %>
-                            <div>
-                                <div class="menu_item">
-                                    <li><%= item.name %></li>
-                                    <p><%= item.description %></p>
-                                    <p><%= item.price %></p>
-                                </div>
-                                <div class="check_box">
-                                    <p>
-                                        <%= check_box_tag "item_ids[]", item.id%>
-                                        <%= label_tag :order_item, "Order this Item!" %>
-                                    </p>
-                                </div>
-                            </div>
-                        <% end %>
+<div data-role="collapsible-set">
+    <div data-role="collapsible" data-collapsed="false">
+
+            <%= form_tag("/orders", :method => "post") do%>
+            <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
+            <% @restaurant.menus.each do |menu| %>
+            <h1 class="category_name"><%= menu.title %></h1>
+            <% menu.categories.each do |category| %>
+            <section class="accordion">
+                <a href="#<%= category.title %>" id="<%= category.title %>">
+                    <h2 class="category_name"><%= category.title %></h2>
+                </a>
+                <div class="hidden_item">
+                <% category.menu_items.each do |item| %>
+                        <div class="menu_div">
+                            <ul class="menu_item">
+                                <li><%= item.name %></li>
+                                <li><%= item.description %></li>
+                                <li><%= item.price %></li>
+                            </ul>
                         </div>
-                    </section>
-                    <% end %>
-                    <% end %>
-                    <br>
-                    <br>
-                    <%= submit_tag("Submit Order", :class => "btn btn-success") %>
-                    <% end %>
-                </ul>
-            </div>
-            <% if @cart %>
-            <%= link_to "My cart", cart_url(@cart) %>
+                        <div class="checkbox">
+                            <%= check_box_tag "item_ids[]", item.id%>
+                            <%= label_tag :order_item, "Order this Item!" %>
+                        </div>
+                <% end %>
+                </div>
+            </section>
             <% end %>
-        </div>
+            <% end %>
+            <div class='submit'>
+            <%= submit_tag("Submit Order", :class => "button center") %>
+            </div>
+            <% end %>
+
     </div>
+    <nav class="customer_nav">
+    <% if @cart %>
+    <%= link_to "My cart", cart_url(@cart) %>
+    <% end %>
+    </nav>
 </div>
+

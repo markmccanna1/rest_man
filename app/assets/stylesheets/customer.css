@@ -6,6 +6,11 @@
 
 
 @media (max-width: 600px){
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+}
+
 body{
   margin: 0;
  /* background: url(rest.jpg) no-repeat center center fixed;
@@ -84,6 +89,29 @@ input {
   opacity: 1;
 }
 
+
+
+.find-restaurant {
+  margin-top: 40%;
+}
+
+
+ul {
+  padding-left: 0;
+}
+
+li{
+  list-style-type: none;
+  padding: 5px;
+}
+
+.submit{
+  margin: auto;
+}
+
+
+/* *************** MENU ***************/
+
 .hidden_item {
       display:none;
     }
@@ -91,16 +119,13 @@ input {
       display: inline-block;
     }
 
-
-.find-restaurant {
-  margin-top: 40%;
-}
-
 .accordion {
   width: 300px;
   color: black;
-  background-color: gray;
+  background-color: #E3DEC1;
   overflow: hidden;
+  margin: auto;
+  border-radius: 10px;
 }
 
 .accordion .hidden_item {
@@ -109,28 +134,45 @@ input {
 
 }
 
-ul{
-  padding-left: 5px;
-}
-
-li{
-  list-style-type: none;
-  padding: 5px;
-}
-
 .menu_item {
   display: inline-block;
+  text-align: left;
+  margin-top: 0;
+}
 
+.menu_div{
+  float: left;
+  clear: both;
 }
 
 .checkbox {
   float: right;
   padding-top: 15px;
   padding-right: 5px;
+  margin-left: 15px;
 }
 
 .submit{
   text-align: center;
+}
+
+.category_name{
+  text-align: center;
+}
+
+.item{
+  float:left;
+}
+
+/* ============== CUSTOMER NAV =================*/
+
+.customer_nav {
+  background-color: gray;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 }
