@@ -16,6 +16,5 @@ class ApplicationController < ActionController::Base
 
   def authorize_restaurant
   	redirect_to new_session_url unless RestaurantProfile.find_by_id(session[:restaurant_profile_id])
-    end
   end
 end

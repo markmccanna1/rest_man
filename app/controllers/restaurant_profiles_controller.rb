@@ -39,7 +39,7 @@ class RestaurantProfilesController < ApplicationController
   def carts
     time = current_restaurant_profile.last_cart_processed_at
     id = current_restaurant_profile.id
-    @carts = Cart.find(:all, :conditions => ["updated_at > ? AND restaurant_profile_id =? AND status ='confirmed'", time, id])
+    @carts = locate(time, id)
     render :json => {carts: @carts}
   end
 end
