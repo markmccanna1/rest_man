@@ -5,7 +5,7 @@
      <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
       <% @cart.orders.each do |order|%>
         <% if order.status == "pending" %>
-        <div>
+      <div>
           <ul class="menu_item">
             <li><%= order.menu_item.name %></li>
             <li><%= order.menu_item.description %></li>
@@ -31,3 +31,4 @@
     <li class="right_option"><%= link_to "My cart", cart_path(@cart)%></li>
   </ul>
 </nav>
+
