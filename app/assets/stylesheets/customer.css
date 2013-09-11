@@ -95,6 +95,11 @@ header .log-out {
   margin: 10px;
   background-color: #487075;
 }
+
+.new-menu{
+  text-align: center;
+  margin-top: 50px;
+}
 }
 
 /* ============MOBILE ===================*/
@@ -141,7 +146,7 @@ header .log-out {
 .container {
   background-color: #E3DEC1;
   width: 300px;
-  /*text-align: center;*/
+  text-align: center;
   margin: 10% auto;
   border-radius: 10px;
   opacity: .95;
@@ -213,9 +218,6 @@ li{
   padding: 5px;
 }
 
-.submit{
-  margin: auto;
-}
 
 /* *************** MENU ************** */
 
@@ -249,14 +251,17 @@ li{
 
 .menu_div{
   float: left;
+  margin-left: 10px;
   clear: both;
 }
 
 .checkbox {
+  display: inline-block;
+  width: 100px;
   float: right;
-  padding-top: 15px;
-  padding-right: 5px;
-  margin-left: 15px;
+  /*padding-top: 15px;
+  padding-right: 5px;*/
+  margin-left: 70px;
 }
 
 .submit{
@@ -277,7 +282,7 @@ li{
   padding-bottom: 90px;
 }
 .customer_nav {
-  background-color: #34495e;
+  background-color: #2c3e50;
   height: 64px;
   width: 100%;
   position: fixed;
@@ -303,62 +308,6 @@ li{
 
 .customer_nav a{
   color: white;
-}
-
-.accordion {
-  width: 300px;
-  color: black;
-  background-color: #E3DEC1;
-  overflow: hidden;
-  margin: auto;
-  border-radius: 10px;
-}
-
-.accordion .hidden_item {
-  overflow: hidden;
-  margin: auto;
-
-}
-
-.menu_item {
-  display: inline-block;
-  text-align: left;
-  margin-top: 0;
-}
-
-.menu_div{
-  float: left;
-  clear: both;
-}
-
-.checkbox {
-  float: right;
-  padding-top: 15px;
-  padding-right: 5px;
-  margin-left: 15px;
-}
-
-.submit{
-  text-align: center;
-}
-
-.category_name{
-  text-align: center;
-}
-
-.item{
-  float:left;
-}
-
-/* ============== CUSTOMER NAV =================*/
-
-.customer_nav {
-  background-color: gray;
-  height: 64px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
 }
 
 }
