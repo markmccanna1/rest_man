@@ -3,22 +3,15 @@ class ChargesController < ApplicationController
 	end
 
 	def create
-	  # Amount in cents
-	  @amount = 500
+	  cart = Cart.find(session[:cart_id])
 
-	  customer = Stripe::Customer.create(
-	    :email => 'example@stripe.com',
-	    :card  => params[:stripeToken]
-	  )
+		@amount = (cart.total * 100).to_i
+	 	customer = Stripe::Customer.create(email: current_customer_profile.user.email, card: params[:stripeToken])
 
-	  charge = Stripe::Charge.create(
-	    :customer    => customer.id,
-	    :amount      => @amount,
-	    :description => 'Rails Stripe customer',
-	    :currency    => 'usd'
-	  )
+	  charge = Stripe::Charge.create(customer: customer.id, amount: @amount, currency: 'usd')
 
-	rescue Stripe::CardError => e
+	  redirect_to cart_path(cart)
+		rescue Stripe::CardError => e
 	  flash[:error] = e.message
 	  redirect_to charges_path
 	end
