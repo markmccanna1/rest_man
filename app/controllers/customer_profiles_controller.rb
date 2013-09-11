@@ -1,4 +1,3 @@
-
 class CustomerProfilesController < ApplicationController
 
   before_filter :confirm_logged_in, :except => [:new, :create]
@@ -25,7 +24,6 @@ class CustomerProfilesController < ApplicationController
 
   def edit
     @customer = CustomerProfile.find(session[:customer_profile_id])
-    puts @customer
   end
 
   def show

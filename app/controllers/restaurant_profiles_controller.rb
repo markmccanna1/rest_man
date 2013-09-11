@@ -32,6 +32,19 @@ class RestaurantProfilesController < ApplicationController
     @order = Order.new
   end
 
+  def edit
+    @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
+  end
+
+  def update
+    @restaurant = RestaurantProfile.find(params[:id])
+    if @restaurant.update_attributes(params[:restaurant_profile])
+      redirect_to restaurant_dashboard_url
+    else
+      render :edit
+    end
+  end
+
   def dashboard
     @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
     render :dashboard
