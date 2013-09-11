@@ -5,6 +5,7 @@
      <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
       <% @cart.orders.each do |order|%>
         <% if order.status == "pending" %>
+        <div>
           <ul class="menu_item">
             <li><%= order.menu_item.name %></li>
             <li><%= order.menu_item.description %></li>
@@ -14,14 +15,17 @@
           <%= check_box_tag "item_ids[]", order.menu_item.id, checked = true%>
           <%= label_tag :order_item, "Add to Cart" %>
         </div>
+      </div>
+      <hr>
         <% end %>
       <% end %>
-        <br>
-        <br>
         <div class="submit">
         <%= submit_tag "Confirm Order!"%>
         </div>
     <% end %>
   </ul>
 </div>
+
+<nav class="customer_nav">
 <%= link_to "My cart", cart_path(@cart) %>
+</nav>
