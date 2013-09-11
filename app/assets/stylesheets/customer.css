@@ -213,7 +213,6 @@ li{
 .submit{
   margin: auto;
 }
-}
 
 /* *************** MENU ************** */
 
@@ -306,8 +305,10 @@ li{
 .accordion {
   width: 300px;
   color: black;
-  background-color: gray;
+  background-color: #E3DEC1;
   overflow: hidden;
+  margin: auto;
+  border-radius: 10px;
 }
 
 .accordion .hidden_item {
@@ -316,28 +317,45 @@ li{
 
 }
 
-ul{
-  padding-left: 5px;
-}
-
-li{
-  list-style-type: none;
-  padding: 5px;
-}
-
 .menu_item {
   display: inline-block;
+  text-align: left;
+  margin-top: 0;
+}
 
+.menu_div{
+  float: left;
+  clear: both;
 }
 
 .checkbox {
   float: right;
   padding-top: 15px;
   padding-right: 5px;
+  margin-left: 15px;
 }
 
 .submit{
   text-align: center;
+}
+
+.category_name{
+  text-align: center;
+}
+
+.item{
+  float:left;
+}
+
+/* ============== CUSTOMER NAV =================*/
+
+.customer_nav {
+  background-color: gray;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 }
