@@ -17,8 +17,6 @@
   <% end %>
   <% if session[:restaurant_profile_id] %>
     <br>
-    <%= link_to "Show All Customers' Carts Page", carts_path %>
-    <br>
     <%= link_to "Close Out This Order", close_cart_path(@cart), method: :post %>
   <% else %>
     <br>

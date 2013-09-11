@@ -28,7 +28,9 @@ class CartsController < ApplicationController
       order = @cart.orders.find_by_menu_item_id(destroy_order)
       order.destroy
     end
-    current_restaurant_profile.update_attributes(last_cart_processed_at: Time.now)
+    if current_restaurant_profile
+      current_restaurant_profile.update_attributes(last_cart_processed_at: Time.now)
+    end
     @cart.update_attributes(status: "confirmed")
     @cart.orders.each do |order|
       order.update_attributes(status:"confirmed")

@@ -18,6 +18,14 @@
       </div>
     <% end %>
   </header>
+  <% if current_restaurant_profile %>
+    <nav>
+      <ul>
+        <li><%= link_to "View Outstanding Orders", carts_url %></li>
+        <li><%= link_to "Back to Dashboard", restaurant_dashboard_url %></li>
+      </ul>
+    </nav>
+  <% end %>
 <%= yield %>
 </body>
 </html>
