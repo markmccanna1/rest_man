@@ -1,9 +1,52 @@
-@media (min-width: 600px) and (max-width: 960px){
-  .container{
-    background-color: green;
-  }
+@media (min-width: 600px){
+body{
+  margin: 0;
 }
 
+header {
+  background-color: #E3DEC9;
+  height: 35px;
+}
+
+header h2 {
+  margin-top: 0;
+  display: inline;
+  margin-left: 10px;
+}
+
+header .log-out {
+  float: right;
+}
+
+.logout{
+  line-height: 35px;
+}
+
+.title{
+  text-align: center;
+}
+
+.restaurant_nav{
+  text-align: center;
+  padding-left: 0;
+}
+
+.restaurant_nav li{
+  display: inline;
+  list-style-type: none;
+  padding: 10px;
+  background-color: orange;
+  border: 1px solid black;
+}
+
+.restaurant_nav li a{
+  text-decoration: none;
+  color: black;
+  margin-left: 0px;
+}
+}
+
+/* ============MOBILE ===================*/
 
 @media (max-width: 600px){
 @viewport{
@@ -74,7 +117,7 @@ input {
 
 .results a {
   display: block;
-  /*list-style-type: none;*/
+  list-style-type: none;
   background-color: #f2d685;
   font-weight: bold;
   font-size: 24px;
@@ -115,7 +158,7 @@ li{
 }
 
 
-/* *************** MENU ***************/
+/* *************** MENU ************** */
 
 .hidden_item {
       display:none;
@@ -169,7 +212,7 @@ li{
   float:left;
 }
 
-/* ============== CUSTOMER NAV =================*/
+/* ============== CUSTOMER NAV ================= */
 
 .customer_nav {
   background-color: gray;

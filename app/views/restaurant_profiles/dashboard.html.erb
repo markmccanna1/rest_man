@@ -1,8 +1,7 @@
 <div>
-  <h1 data-id=<%=current_restaurant_profile.id%> id="restaurant-dashboard-header">Welcome to the Dashboard for <%= current_restaurant_profile.restaurant_name %></h1>
+  <h1 data-id=<%=current_restaurant_profile.id%> class='title' id="restaurant-dashboard-header">Welcome to the Dashboard for <%= current_restaurant_profile.restaurant_name %></h1>
 
-
-  <ul>
+  <ul class="restaurant_nav">
     <% if current_restaurant_profile.floor_plan %>
     <li><%= link_to "Current FloorPlan", floor_plan_url(@restaurant.floor_plan.id) %></li>
     <% end %>
