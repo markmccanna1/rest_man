@@ -10,7 +10,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
       if seat.customer_profile_id != nil
         taken_seats << seat
       end
-    end
+    end 
     respond_to do |format|
       format.html
       msg = {seats: taken_seats}
