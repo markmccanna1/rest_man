@@ -233,6 +233,12 @@ li{
   padding: 5px;
 }
 
+.submit{
+  margin: auto;
+}
+}
+
+>>>>>>> altered css with extra }
 /* *************** MENU ************** */
 
 .hidden_item {
