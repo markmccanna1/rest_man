@@ -1,6 +1,6 @@
 class SeatsController < ApplicationController
 
-  before_filter :authorize_restaurant, :except => [:check_in, :index]
+  before_filter :authorize_customer
 
   def check_in
     floor_plan = FloorPlan.find(params[:url_id])

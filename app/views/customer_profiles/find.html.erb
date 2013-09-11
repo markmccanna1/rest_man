@@ -12,7 +12,7 @@
     <div class="results">
         <% if @restaurants %>
           <% @restaurants.each do |restaurant| %>
-            <li><%= link_to restaurant.restaurant_name, floor_plan_url(restaurant.floor_plan) %></li>
+            <li><%= link_to restaurant.restaurant_name, floor_plan_url(restaurant.floor_plan.id) %></li>
           <% end %>
         <% end %>
     </div>

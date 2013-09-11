@@ -1,4 +1,3 @@
-
 class CartsController < ApplicationController
   def index
     id = current_restaurant_profile.id

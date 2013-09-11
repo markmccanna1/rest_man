@@ -23,14 +23,26 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
   end
 
   def check_out
-    seat = Seat.find(params[:seat_id])
+    floor_plan = FloorPlan.find(params[:url_id])
+    seat = floor_plan.seats.find_by_html_id(params[:seat_id])
+    puts 'seat'
+    puts params[:seat_id]
+    puts seat.id
     @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
+    puts 'restaurant'
+    puts @restaurant.id
     seat.update_attributes(customer_profile_id: nil)
-    render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
+    puts 'customer_profile_id'
+    puts seat.customer_profile_id
+    render :js => "window.location.href = '#{floor_plan_url(@restaurant.floor_plan.id)}'"
   end
 
   def show
-    @floor_plan = FloorPlan.find(params[:id])
+    if current_restaurant_profile
+      @floor_plan = FloorPlan.find(current_restaurant_profile.floor_plan.id)
+    else
+      @floor_plan = FloorPlan.find(params[:id])
+    end
     taken_seats = []
     @floor_plan.seats.each do |seat|
       if seat.customer_profile_id != nil
@@ -56,7 +68,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
           table.seats.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key, floor_plan_id: @floorplan.id)
         end
       end
-    render :js => "window.location.href = '#{restaurant_profile_floor_plan_index_url(@restaurant)}'"
+    render :js => "window.location.href = '#{floor_plan_url}'"
   end
 
   def get_floor_plan
@@ -65,7 +77,6 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
     @tables = @floor_plan.tables
     response_hash = {}
     @tables.each do |table|
-      p table
       response_hash[table.html_id] = {positionX: table.position_x, positionY: table.position_y, height: table.height, width: table.width, seats: {}}
       table.seats.each do |seat|
         response_hash[table.html_id][:seats][seat.html_id] = {positionX: seat.position_x, positionY: seat.position_y, height: seat.height, width: seat.width}
