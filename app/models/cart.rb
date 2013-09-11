@@ -4,7 +4,7 @@ class Cart < ActiveRecord::Base
   belongs_to :customer_profile
   belongs_to :restaurant_profile
   has_many :orders
-  
+
   scope :confirmed, lambda { |id| {:conditions => ["restaurant_profile_id =? AND status ='confirmed'", id]} }
   scope :locate, lambda { |time, id| {:conditions => ["updated_at > ? AND restaurant_profile_id =? AND status ='confirmed'", time, id]}}
 
@@ -17,5 +17,14 @@ class Cart < ActiveRecord::Base
       cart.orders << order
       cart.save
     end
+  end
+
+  def total
+    cost = []
+    self.orders.each do |order|
+        cost << order.menu_item.to_dollars
+    end
+
+    cost.inject{ |sum, p| sum + p}.round(2)
   end
 end

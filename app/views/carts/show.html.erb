@@ -9,12 +9,13 @@
   <% @cart.orders.each do |order| %>
   <ul class="seat_order">
     <li class="item"><%= order.menu_item.name %></li>
-    <li class="price"><%= order.menu_item.price %></li>
+    <li class="price">$<%= order.menu_item.to_dollars %></li>
   </ul>
   <% end %>
   <% if current_customer_profile %>
   <hr>
   <p class="item">TOTAL</p>
+  <p>$<%= @cart.total %></p>
   <% end %>
   <br><br><br>
 
