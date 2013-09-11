@@ -1,31 +1,46 @@
-<h1 class="restaurant_name"><%= @restaurant.menus.first.title %></h1>
+<div data-role="collapsible-set">
+    <div data-role="collapsible" data-collapsed="false">
 
-<div data-role="page" id="page2">
-    <div data-role="content">
-        <div data-role="collapsible-set">
-            <div data-role="collapsible" data-collapsed="false">
-                <ul class="accordion">
-                <h3>
-                    <%= @restaurant.menus.last.categories.last.title %>
-                </h3>
-                    <%= form_tag("/orders", :method => "post") do%>
-                      <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
-                      <% @restaurant.menus.last.categories.last.menu_items.each do |item| %>
-                        <li><%= item.name %></li>
-                        <p><%= item.description %></p>
-                        <p><%= item.price %></p>
-                        <%= check_box_tag "item_ids[]", item.id%>
-                        <%= label_tag :order_item, "Order this Item!" %>
-                      <% end %>
-                        <br>
-                        <br>
-                        <%= submit_tag("Submit Order", :class => "btn btn-success") %>
-                    <% end %>
-                </ul>
-            </div>
-            <% if @cart %>
-                <%= link_to "My cart", cart_url(@cart) %>
+            <%= form_tag("/orders", :method => "post") do%>
+            <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
+            <% @restaurant.menus.each do |menu| %>
+            <h1 class="category_name"><%= menu.title %></h1>
+            <% menu.categories.each do |category| %>
+            <section class="accordion">
+                <a href="#<%= category.title %>" id="<%= category.title %>">
+                    <h2 class="category_name"><%= category.title %></h2>
+                </a>
+                <div class="hidden_item">
+                <% category.menu_items.each do |item| %>
+                        <div class="menu_div">
+                            <ul class="menu_item">
+                                <li><%= item.name %></li>
+                                <li><%= item.description %></li>
+                                <li><%= item.price %></li>
+                            </ul>
+                        </div>
+                        <div class="checkbox">
+                            <%= check_box_tag "item_ids[]", item.id%>
+                            <%= label_tag :order_item, "Order this Item!" %>
+                        </div>
+                <% end %>
+                </div>
+            </section>
             <% end %>
-        </div>
+            <% end %>
+            <div class='submit'>
+            <%= submit_tag("Submit Order", :class => "button center") %>
+            </div>
+            <% end %>
+
     </div>
+    <nav class="customer_nav">
+        <ul>
+            <li class="left_option"><%= link_to "Something" %></li>
+        <% if @cart %>
+            <li class="right_option"><%= link_to "My cart", cart_url(@cart) %></li>
+        <% end %>
+        </ul>
+    </nav>
 </div>
+

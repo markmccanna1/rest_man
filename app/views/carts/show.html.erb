@@ -1,9 +1,13 @@
 <h1>Items for Table <%= @table.id %> Seat <%= @seat.id %></h1>
-
+<div class="container">
   <% @cart.orders.each do |order| %>
-  <li><%= order.menu_item.name %></li>
-      <%= order.menu_item.price %>
+    <ul>
+    <li class="item"><%= order.menu_item.name %></li>
+    <li class="price"><%= order.menu_item.price %></li>
+    </ul>
   <% end %>
+  <hr>
+    <p class="item">TOTAL</p>
   <br><br><br>
 
   <% if @cart.status == "confirmed" %>
@@ -13,12 +17,16 @@
   <% elsif @cart.status == "open"%>
     Please go back and confirm your order
     <br>
-    <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <% end %>
+</div>
   <% if session[:restaurant_profile_id] %>
     <br>
     <%= link_to "Close Out This Order", close_cart_path(@cart), method: :post %>
   <% else %>
     <br>
-    <%= link_to "Back to Menu", restaurant_profile_path(@restaurant)%>
+    <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <% end %>
+
+  <nav class="customer_nav">
+    <%= link_to "Back to Menu", restaurant_profile_path(@restaurant)%>
+  </nav>

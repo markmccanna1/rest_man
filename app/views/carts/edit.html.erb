@@ -1,20 +1,33 @@
 <h1>Confirm Your Cart Items</h1>
 
-<ul>
-   <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
-    <% @cart.orders.each do |order|%>
-      <% if order.status == "pending" %>
-        <li><%= order.menu_item.name %></li>
-        <p><%= order.menu_item.description %></p>
-        <p><%= order.menu_item.price %></p>
-        <%= check_box_tag "item_ids[]", order.menu_item.id, checked = true%>
-        <%= label_tag :order_item, "Confirm this Item!" %>
+<div class="container">
+  <ul>
+     <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
+      <% @cart.orders.each do |order|%>
+        <% if order.status == "pending" %>
+        <div>
+          <ul class="menu_item">
+            <li><%= order.menu_item.name %></li>
+            <li><%= order.menu_item.description %></li>
+            <li><%= order.menu_item.price %></li>
+          </ul>
+        <div class="checkbox">
+          <%= check_box_tag "item_ids[]", order.menu_item.id, checked = true%>
+          <%= label_tag :order_item, "Add to Cart" %>
+        </div>
+      </div>
+      <hr>
+        <% end %>
       <% end %>
+        <div class="submit">
+        <%= submit_tag "Confirm Order!"%>
+        </div>
     <% end %>
-      <br>
-      <br>
-      <%= submit_tag("Confirm Order!") %>
-  <% end %>
-</ul>
+  </ul>
+</div>
 
-<%= link_to "My cart", cart_path(@cart) %>
+<nav class="customer_nav">
+  <ul>
+    <li class="right_option"><%= link_to "My cart", cart_path(@cart)%></li>
+  </ul>
+</nav>

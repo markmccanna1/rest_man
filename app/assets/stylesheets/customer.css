@@ -6,15 +6,21 @@
 
 
 @media (max-width: 600px){
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+}
+
 body{
   margin: 0;
-  background: url(rest.jpg) no-repeat center center fixed;
-  background-size: cover;
+ /* background: url(rest.jpg) no-repeat center center fixed;
+  background-size: cover;*/
   /*background-color: #E3DEC1;*/
 }
 
 header {
   background-color: #E3DEC9;
+  height: 35px;
 }
 
 header h2 {
@@ -27,9 +33,13 @@ header .log-out {
   float: right;
 }
 
+.logout{
+  line-height: 35px;
+}
+
 .container {
   background-color: #E3DEC1;
-  width: 400px;
+  width: 300px;
   text-align: center;
   margin: 10% auto;
   border-radius: 10px;
@@ -84,8 +94,104 @@ input {
   opacity: 1;
 }
 
+
+
 .find-restaurant {
   margin-top: 40%;
+}
+
+
+ul {
+  padding-left: 0;
+}
+
+li{
+  list-style-type: none;
+  padding: 5px;
+}
+
+.submit{
+  margin: auto;
+}
+
+
+/* *************** MENU ***************/
+
+.hidden_item {
+      display:none;
+    }
+    :target + .hidden_item {
+      display: inline-block;
+    }
+
+.accordion {
+  width: 300px;
+  color: black;
+  background-color: #E3DEC1;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.accordion .hidden_item {
+  overflow: hidden;
+  margin: auto;
+
+}
+
+.menu_item {
+  display: inline-block;
+  text-align: left;
+  margin-top: 0;
+}
+
+.menu_div{
+  float: left;
+  clear: both;
+}
+
+.checkbox {
+  float: right;
+  padding-top: 15px;
+  padding-right: 5px;
+  margin-left: 15px;
+}
+
+.submit{
+  text-align: center;
+}
+
+.category_name{
+  text-align: center;
+}
+
+.item{
+  float:left;
+}
+
+/* ============== CUSTOMER NAV =================*/
+
+.customer_nav {
+  background-color: gray;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.customer_nav ul{
+  margin-top: 0;
+}
+
+.customer_nav ul li{
+  font-size: 24px;
+  width: 50%;
+  display: inline;
+}
+.right_option{
+  float:right;
+  border-left: 1px solid black;
 }
 
 }
