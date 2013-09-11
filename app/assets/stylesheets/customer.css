@@ -8,8 +8,8 @@
 @media (max-width: 600px){
 body{
   margin: 0;
-  background: url(rest.jpg) no-repeat center center fixed;
-  background-size: cover;
+ /* background: url(rest.jpg) no-repeat center center fixed;
+  background-size: cover;*/
   /*background-color: #E3DEC1;*/
 }
 
@@ -30,7 +30,7 @@ header .log-out {
 .container {
   background-color: #E3DEC1;
   width: 300px;
-  text-align: center;
+  /*text-align: center;*/
   margin: 10% auto;
   border-radius: 10px;
   opacity: .95;
@@ -84,8 +84,53 @@ input {
   opacity: 1;
 }
 
+.hidden_item {
+      display:none;
+    }
+    :target + .hidden_item {
+      display: inline-block;
+    }
+
+
 .find-restaurant {
   margin-top: 40%;
+}
+
+.accordion {
+  width: 300px;
+  color: black;
+  background-color: gray;
+  overflow: hidden;
+}
+
+.accordion .hidden_item {
+  overflow: hidden;
+  margin: auto;
+
+}
+
+ul{
+  padding-left: 5px;
+}
+
+li{
+  list-style-type: none;
+  padding: 5px;
+}
+
+.menu_item {
+  display: inline-block;
+
+}
+
+.checkbox {
+  float: right;
+  padding-top: 15px;
+  padding-right: 5px;
+}
+
+.submit{
+  text-align: center;
 }
 
 }
