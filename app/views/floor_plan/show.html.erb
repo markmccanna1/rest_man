@@ -2,7 +2,7 @@
   <% if current_customer_profile %>
     <h1>Check-In to Your Seat at <%= @floor_plan.restaurant_profile.restaurant_name %></h1>
   <% elsif current_restaurant_profile %>
-    <h1>Your Current Seating Plan</h1>
+    <h1 class="check-seats" data-id=<%= @floor_plan.id %>>Your Current Seating Plan</h1>
   <% end %>
   <div id="dialog" class="ui-helper-hidden" title="Seat Confirmation Required">Are you sure you want to check-in to this seat?</div>
 

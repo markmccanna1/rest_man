@@ -3,6 +3,8 @@ RestMan::Application.routes.draw do
   get '/customer_profiles/find', to: "customer_profiles#search"
   get '/restaurant_profiles/dashboard', :to => 'restaurant_profiles#dashboard', :as => 'restaurant_dashboard'
 
+  get 'restaurant_profiles/check_seats', :to => 'restaurant_profiles#check_seats', :as => 'restaurant_check_seats'
+
   get 'restaurant_profiles/new', to: "restaurant_profiles#new"
   post 'restaurant_profiles/create', to: "restaurant_profiles#create"
   post '/carts/:id/close', to: "carts#close", as: "close_cart"
@@ -51,8 +53,6 @@ RestMan::Application.routes.draw do
   resources :menus, only: [:show, :edit, :update, :destroy]
   resources :menu_items, only: [:show, :edit, :update, :destroy]
   resources :categories, only: [:show, :edit, :update, :destroy]
-
-
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
