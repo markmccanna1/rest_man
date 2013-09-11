@@ -15,13 +15,17 @@
                         <div class="hidden_item">
                         <% category.menu_items.each do |item| %>
                             <div>
-                                <li><%= item.name %></li>
-                                <p><%= item.description %></p>
-                                <p><%= item.price %></p>
-                                <p>
-                                    <%= check_box_tag "item_ids[]", item.id%>
-                                    <%= label_tag :order_item, "Order this Item!" %>
-                                </p>
+                                <div class="menu_item">
+                                    <li><%= item.name %></li>
+                                    <p><%= item.description %></p>
+                                    <p><%= item.price %></p>
+                                </div>
+                                <div class="check_box">
+                                    <p>
+                                        <%= check_box_tag "item_ids[]", item.id%>
+                                        <%= label_tag :order_item, "Order this Item!" %>
+                                    </p>
+                                </div>
                             </div>
                         <% end %>
                         </div>
