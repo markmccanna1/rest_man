@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_customer
-  	redirect_to new_session_url unless CustomerProfile.find_by_id(session[:customer_profile_id])
+  	redirect_to restaurant_dashboard_url unless CustomerProfile.find_by_id(session[:customer_profile_id])
   end
 
   def authorize_restaurant
-  	redirect_to new_session_url unless RestaurantProfile.find_by_id(session[:restaurant_profile_id])
+  	redirect_to customer_find_restaurant_profiles_url unless RestaurantProfile.find_by_id(session[:restaurant_profile_id])
   end
 
   def confirm_logged_in
