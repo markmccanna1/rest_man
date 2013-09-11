@@ -1,7 +1,7 @@
 class SeatsController < ApplicationController
 
-  before_filter :authorize_customer
   before_filter :confirm_logged_in
+  before_filter :authorize_customer
 
   def check_in
     floor_plan = FloorPlan.find(params[:url_id])
