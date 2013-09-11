@@ -88,4 +88,8 @@ input {
   margin-top: 40%;
 }
 
+.ui-helper-hidden {
+  background-color: gray;
+}
+
 }

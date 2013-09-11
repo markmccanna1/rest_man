@@ -1,5 +1,8 @@
 class MenusController < ApplicationController
+  
+  before_filter :confirm_logged_in
   before_filter :authorize_restaurant, :except => [:show]
+  
   def new
   	@menu = Menu.new
   	render :partial => 'form'

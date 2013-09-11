@@ -1,5 +1,6 @@
 class CustomerProfilesController < ApplicationController
 
+  before_filter :confirm_logged_in, :except => [:new, :create]
   before_filter :authorize_customer, :except => [:new, :create]
 
   def index
@@ -22,7 +23,7 @@ class CustomerProfilesController < ApplicationController
   end
 
   def edit
-    @customer = CustomerProfile.find(params[:id])
+    @customer = CustomerProfile.find(session[:customer_profile_id])
   end
 
   def show
@@ -31,14 +32,15 @@ class CustomerProfilesController < ApplicationController
 
   def update
     @customer = CustomerProfile.find(params[:id])
-	  if @customer.update_attributes(email: params[:customer_profile][:email])
-	    redirect_to customer_profiles_url
+	  if @customer.update_attributes(params[:customer_profile])
+	    redirect_to customer_find_restaurant_profiles_url
 	  else
 	    render :edit
 	  end
   end
 
   def find
+    @customer = CustomerProfile.find(session[:customer_profile_id])
   end
 
   def search
