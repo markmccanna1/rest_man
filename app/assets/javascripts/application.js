@@ -347,17 +347,48 @@ $('document').ready(function() {
         $(draggee).draggable({containment: 'parent', drag: function(event, ui) {
         //   // console.log(table.drawing)
           var left = ui.position.left
-          var right = ui.position.top
+          var top = ui.position.top
+
+          console.log(left)
+          console.log(top)
         //   // console.log(event.target)
         //   //gets the x position of the group
         //   // console.log(table.group.attr('x'))
 
-          var position = table.group.node.attributes[1].value
-          console.log(position)
+        var id = table.group.attr('id')
 
-          var regex = /\d+/g
-          var result
-          console.log(regex.exec(position))
+        var draggee = document.getElementById(id)
+
+        var floorSize = FloorPlan.drawing.rbox()
+
+        // console.log(floorSize)
+        $(draggee).draggable({containment: '#floorplan', cursorAt: { left: 0, top: 0 },
+          drag: function(event, ui) {
+          // var position = table.group.node.attributes[1].value
+          console.log(ui)
+          console.log(event.target.attributes)
+          // table.group.transform({x: ui.position.left, y: ui.position.top})
+          } 
+        })
+
+        $(draggee).on('dragstop', function(event, ui) {
+          var left = ui.position.left
+          var top = ui.position.top
+          console.log(left)
+          console.log(top)
+          
+          // table.group.center(ui.position.left, ui.position.top)
+        })
+          // console.log(table.group.attr({'x' : left}))
+          // var position = table.group.node.attributes[1].value
+          // console.log(position)
+
+          // var regex = /(\d+)/g
+          // var result
+          // console.log(regex.exec(position))
+
+          //when they stop you should use the drag event for updating the visual
+          //use the stop event to update the position once more
           }
         }) 
 >>>>>>> using regex to get dragged position
