@@ -8,11 +8,13 @@
 @media (max-width: 600px){
 body{
   margin: 0;
-  background-color: grey;
+  background: url(rest.jpg) no-repeat center center fixed;
+  background-size: cover;
+  /*background-color: #E3DEC1;*/
 }
 
 header {
-  background-color: #d35d26;
+  background-color: #E3DEC9;
 }
 
 header h2 {
@@ -25,12 +27,13 @@ header .log-out {
   float: right;
 }
 
-.container{
-  background-color: #ba4c16;
-  width: 300px;
+.container {
+  background-color: #E3DEC1;
+  width: 400px;
   text-align: center;
-  margin: auto;
+  margin: 10% auto;
   border-radius: 10px;
+  opacity: .95;
 }
 
 a{
@@ -44,18 +47,45 @@ a{
 }
 
 .ui-input-search{
-  width: 200px;
-  margin-bottom: 10px;
+  height: 35px;
+  width: 250px;
+  margin-bottom: 30px;
 }
 
-.results{
-  background-color: white;
+input {
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.results li {
+  list-style-type: none;
+}
+
+.results a {
+  display: block;
+  /*list-style-type: none;*/
+  background-color: #f2d685;
+  font-weight: bold;
+  font-size: 24px;
   width: 200px;
   margin: auto;
   border-radius: 5px;
 }
 
-.restaurant_name{
+.restaurant_name {
   text-align: center;
 }
+
+.button {
+  background-color: #7e8f7c;
+  width: 200px;
+  height: 35px;
+  opacity: 1;
+}
+
+.find-restaurant {
+  margin-top: 40%;
+}
+
 }

@@ -4,5 +4,5 @@ class MenuItem < ActiveRecord::Base
   has_many :orders
   belongs_to :category
 
-  validates_presence_of :name, :description, :price, :category_id
+  validates_presence_of :name, :description, :price
 end

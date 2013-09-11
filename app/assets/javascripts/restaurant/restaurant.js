@@ -27,6 +27,11 @@ var newMenu = {
         $(".new-menu").append(response)
       })
     })
+  },
+  create: function(){
+    $('h1').on('submit', '.create-menu-form', function(e){
+      e.preventDefault();
+    })
   }
 }
 
