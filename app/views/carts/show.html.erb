@@ -24,15 +24,13 @@
   Order Status: Closed - (Order received and delivered to customer/processed)
   <% elsif @cart.status == "open"%>
   Please go back and confirm your order
+  <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <br>
   <% end %>
 </div>
 <% if session[:restaurant_profile_id] %>
 <br>
 <%= link_to "Close Out This Order", close_cart_path(@cart), method: :post %>
-<% else %>
-<br>
-<%= link_to "Confirm my order", edit_cart_path(@cart) %>
 <% end %>
 
 <nav class="customer_nav">

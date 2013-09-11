@@ -105,8 +105,14 @@ header .log-out {
     width: device-width;
 }
 
+@font-face {
+font-family: DeliciousRoman;
+src: url('Delicious-Roman.otf');
+}
+
 body{
   margin: 0;
+
  /* background: url(rest.jpg) no-repeat center center fixed;
   background-size: cover;*/
   /*background-color: #E3DEC1;*/
@@ -121,6 +127,7 @@ header h2 {
   margin-top: 0;
   display: inline;
   margin-left: 10px;
+
 }
 
 header .log-out {
@@ -225,12 +232,12 @@ li{
   overflow: hidden;
   margin: auto;
   border-radius: 10px;
+  border: 1px solid black;
 }
 
 .accordion .hidden_item {
   overflow: hidden;
   margin: auto;
-
 }
 
 .menu_item {
@@ -265,17 +272,22 @@ li{
 
 /* ============== CUSTOMER NAV ================= */
 
+.wrapper {
+  padding-bottom: 90px;
+}
 .customer_nav {
-  background-color: gray;
+  background-color: #34495e;
   height: 64px;
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 1;
 }
 
 .customer_nav ul{
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 .customer_nav ul li{
@@ -286,6 +298,10 @@ li{
 .right_option{
   float:right;
   border-left: 1px solid black;
+}
+
+.customer_nav a{
+  color: white;
 }
 
 }
