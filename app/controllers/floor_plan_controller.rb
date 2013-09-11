@@ -1,6 +1,7 @@
 class FloorPlanController < ApplicationController
 
 before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
+before_filter :confirm_logged_in
 
   def index
     @restaurant = RestaurantProfile.find(params[:restaurant_profile_id])

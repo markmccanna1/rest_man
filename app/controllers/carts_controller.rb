@@ -1,4 +1,7 @@
 class CartsController < ApplicationController
+  
+  before_filter :confirm_logged_in
+
   def index
     id = current_restaurant_profile.id
     @confirmed_carts = Cart.confirmed(id)
