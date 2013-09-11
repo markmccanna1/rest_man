@@ -36,7 +36,7 @@ var FloorPlan = {
       return element.drawing.attr('id') === id
     })
     return table[0]
-  }, 
+  },
 
   getChairById: function(id){
     var chairs = new Array()
@@ -66,7 +66,7 @@ function Chair(id, tableId) {
 
 Chair.prototype = {
   clickEvent: function(){
-    
+
   }
 }
 
@@ -132,7 +132,7 @@ function Table(id) {
 }
 
 Table.prototype = {
-  
+
   clickEvent: function(){
     var tableId = this.drawing.attr('id')
     var form = new Form(tableId)
@@ -176,7 +176,7 @@ var SaveButton = {
       })
       var token = $('meta[name="csrf-token"]').attr('content')
       $.post('/test', {authenticity_token: token, floorplan: SaveButton.tablesHash}
-      ) 
+      )
     })
   }
 }
@@ -192,21 +192,18 @@ $('document').ready(function() {
     $('body').on('click', 'ellipse', function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
-        // console.log(this.id) //ellipse id
-        // console.log(table) //js table object
         table.clickEvent()
         $('#form' + selectedItem).remove()
         selectedItem = this.id
-      } 
+      }
     })
     // alert('body')
     $('body').on("click", ".chair", function(e){
       alert('wtf')
-      // console.log(this)
       if(this.id != selectedItem){
         var chair = FloorPlan.getChairById(this.id)
         chair.clickEvent()
-      } 
+      }
     })
   }
 });

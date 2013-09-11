@@ -16,7 +16,7 @@ var Carts = {
       })
     })
   }
-} 
+}
 
 var newMenu = {
   init: function(){
@@ -29,10 +29,8 @@ var newMenu = {
     })
   },
   create: function(){
-    alert('ready')
     $('h1').on('submit', '.create-menu-form', function(e){
       e.preventDefault();
-      alert('click')
     })
   }
 }
