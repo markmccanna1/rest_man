@@ -62,7 +62,6 @@ function Chair(id, tableId, size) {
   this.tableId = tableId
   this.width = size
   this.height = size
-
   var table = FloorPlan.getTableById(this.tableId)
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
   this.drawing.draggable()
@@ -99,73 +98,217 @@ var AddTableButton = {
   }
 }
 
-function Form(tableId) {
-  this.tableId = tableId
-  this.addForeignObject()
+// function Form(tableId) {
+//   this.tableId = tableId
+//   // this.addForeignObject()
+// }
+
+// Form.prototype = {
+//   addForeignObject: function(){
+//     var table = FloorPlan.getTableById(this.tableId)
+    // $('#input_forms').append(this.form())
+//     $('#form' + this.tableId).append(this.changeTableSizeButtons(table))
+//     $('#form' + this.tableId).append(this.changeChairSizeButtons(table))
+//     $('#form' + this.tableId).append(this.deleteTableButton(table))
+//     this.increaseTableSizeEvent(table)
+//     this.decreaseTableSizeEvent(table)
+//     this.increaseChairSizeEvent(table)
+//     this.decreaseChairSizeEvent(table)
+//     this.deleteButtonEvent(table)
+//     this.submitEvent(this.tableId)
+//   },
+
+//   deleteTableButton: function(table){
+//     var button = '<button id="delete"> Delete Table </button>'
+//     return button
+//     // $('#' + chair.drawing.attr('id')).remove()
+//   },
+
+//   deleteButtonEvent: function(table){
+//     $('body').on('click', '#delete', function(event) {
+//       $('#group' + selectedItem).remove()
+//     })
+//   },
+
+//   form: function(tableId){
+//     var chairForm = '<div id="form'+ this.tableId + '">' + this.tableId + '<form> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>'
+//     return chairForm
+//   },
+
+//   changeTableSizeButtons: function(table){
+//     var buttons = 'Size of Table <button id="increase_t"> Increase </button> <button id="decrease_t"> Decrease </button>'
+//     return buttons
+//   },
+
+//   changeChairSizeButtons: function(table){
+//     var buttons = 'Size of Chairs <button id="increase_c"> Increase </button> <button id="decrease_c"> Decrease </button>'
+//     return buttons
+//   },
+
+//   increaseChairSizeEvent: function(table){
+//     $('#increase_c').on('click', function(event) {
+//       var width = table.chairSize
+//       var height = table.chairSize
+//       if (table.chairs != null) {
+//         $.each(table.chairs, function(key, chair) {
+//           chair.drawing.size(width + 2, height + 2)
+//         })
+//       }
+//       table.chairSize += 2
+//       table.placeChairs(table)
+//     })
+//   },
+
+//   decreaseChairSizeEvent: function(table){
+//     $('#decrease_c').on('click', function(event) {
+//       var width = table.chairSize
+//       var height = table.chairSize
+//       if (table.chairs != null) {
+//         $.each(table.chairs, function(key, chair) {
+//           chair.drawing.size(width - 2, height - 2)
+//         })
+//       }
+//       table.chairSize -= 2
+//       table.placeChairs(table)
+//     })
+//   },
+
+
+//   tableSizeEvents: function(){
+//     this.increaseTableSizeEvent()
+//     this.decreaseTableSizeEvent()
+//   },
+
+//   increaseTableSizeEvent: function(table){
+//     $('body').on('click', '#increase_t', function(event) {
+//       var width = table.width
+//       var height = table.height
+//       table.drawing.size(width + 10, height + 10)
+//       table.width += 10
+//       table.height += 10
+//       table.placeChairs(table)
+//     })
+//   },
+
+//   decreaseTableSizeEvent: function(table){
+//     $('body').on('click', '#decrease_t', (function(event) {
+//       var width = table.width
+//       var height = table.height
+//       table.drawing.size(width - 10, height - 10)
+//       table.width -= 10
+//       table.height -= 10
+//       table.placeChairs(table)
+//     })
+//   },
+
+//   submitEvent: function(tableId){
+//     $('#form' + this.tableId).submit(function(event){
+//       event.preventDefault()
+//       numChairs = $('#numChairs').val()
+//       var table = FloorPlan.getTableById(tableId)
+//       table.createChairs(numChairs)
+//     })
+//   }
+// }
+
+function Table(id) {
+  this.width = 100
+  this.height = 100
+  this.drawing = FloorPlan.drawing.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
+  this.drawing.stroke({color: 'black', width: 2})
+  this.drawing.center(100, 150)
+  this.group = FloorPlan.drawing.group()
+  this.group.attr({id: 'grouptable' + id})
+  this.group.add(this.drawing)
+  console.log(this.group)
+  this.id = 'table' + id
+  this.chairSize = 28
+  FloorPlan.tableGroups.push(this.group)
 }
 
-Form.prototype = {
-  addForeignObject: function(){
-    var table = FloorPlan.getTableById(this.tableId)
-    $('#input_forms').append(this.form())
-    $('#form' + this.tableId).append(this.changeTableSizeButtons(table))
-    $('#form' + this.tableId).append(this.changeChairSizeButtons(table))
-    $('#form' + this.tableId).append(this.deleteTableButton(table))
-    this.increaseTableSizeEvent(table)
-    this.decreaseTableSizeEvent(table)
-    this.increaseChairSizeEvent(table)
-    this.decreaseChairSizeEvent(table)
-    this.deleteButtonEvent(table)
-    this.submitEvent(this.tableId)
+Table.prototype = {
+
+  //method for adding forms to the sidebar
+  clickEvent: function(){
+    this.appendAddChairsButton()
+    // $('#input_forms').append('<div id="form'+ this.id + '">' + this.id + '<form> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>')
+    // var chairForm = '<div id="form'+ tableId + '">' + tableId + '<form> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>'
+    this.appendTableSizeButtons()
+    this.appendChairSizeButtons()
+    //add forms here somehow
+    // var tableMenu = new Form(tableId)
+    this.appendDeleteButton()
   },
 
-  deleteTableButton: function(table){
-    var button = '<button id="delete"> Delete Table </button>'
-    return button
-    // $('#' + chair.drawing.attr('id')).remove()
+  appendTableSizeButtons: function(){
+    $('#form' + this.id).append('Size of Table <button id="increase_t"> Increase </button> <button id="decrease_t"> Decrease </button>')
+    this.tableIncreaseEvent()
+    this.tableDecreaseEvent()
   },
 
-  deleteButtonEvent: function(table){
-    $('#delete').on('click', function(event) {
+  tableIncreaseEvent: function(){
+    var table = this
+    $('#increase_t').on('click', function(event) {
+      console.log(table)
+      var width = table.width
+      var height = table.height
+      table.drawing.size(width + 10, height + 10)
+      table.width += 10
+      table.height += 10
       if (table.chairs != null) {
-        $.each(table.chairs, function(index, chair) {
-          $('#' + chair.drawing.attr('id')).remove()
-        })
+        table.placeChairs(table)
       }
-    $('#' + table.drawing.attr('id')).remove()
     })
   },
 
-  form: function(tableId){
-    var chairForm = '<div id="form'+ this.tableId + '">' + this.tableId + '<form> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>'
-    return chairForm
-  },
-
-  changeTableSizeButtons: function(table){
-    var buttons = 'Size of Table <button id="increase_t"> Increase </button> <button id="decrease_t"> Decrease </button>'
-    return buttons
-  },
-
-  changeChairSizeButtons: function(table){
-    var buttons = 'Size of Chairs <button id="increase_c"> Increase </button> <button id="decrease_c"> Decrease </button>'
-    return buttons
-  },
-
-  increaseChairSizeEvent: function(table){
-    $('#increase_c').on('click', function(event) {
-      var width = table.chairSize
-      var height = table.chairSize
+  tableDecreaseEvent: function(){
+    var table = this
+    $('#decrease_t').on('click', function(event) {
+      console.log(table)
+      var width = table.width
+      var height = table.height
+      table.drawing.size(width - 10, height - 10)
+      table.width -= 10
+      table.height -= 10
       if (table.chairs != null) {
-        $.each(table.chairs, function(key, chair) {
-          chair.drawing.size(width + 2, height + 2)
-        })
+        table.placeChairs(table)
       }
-      table.chairSize += 2
-      table.placeChairs(table)
     })
   },
 
-  decreaseChairSizeEvent: function(table){
+  //   submitEvent: function(tableId){
+  //   $('#form' + this.tableId).submit(function(event){
+  //     event.preventDefault()
+  //     numChairs = $('#numChairs').val()
+  //     var table = FloorPlan.getTableById(tableId)
+  //     table.createChairs(numChairs)
+  //   })
+  // }
+
+  appendAddChairsButton: function(){
+    $('#input_forms').append('<div id="form'+ this.id + '">' + this.id + '<form id="chairsForm"> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>')
+    this.addChairsEvent()
+  },
+
+  addChairsEvent: function(){
+    var id = this.id
+    $('#chairsForm').submit(function(event){
+      event.preventDefault()
+      numChairs = $('#numChairs').val()
+      var table = FloorPlan.getTableById(id)
+      table.createChairs(numChairs)
+    })
+  },
+
+  appendChairSizeButtons: function(){
+    console.log(this.id)
+    $('#form' + this.id).append('Size of Chairs <button id="increase_c"> Increase </button> <button id="decrease_c"> Decrease </button>')
+    this.chairIncreaseEvent()
+    this.chairDecreaseEvent()
+  },
+
+  chairDecreaseEvent: function(){
+    var table = this
     $('#decrease_c').on('click', function(event) {
       var width = table.chairSize
       var height = table.chairSize
@@ -179,35 +322,34 @@ Form.prototype = {
     })
   },
 
-  increaseTableSizeEvent: function(table){
-    $('#increase_t').on('click', function(event) {
-      var width = table.width
-      var height = table.height
-      table.drawing.size(width + 10, height + 10)
-      table.width += 10
-      table.height += 10
+  chairIncreaseEvent: function(){
+    var table = this
+    $('#increase_c').on('click', function(event) {
+      var width = table.chairSize
+      var height = table.chairSize
+      if (table.chairs != null) {
+        $.each(table.chairs, function(key, chair) {
+          chair.drawing.size(width + 2, height + 2)
+        })
+      }
+      table.chairSize += 2
       table.placeChairs(table)
     })
+
   },
 
-  decreaseTableSizeEvent: function(table){
-    $('#decrease_t').click(function(event) {
-      var width = table.width
-      var height = table.height
-      table.drawing.size(width - 10, height - 10)
-      table.width -= 10
-      table.height -= 10
-      table.placeChairs(table)
-    })
+  appendDeleteButton: function(){
+    $('#form' + this.id).append('<button id="delete"> Delete Table </button>')
+    this.deleteButtonEvent()
   },
 
-  submitEvent: function(tableId){
-    $('#form' + this.tableId).submit(function(event){
-      event.preventDefault()
-      numChairs = $('#numChairs').val()
-      var table = FloorPlan.getTableById(tableId)
-      table.createChairs(numChairs)
+  deleteButtonEvent: function(){
+    var id = this.id
+    $('#delete').on('click', function(event) {
+      $('#group' + id).remove()
+      $('#form' + id).remove()
     })
+<<<<<<< HEAD
   }
 }
 
@@ -236,6 +378,12 @@ Table.prototype = {
   clickEvent: function(){
     var tableId = this.drawing.attr('id')
     var tableMenu = new Form(tableId)
+=======
+  },
+
+  removeForms: function(){
+    //triggered when the item is deselected
+>>>>>>> enchanced OO, forms are now part of the table class
   },
 
   returnChairs: function(){
@@ -318,42 +466,14 @@ var SaveButton = {
   }
 }
 
-
-var CreateBorder = {
-  // var table = FloorPlan.getTableById(this.tableId)
-  init: function() {
-    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
-    foreignObject.setAttribute('x', 0)
-    foreignObject.setAttribute('y', 0)
-    foreignObject.setAttribute('width', '100%')
-    foreignObject.setAttribute('height', '100%')
-    foreignObject.setAttribute('id', 'foreignBorder')
-    var body = document.createElement('body')
-
-    $(body).append(this.border())
-    // console.log('#form' + this.tableId)
-    $(foreignObject).append(body)
-
-    document.getElementById('floor').appendChild( foreignObject )
-
-    // document.getElementById('svg_' + this.tableId ).appendChild( foreignObject )
-    // this.submitEvent(this.tableId)
-  },
-
-  border: function(){
-    var border = '<div id="border"> </div>'
-    return border
-  }
-}
-
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
     AddTableButton.init()
     SaveButton.init()
-    CreateBorder.init()
+
     var selectedItem = null
-    var nested = FloorPlan.drawing.nested()
+    // var nested = FloorPlan.drawing.nested()
     $('body').on('click', 'ellipse', function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
@@ -365,14 +485,13 @@ $('document').ready(function() {
 <<<<<<< HEAD
 =======
 
-        // $('ellipse').draggable()
-        //= require svg.draggable
-
         var id = table.group.attr('id')
 
         var draggee = document.getElementById(id)
-        // $(draggee).draggable()
-        $(draggee).draggable({containment: 'parent', drag: function(event, ui) {
+        // $(draggee).draggable(
+
+
+        $(draggee).draggable({containment: '#floor', drag: function(event, ui) {
           var left = ui.position.left
           var top = ui.position.top
           var id = table.group.attr('id')
@@ -380,13 +499,33 @@ $('document').ready(function() {
           var draggee = document.getElementById(id)
 
           var floorSize = FloorPlan.drawing.rbox()
+          var width = floorSize.width
+          var height = floorSize.height
 
-        $(draggee).draggable({containment: '#floorplan',
+        $(draggee).draggable({containment: '#floor', cursorAt: { left: 0, top: 0 },
           drag: function(event, ui) {
           // var position = table.group.node.attributes[1].value
-          console.log(ui)
-          console.log(event.target.attributes)
+          // console.log(ui.position.left)
+          // console.log(ui.position.top)
+          // console.log(event.target.attributes)
+          var position = table.group.node.attributes[1].value
+          // console.log(position)
+
+          // var regex = /(\d+)/
+          // var result
+          // console.log(regex.exec(positio)
+
+          table.group.center({x: ui.position.left, y: ui.position.top})
+
+          // if (ui.position.left >= width) {
+          //   table.group.center({x: width, y: ui.position.top})
+          // }
+
+          // if (ui.position.top >= height) {
+          //   table.group.center({x: ui.position.left, y: height})
+          // }
           // table.group.transform({x: ui.position.left, y: ui.position.top})
+
           } 
         })
 
@@ -398,16 +537,6 @@ $('document').ready(function() {
           
           // table.group.center(ui.position.left, ui.position.top)
         })
-          // console.log(table.group.attr({'x' : left}))
-          // var position = table.group.node.attributes[1].value
-          // console.log(position)
-
-          // var regex = /(\d+)/g
-          // var result
-          // console.log(regex.exec(position))
-
-          //when they stop you should use the drag event for updating the visual
-          //use the stop event to update the position once more
           }
         }) 
 >>>>>>> using regex to get dragged position
