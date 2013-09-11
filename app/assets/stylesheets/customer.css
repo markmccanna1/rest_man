@@ -45,21 +45,55 @@ header .log-out {
   margin-left: 0px;
 }
 
+.order_list{
+  padding: 20px 10px;
+  margin: 10px;
+}
 .order{
   background-color: red;
   padding: 20px;
   border-radius: 20px;
   width: 300px;
   list-style-type: none;
+  margin: auto;
   margin-bottom: 5px;
   border-style: inset;
   border-color: gray;
   border-width: 5px;
+  text-align: center;
+}
+
+.order a{
+  text-decoration: none;
+  color: white;
+}
+
+.container{
+  margin: auto;
+  border-style: inset;
+  border-color: gray;
+  border-width: 5px;
+  width: 400px;
+  background-color: #E3DEC1;
+}
+
+.seat_order {
+  text-align: center;
+  padding-left: 0;
+}
+
+.seat_order li{
+  display: inline;
+  list-style-type: none;
+  padding: 15px;
+  margin-right: 10px;
+  width: 300px;
 }
 
 #floor {
   border: 2px solid black;
   margin: 10px;
+  background-color: #487075;
 }
 }
 
