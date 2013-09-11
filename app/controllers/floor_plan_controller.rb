@@ -46,7 +46,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
           table.seats.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key, floor_plan_id: @floorplan.id)
         end
       end
-    render :js => "window.location.href = '#{floor_plan_url}'"
+    render :js => "window.location.href = '#{floor_plan_url(@floorplan)}'"
   end
 
   def get_floor_plan

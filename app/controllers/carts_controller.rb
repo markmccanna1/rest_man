@@ -39,7 +39,7 @@ class CartsController < ApplicationController
     @cart.orders.each do |order|
       order.update_attributes(status:"confirmed")
     end
-    redirect_to restaurant_profile_url(@cart.restaurant_profile_id)
+    redirect_to cart_url(@cart)
   end
 
   def close
