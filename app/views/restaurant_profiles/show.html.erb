@@ -1,30 +1,41 @@
-<h1 class="restaurant_name"><%= @restaurant.menus.first.title %></h1>
-
 <div data-role="page" id="page2">
     <div data-role="content">
         <div data-role="collapsible-set">
             <div data-role="collapsible" data-collapsed="false">
-                <ul class="accordion">
-                <h3>
-                    <%= @restaurant.menus.last.categories.last.title %>
-                </h3>
+                <ul>
                     <%= form_tag("/orders", :method => "post") do%>
-                      <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
-                      <% @restaurant.menus.last.categories.last.menu_items.each do |item| %>
-                        <li><%= item.name %></li>
-                        <p><%= item.description %></p>
-                        <p><%= item.price %></p>
-                        <%= check_box_tag "item_ids[]", item.id%>
-                        <%= label_tag :order_item, "Order this Item!" %>
-                      <% end %>
-                        <br>
-                        <br>
-                        <%= submit_tag("Submit Order", :class => "btn btn-success") %>
+                    <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
+                    <% @restaurant.menus.each do |menu| %>
+                    <h1><%= menu.title %></h1>
+                    <% menu.categories.each do |category| %>
+                    <section class="accordion">
+                        <a href="#<%= category.title %>" id="<%= category.title %>">
+                            <h2><%= category.title %></h2>
+                        </a>
+                        <div class="hidden_item">
+                        <% category.menu_items.each do |item| %>
+                            <div>
+                                <li><%= item.name %></li>
+                                <p><%= item.description %></p>
+                                <p><%= item.price %></p>
+                                <p>
+                                    <%= check_box_tag "item_ids[]", item.id%>
+                                    <%= label_tag :order_item, "Order this Item!" %>
+                                </p>
+                            </div>
+                        <% end %>
+                        </div>
+                    </section>
+                    <% end %>
+                    <% end %>
+                    <br>
+                    <br>
+                    <%= submit_tag("Submit Order", :class => "btn btn-success") %>
                     <% end %>
                 </ul>
             </div>
             <% if @cart %>
-                <%= link_to "My cart", cart_url(@cart) %>
+            <%= link_to "My cart", cart_url(@cart) %>
             <% end %>
         </div>
     </div>
