@@ -319,11 +319,39 @@ var SaveButton = {
 }
 
 
+var CreateBorder = {
+  // var table = FloorPlan.getTableById(this.tableId)
+  init: function() {
+    var foreignObject = document.createElementNS( 'http://www.w3.org/2000/svg','foreignObject' );
+    foreignObject.setAttribute('x', 0)
+    foreignObject.setAttribute('y', 0)
+    foreignObject.setAttribute('width', '100%')
+    foreignObject.setAttribute('height', '100%')
+    foreignObject.setAttribute('id', 'foreignBorder')
+    var body = document.createElement('body')
+
+    $(body).append(this.border())
+    // console.log('#form' + this.tableId)
+    $(foreignObject).append(body)
+
+    document.getElementById('floor').appendChild( foreignObject )
+
+    // document.getElementById('svg_' + this.tableId ).appendChild( foreignObject )
+    // this.submitEvent(this.tableId)
+  },
+
+  border: function(){
+    var border = '<div id="border"> </div>'
+    return border
+  }
+}
+
 $('document').ready(function() {
   if($('#floorplan').length){
     FloorPlan.init()
     AddTableButton.init()
     SaveButton.init()
+    CreateBorder.init()
     var selectedItem = null
     var nested = FloorPlan.drawing.nested()
     $('body').on('click', 'ellipse', function(e){
@@ -345,24 +373,15 @@ $('document').ready(function() {
         var draggee = document.getElementById(id)
         // $(draggee).draggable()
         $(draggee).draggable({containment: 'parent', drag: function(event, ui) {
-        //   // console.log(table.drawing)
           var left = ui.position.left
           var top = ui.position.top
+          var id = table.group.attr('id')
 
-          console.log(left)
-          console.log(top)
-        //   // console.log(event.target)
-        //   //gets the x position of the group
-        //   // console.log(table.group.attr('x'))
+          var draggee = document.getElementById(id)
 
-        var id = table.group.attr('id')
+          var floorSize = FloorPlan.drawing.rbox()
 
-        var draggee = document.getElementById(id)
-
-        var floorSize = FloorPlan.drawing.rbox()
-
-        // console.log(floorSize)
-        $(draggee).draggable({containment: '#floorplan', cursorAt: { left: 0, top: 0 },
+        $(draggee).draggable({containment: '#floorplan',
           drag: function(event, ui) {
           // var position = table.group.node.attributes[1].value
           console.log(ui)
