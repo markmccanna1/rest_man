@@ -45,7 +45,7 @@ class CustomerProfilesController < ApplicationController
 
   def search
     queries = params[:query].split.map {|term| "%#{term}%" }
-    sql = "restaurant_name LIKE ? OR city LIKE ? OR state LIKE?" 
+    sql = "restaurant_name LIKE ? OR city LIKE ? OR state LIKE?"
     queries.each do |query|
      @restaurants = RestaurantProfile.where([sql, query, query, query])
     end

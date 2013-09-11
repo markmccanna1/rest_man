@@ -16,6 +16,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
   end
 
   def show
+    puts session[:customer_profile_id]
     if current_restaurant_profile
       @floor_plan = FloorPlan.find(current_restaurant_profile.floor_plan.id)
     else
