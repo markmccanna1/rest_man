@@ -1,20 +1,11 @@
-@media (min-width: 600px) and (max-width: 960px){
-  .container{
-    background-color: green;
-  }
-}
-
-
-@media (max-width: 600px){
+@media (min-width: 600px){
 body{
   margin: 0;
-  background: url(rest.jpg) no-repeat center center fixed;
-  background-size: cover;
-  /*background-color: #E3DEC1;*/
 }
 
 header {
   background-color: #E3DEC9;
+  height: 35px;
 }
 
 header h2 {
@@ -27,9 +18,129 @@ header .log-out {
   float: right;
 }
 
+.logout{
+  line-height: 35px;
+}
+
+.title{
+  text-align: center;
+}
+
+.restaurant_nav{
+  text-align: center;
+  padding-left: 0;
+}
+
+.restaurant_nav li{
+  display: inline;
+  list-style-type: none;
+  padding: 10px;
+  background-color: orange;
+  border: 1px solid black;
+}
+
+.restaurant_nav li a{
+  text-decoration: none;
+  color: black;
+  margin-left: 0px;
+}
+
+.order_list{
+  padding: 20px 10px;
+  margin: 10px;
+}
+.order{
+  background-color: red;
+  padding: 20px;
+  border-radius: 20px;
+  width: 300px;
+  list-style-type: none;
+  margin: auto;
+  margin-bottom: 5px;
+  border-style: inset;
+  border-color: gray;
+  border-width: 5px;
+  text-align: center;
+}
+
+.order a{
+  text-decoration: none;
+  color: white;
+}
+
+.container{
+  margin: auto;
+  border-style: inset;
+  border-color: gray;
+  border-width: 5px;
+  width: 400px;
+  background-color: #E3DEC1;
+}
+
+.seat_order {
+  text-align: center;
+  padding-left: 0;
+}
+
+.seat_order li{
+  display: inline;
+  list-style-type: none;
+  padding: 15px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+#floor {
+  border: 2px solid black;
+  margin: 10px;
+  background-color: #487075;
+}
+}
+
+/* ============MOBILE ===================*/
+
+@media (max-width: 600px){
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+}
+
+@font-face {
+font-family: DeliciousRoman;
+src: url('Delicious-Roman.otf');
+}
+
+body{
+  margin: 0;
+
+ /* background: url(rest.jpg) no-repeat center center fixed;
+  background-size: cover;*/
+  /*background-color: #E3DEC1;*/
+}
+
+header {
+  background-color: #E3DEC9;
+  height: 35px;
+}
+
+header h2 {
+  margin-top: 0;
+  display: inline;
+  margin-left: 10px;
+
+}
+
+header .log-out {
+  float: right;
+}
+
+.logout{
+  line-height: 35px;
+}
+
 .container {
   background-color: #E3DEC1;
-  width: 400px;
+  width: 300px;
   text-align: center;
   margin: 10% auto;
   border-radius: 10px;
@@ -64,7 +175,7 @@ input {
 
 .results a {
   display: block;
-  /*list-style-type: none;*/
+  list-style-type: none;
   background-color: #f2d685;
   font-weight: bold;
   font-size: 24px;
@@ -84,12 +195,115 @@ input {
   opacity: 1;
 }
 
+
+
 .find-restaurant {
   margin-top: 40%;
 }
 
 .ui-helper-hidden {
   background-color: gray;
+
+ul {
+  padding-left: 0;
+}
+
+li{
+  list-style-type: none;
+  padding: 5px;
+}
+
+.submit{
+  margin: auto;
+}
+
+
+/* *************** MENU ************** */
+
+.hidden_item {
+      display:none;
+    }
+    :target + .hidden_item {
+      display: inline-block;
+    }
+
+.accordion {
+  width: 300px;
+  color: black;
+  background-color: #E3DEC1;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.accordion .hidden_item {
+  overflow: hidden;
+  margin: auto;
+}
+
+.menu_item {
+  display: inline-block;
+  text-align: left;
+  margin-top: 0;
+}
+
+.menu_div{
+  float: left;
+  clear: both;
+}
+
+.checkbox {
+  float: right;
+  padding-top: 15px;
+  padding-right: 5px;
+  margin-left: 15px;
+}
+
+.submit{
+  text-align: center;
+}
+
+.category_name{
+  text-align: center;
+}
+
+.item{
+  float:left;
+}
+
+/* ============== CUSTOMER NAV ================= */
+
+.wrapper {
+  padding-bottom: 90px;
+}
+.customer_nav {
+  background-color: #34495e;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.customer_nav ul{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.customer_nav ul li{
+  font-size: 24px;
+  width: 50%;
+  display: inline;
+}
+.right_option{
+  float:right;
+  border-left: 1px solid black;
+}
+
+.customer_nav a{
+  color: white;
 }
 
 }
