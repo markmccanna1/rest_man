@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910210200) do
+ActiveRecord::Schema.define(:version => 20130911133737) do
 
   create_table "carts", :force => true do |t|
     t.integer  "customer_profile_id"
@@ -21,10 +21,15 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.datetime "updated_at",                                :null => false
   end
 
+  add_index "carts", ["customer_profile_id"], :name => "index_carts_on_customer_profile_id"
+  add_index "carts", ["restaurant_profile_id"], :name => "index_carts_on_restaurant_profile_id"
+
   create_table "categories", :force => true do |t|
     t.string  "title"
     t.integer "menu_id"
   end
+
+  add_index "categories", ["menu_id"], :name => "index_categories_on_menu_id"
 
   create_table "customer_profiles", :force => true do |t|
     t.string   "zip_code"
@@ -38,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.datetime "updated_at",            :null => false
   end
 
+  add_index "floor_plans", ["restaurant_profile_id"], :name => "index_floor_plans_on_restaurant_profile_id"
+
   create_table "menu_items", :force => true do |t|
     t.string   "name",        :null => false
     t.string   "description"
@@ -47,10 +54,14 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "menu_items", ["category_id"], :name => "index_menu_items_on_category_id"
+
   create_table "menus", :force => true do |t|
     t.string  "title"
     t.integer "restaurant_profile_id"
   end
+
+  add_index "menus", ["restaurant_profile_id"], :name => "index_menus_on_restaurant_profile_id"
 
   create_table "orders", :force => true do |t|
     t.string   "status",       :default => "pending"
@@ -59,6 +70,10 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
   end
+
+  add_index "orders", ["cart_id"], :name => "index_orders_on_cart_id"
+  add_index "orders", ["menu_item_id"], :name => "index_orders_on_menu_item_id"
+  add_index "orders", ["status"], :name => "index_orders_on_status"
 
   create_table "restaurant_profiles", :force => true do |t|
     t.string   "restaurant_name"
@@ -72,8 +87,12 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.string   "zip_code"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
-    t.datetime "last_cart_processed_at",    :default => '2013-09-11 02:21:34'
+    t.datetime "last_cart_processed_at",    :default => '2013-09-11 13:53:12'
   end
+
+  add_index "restaurant_profiles", ["city"], :name => "index_restaurant_profiles_on_city"
+  add_index "restaurant_profiles", ["restaurant_name"], :name => "index_restaurant_profiles_on_restaurant_name"
+  add_index "restaurant_profiles", ["state"], :name => "index_restaurant_profiles_on_state"
 
   create_table "seats", :force => true do |t|
     t.integer  "customer_profile_id"
@@ -88,6 +107,10 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.integer  "floor_plan_id"
   end
 
+  add_index "seats", ["customer_profile_id"], :name => "index_seats_on_customer_profile_id"
+  add_index "seats", ["floor_plan_id"], :name => "index_seats_on_floor_plan_id"
+  add_index "seats", ["html_id"], :name => "index_seats_on_html_id"
+
   create_table "tables", :force => true do |t|
     t.integer  "floor_plan_id"
     t.datetime "created_at",    :null => false
@@ -98,6 +121,9 @@ ActiveRecord::Schema.define(:version => 20130910210200) do
     t.string   "height"
     t.string   "html_id"
   end
+
+  add_index "tables", ["floor_plan_id"], :name => "index_tables_on_floor_plan_id"
+  add_index "tables", ["html_id"], :name => "index_tables_on_html_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
