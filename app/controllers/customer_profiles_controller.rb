@@ -1,6 +1,6 @@
 class CustomerProfilesController < ApplicationController
 
-  before_filter :confirm_logged_in
+  before_filter :confirm_logged_in, :except => [:new, :create]
   before_filter :authorize_customer, :except => [:new, :create]
 
   def index

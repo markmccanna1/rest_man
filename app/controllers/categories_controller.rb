@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
 
 before_filter :confirm_logged_in
-before_filter :authorize_restaurant, :except => [:show]
+before_filter :authorize_restaurant
  
  def import
    @menu = Menu.find(params[:id])
