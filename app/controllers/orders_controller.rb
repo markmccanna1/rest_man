@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  
+  before_filter :confirm_logged_in
+  
   def new
     @order = Order.new
   end

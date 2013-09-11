@@ -1,4 +1,5 @@
 <div class="find-restaurant" data-role="page" id="page1">
+    <p><%= link_to "Edit Profile", edit_customer_profile_url(@customer) %></p>
 
     <div class="search" data-role="content">
         <form action="/customer_profiles/find/" method ="get" id="search_form">

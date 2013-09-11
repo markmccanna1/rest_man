@@ -1,5 +1,6 @@
 class SeatsController < ApplicationController
 
+  before_filter :confirm_logged_in
   before_filter :authorize_customer
 
   def check_in

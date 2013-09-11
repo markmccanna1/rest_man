@@ -1,22 +1,7 @@
 class FloorPlanController < ApplicationController
 
+before_filter :confirm_logged_in
 before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
-
-  def index
-    @restaurant = RestaurantProfile.find(params[:restaurant_profile_id])
-    seats = @restaurant.floor_plan.tables.first.seats
-    taken_seats = []
-    seats.each do |seat|
-      if seat.customer_profile_id != nil
-        taken_seats << seat
-      end
-    end 
-    respond_to do |format|
-      format.html
-      msg = {seats: taken_seats}
-      format.json {render :json => msg}
-    end
-  end
 
   def new
     @floor_plan = FloorPlan.new

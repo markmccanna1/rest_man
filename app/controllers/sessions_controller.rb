@@ -9,8 +9,7 @@ class SessionsController < ApplicationController
       if @user.profileable_type == "CustomerProfile"
         session[:customer_profile_id] = @user.profileable_id
         redirect_to customer_find_restaurant_profiles_url
-      else
-        @user.profileable_type == "RestaurantProfile"
+      elsif @user.profileable_type == "RestaurantProfile"
         session[:restaurant_profile_id] = @user.profileable.id
         redirect_to restaurant_dashboard_url
       end

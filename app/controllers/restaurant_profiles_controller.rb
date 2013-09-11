@@ -1,5 +1,6 @@
 class RestaurantProfilesController < ApplicationController
 
+  before_filter :confirm_logged_in, :except => [:new, :create]
   before_filter :authorize_restaurant, :except => [:new, :create, :show, :find, :search]
 
   def index
@@ -16,7 +17,7 @@ class RestaurantProfilesController < ApplicationController
     @user = User.new(params[:user])
     if @restaurant.save
       session[:restaurant_profile_id] = @restaurant.id
-      redirect_to customer_find_restaurant_profiles_url
+      redirect_to restaurant_dashboard_url
     else
       render :new
     end
@@ -29,6 +30,19 @@ class RestaurantProfilesController < ApplicationController
     @restaurant = RestaurantProfile.find(params[:id])
     @menu = @restaurant.menus.first
     @order = Order.new
+  end
+
+  def edit
+    @restaurant = RestaurantProfile.find(session[:restaurant_profile_id])
+  end
+
+  def update
+    @restaurant = RestaurantProfile.find(params[:id])
+    if @restaurant.update_attributes(params[:restaurant_profile])
+      redirect_to restaurant_dashboard_url
+    else
+      render :edit
+    end
   end
 
   def dashboard

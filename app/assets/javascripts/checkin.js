@@ -9,9 +9,20 @@ $(document).ready(function(){
         $(this).attr('rect[class="seat"]');
     }
     if ($(this).closest('rect').attr('class') === 'seat'){
-        $.post('/check_in', {seat_id: seat_id, url_id: url_id, authenticity_token: token})
-        confirm('Are you sure you want to sit here')
-        $(this).attr('class', 'taken');
+
+        $('#dialog').dialog({
+          autoOpen: false, width: 400, resizable: false, modal: true,
+          buttons: {
+            "Confirm" : function(){
+              $.post('/check_in', {seat_id: seat_id, url_id: url_id, authenticity_token: token})
+              $(this).attr('class', 'taken');
+            },
+            "Cancel" : function(){
+              $(this).dialog("close");
+            }
+          }
+        });
+       $('#dialog').dialog('open');
     }
   });
 
