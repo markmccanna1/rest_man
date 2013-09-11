@@ -23,7 +23,8 @@ class CustomerProfilesController < ApplicationController
   end
 
   def edit
-    @customer = CustomerProfile.find(params[:id])
+    @customer = CustomerProfile.find(session[:customer_profile_id])
+    puts @customer
   end
 
   def show
@@ -40,6 +41,7 @@ class CustomerProfilesController < ApplicationController
   end
 
   def find
+    @customer = CustomerProfile.find(session[:customer_profile_id])
   end
 
   def search
