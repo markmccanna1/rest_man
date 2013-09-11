@@ -88,8 +88,8 @@ input {
   margin-top: 40%;
 }
 
-#dialog {
-  display: none;
+.ui-helper-hidden {
+  background-color: gray;
 }
 
 }
