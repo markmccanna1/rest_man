@@ -44,6 +44,23 @@ header .log-out {
   color: black;
   margin-left: 0px;
 }
+
+.order{
+  background-color: red;
+  padding: 20px;
+  border-radius: 20px;
+  width: 300px;
+  list-style-type: none;
+  margin-bottom: 5px;
+  border-style: inset;
+  border-color: gray;
+  border-width: 5px;
+}
+
+#floor {
+  border: 2px solid black;
+  margin: 10px;
+}
 }
 
 /* ============MOBILE ===================*/
