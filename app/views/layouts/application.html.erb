@@ -14,7 +14,7 @@
     <h2>RestMan</h2>
     <% if current_customer_profile || current_restaurant_profile %>
       <div class="log-out">
-        <span><%= link_to "Log Out", logout_path, method: :post%></span>
+        <span><%= link_to "Log Out", logout_path, method: :post, :class => "logout"%></span>
       </div>
     <% end %>
   </header>

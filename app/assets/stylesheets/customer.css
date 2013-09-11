@@ -20,6 +20,7 @@ body{
 
 header {
   background-color: #E3DEC9;
+  height: 35px;
 }
 
 header h2 {
@@ -30,6 +31,10 @@ header h2 {
 
 header .log-out {
   float: right;
+}
+
+.logout{
+  line-height: 35px;
 }
 
 .container {
@@ -173,6 +178,20 @@ li{
   position: fixed;
   bottom: 0;
   left: 0;
+}
+
+.customer_nav ul{
+  margin-top: 0;
+}
+
+.customer_nav ul li{
+  font-size: 24px;
+  width: 50%;
+  display: inline;
+}
+.right_option{
+  float:right;
+  border-left: 1px solid black;
 }
 
 }
