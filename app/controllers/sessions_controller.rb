@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
         redirect_to restaurant_dashboard_url
       end
     else
-      render 'new'
+      flash[:notice] = "Invalid username or password."
+      render "new"
     end
   end
 
