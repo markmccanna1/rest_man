@@ -224,7 +224,8 @@ function Table(id) {
   this.group = FloorPlan.drawing.group()
   this.group.attr({id: 'groupTable' + id})
   this.group.add(this.drawing)
-  this.group.draggable()
+  // this.group.draggable()
+  console.log(this.group)
   this.chairSize = 28
   FloorPlan.tableGroups.push(this.group)
   this.drawing.click(this.ClickEvent)
@@ -329,8 +330,37 @@ $('document').ready(function() {
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
         table.clickEvent()
+        // console.log(table.drawing.group())
+        // $('#' + table.drawing.attr('id')).draggable()
         $('#form' + selectedItem).remove()
         selectedItem = this.id
+<<<<<<< HEAD
+=======
+
+        // $('ellipse').draggable()
+        //= require svg.draggable
+
+        var id = table.group.attr('id')
+
+        var draggee = document.getElementById(id)
+        // $(draggee).draggable()
+        $(draggee).draggable({containment: 'parent', drag: function(event, ui) {
+        //   // console.log(table.drawing)
+          var left = ui.position.left
+          var right = ui.position.top
+        //   // console.log(event.target)
+        //   //gets the x position of the group
+        //   // console.log(table.group.attr('x'))
+
+          var position = table.group.node.attributes[1].value
+          console.log(position)
+
+          var regex = /\d+/g
+          var result
+          console.log(regex.exec(position))
+          }
+        }) 
+>>>>>>> using regex to get dragged position
       }
     })
     // alert('body')
