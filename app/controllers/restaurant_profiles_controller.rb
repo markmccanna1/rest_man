@@ -53,7 +53,7 @@ class RestaurantProfilesController < ApplicationController
   def carts
     time = current_restaurant_profile.last_cart_processed_at
     id = current_restaurant_profile.id
-    @carts = locate(time, id)
+    @carts = Cart.locate(time, id)
     render :json => {carts: @carts}
   end
 end

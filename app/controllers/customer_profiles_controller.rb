@@ -10,7 +10,7 @@ class CustomerProfilesController < ApplicationController
     @customer = CustomerProfile.new(params[:customer_profile])
     @user = User.new(params[:user])
 	  if @customer.save
-		  session[:customer_id] = @customer.id
+		  session[:customer_profile_id] = @customer.id
 		  redirect_to customer_find_restaurant_profiles_url
 	  else
 		  render :new
@@ -49,6 +49,7 @@ class CustomerProfilesController < ApplicationController
     queries.each do |query|
      @restaurants = RestaurantProfile.where([sql, query, query, query])
     end
+    @customer = current_customer_profile
     render "customer_profiles/find"
   end
 end
