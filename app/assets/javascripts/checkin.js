@@ -9,7 +9,6 @@ $(document).ready(function(){
         $(this).attr('rect[class="seat"]');
     }
     if ($(this).closest('rect').attr('class') === 'seat' && $('h1').attr('id') === 'hide-confirm') {
-       alert('hello');
         $('#dialog').dialog({
           autoOpen: false, width: 400, resizable: false, modal: true,
           buttons: {
