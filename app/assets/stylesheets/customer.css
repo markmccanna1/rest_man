@@ -140,6 +140,28 @@ a {
   display: block;
 }
 
+#new-menu-title{
+  width: 300px;
+  height: 35px;
+}
+
+.create-menu-button{
+   background-color: #4A96AD;
+  width: 120px;
+  height: 35px;
+  opacity: 1;
+  border: 1px solid black;
+  color: white;
+  border-radius: 15px;
+  border-style: inset;
+  border-width: 2px;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+#success-notice{
+  margin-right: auto;
+  margin-left: auto;
+}
 }
 
 /* ============MOBILE ===================*/
