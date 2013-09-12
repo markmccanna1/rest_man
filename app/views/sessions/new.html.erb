@@ -1,14 +1,14 @@
 <div class="container">
-  <h1>Log in</h1>
+  <h1>Sign In</h1>
   <% if flash[:notice] %>
     <p class="flash-error"><%= flash[:notice] %></p>
   <% end %>
   <%= form_tag create_session_url do %>
     <p>
-      <%= text_field_tag :email, params[:email], :placeholder => "grace.hopper@dbc.com" %>
+      <%= text_field_tag :email, params[:email], :placeholder => "example@email.com" %>
     </p>
     <p>
-      <%= password_field_tag :password, params[:password], :placeholder => "Enter Password" %>
+      <%= password_field_tag :password, params[:password], :placeholder => "Password" %>
     </p>
     <p><%= submit_tag "Log in", class: "button" %></p>
   <% end %>
