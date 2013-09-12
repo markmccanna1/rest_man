@@ -27,9 +27,11 @@
 
   </div>
 </div>
+  <% if current_customer_profile %>
   <nav class="customer_nav">
     <ul>
       <li class="left_option"><%= link_to "Edit Profile", edit_customer_profile_url(current_customer_profile) %></li>
       <li class="right_option"><%= link_to "Find Restaurant", customer_find_restaurant_profiles_url %></li>
     </ul>
   </nav>
+<% end %>
