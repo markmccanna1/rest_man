@@ -40,7 +40,7 @@
   <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <br>
   <% end %>
-  <% if current_customer_profile %>
+  <% if current_customer_profile%>
     <%= render :partial => 'charges/form' %>
   <% end %>
 </div>
