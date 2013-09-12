@@ -1,4 +1,4 @@
-<%= form_for @restaurant do |f| %>
+ <%= form_for @restaurant do |f| %>
   <%= f.fields_for :user do |u| %>
     <% if @restaurant.errors.any? %>
       <div class="error_messages">
@@ -11,56 +11,43 @@
       </div>
     <% end %>
     <p>
-      <%= f.label :restaurant_name %><br />
-      <%= f.text_field :restaurant_name %>
+      <%= f.text_field :restaurant_name, :placeholder => "Restaurant Name" %>
     </p>
     <p>
-      <%= f.label :account_holder_first_name %><br />
-      <%= f.text_field :account_holder_first_name %>
+      <%= f.text_field :account_holder_first_name, :placeholder => "First Name" %>
     </p>
     <p>
-      <%= f.label :account_holder_last_name %><br />
-      <%= f.text_field :account_holder_last_name %>
+      <%= f.text_field :account_holder_last_name, :placeholder => "Last Name" %>
     </p>
     <p>
-      <%= f.label :restaurant_url %><br />
-      <%= f.text_field :restaurant_url %>
+      <%= f.text_field :restaurant_url, :placeholder => "Web Site URL" %>
     </p>
     <p>
-      <%= f.label :street_address %><br />
-      <%= f.text_field :street_address %>
+      <%= f.text_field :street_address, :placeholder => "Restaurant Address" %>
     </p>
     <p>
-      <%= f.label :street_address_2 %><br />
-      <%= f.text_field :street_address_2 %>
+      <%= f.text_field :street_address_2, :placeholder => "Restaurant Address" %>
     </p>
     <p>
-      <%= f.label :city %><br />
-      <%= f.text_field :city %>
+      <%= f.text_field :city, :placeholder => "City" %>
     </p>
     <p>
-      <%= f.label :state %><br />
-      <%= f.text_field :state %>
+      <%= f.text_field :state, :placeholder => "State" %>
     </p>
     <p>
-      <%= f.label :zip_code %><br />
-      <%= f.text_field :zip_code %>
+      <%= f.text_field :zip_code, :placeholder => "Zip Code" %>
     </p>
     <p>
-      <%= u.label :email %><br />
-      <%= u.text_field :email %>
+      <%= u.text_field :email, :placeholder => "example@email.com" %>
     </p>
     <p>
-      <%= u.label :phone_number %><br />
-      <%= u.text_field :phone_number %>
+      <%= u.text_field :phone_number, :placeholder => "Phone Number" %>
     </p>
     <p>
-      <%= u.label :password %><br />
-      <%= u.password_field :password %>
+      <%= u.password_field :password, :placeholder => "Password" %>
     </p>
     <p>
-      <%= u.label :password_confirmation %><br />
-      <%= u.password_field :password_confirmation %>
+      <%= u.password_field :password_confirmation, :placeholder => "Confirm Password" %>
     </p>
     <p><%= f.submit "Save Account", class: "button"%></p>
   <% end %>

@@ -11,23 +11,18 @@
       </div>
     <% end %>
     <p>
-      <%= u.label :email %><br />
-      <%= u.text_field :email %>
+      <%= u.text_field :email, :placeholder => "example@email.com" %>
     </p>
     <p>
-      <%= u.label :phone_number %><br />
-      <%= u.text_field :phone_number %>
+      <%= u.text_field :phone_number, :placeholder => "Phone Number" %>
     </p>
-      <%= f.label :zip_code %><br />
-      <%= f.text_field :zip_code %>
+      <%= f.text_field :zip_code, :placeholder => "Zip Code" %>
     </p>
     <p>
-      <%= u.label :password %><br />
-      <%= u.password_field :password %>
+      <%= u.password_field :password, :placeholder => "Password" %>
     </p>
     <p>
-      <%= u.label :password_confirmation %><br />
-      <%= u.password_field :password_confirmation %>
+      <%= u.password_field :password_confirmation, :placeholder => "Confirm Password" %>
     </p>
     <p><%= f.submit "Save Account", class: "button"%></p>
   <% end %>
