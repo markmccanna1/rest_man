@@ -6,10 +6,10 @@ class CartsController < ApplicationController
   def index
     id = current_restaurant_profile.id
     @confirmed_carts = Cart.confirmed(id)
-    @confirmed_carts.each do |cart|
-      @seat = CustomerProfile.find(cart.customer_profile_id).seat
-      @table = @seat.table
-    end
+    # @confirmed_carts.each do |cart|
+    #   seat = CustomerProfile.find(cart.customer_profile_id).seat
+    #   @table = seat.table
+    # end
   end
 
   def show

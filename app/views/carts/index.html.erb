@@ -6,7 +6,7 @@
   <h1 id="rest<%= current_restaurant_profile.id %>" name="active-carts" class="title"><%= current_restaurant_profile.restaurant_name %> Open Carts</h1>
   <ul class="order_list">
     <% @confirmed_carts.each do |cart| %>
-    <li class="order"><a href="carts/<%= cart.id %>" id="<%= cart.id %>">Cart #<%= cart.id %>  Table <%= @table.id %> Seat <%= @seat.id %></a></li>
+    <li class="order"><a href="carts/<%= cart.id %>" id="<%= cart.id %>">Cart #<%= cart.id %>  Table <%= Seat.find_by_customer_profile_id(cart.customer_profile_id).table.id%> Seat <%= Seat.find_by_customer_profile_id(cart.customer_profile_id).id %></a></li>
     <% end %>
   </ul>
   <ul class="pending-carts">
