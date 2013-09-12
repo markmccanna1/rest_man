@@ -58,8 +58,10 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
     @tables = @floor_plan.tables
     response_hash = {}
     @tables.each do |table|
+      p table
       response_hash[table.html_id] = {positionX: table.position_x, positionY: table.position_y, height: table.height, width: table.width, seats: {}}
       table.seats.each do |seat|
+        p seat
         response_hash[table.html_id][:seats][seat.html_id] = {positionX: seat.position_x, positionY: seat.position_y, height: seat.height, width: seat.width}
       end
     end

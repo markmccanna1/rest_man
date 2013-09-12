@@ -11,6 +11,7 @@ var LoadTables = {
       async: false,
       success: function(data){
         LoadTables.floorPlan = data
+        // console.log(LoadTables.floorPlan)
       }
     })
     this.drawPlan(svgDiv)
@@ -27,13 +28,18 @@ var LoadTables = {
     $.each(this.floorPlan, function(key, value) {
       $.each(value, function(tableId, tableValues){
         var id = tableId
-        console.log(tableValues)
         var loadTable = new LoadTable(tableValues.positionX, tableValues.positionY, tableValues.width, tableValues.height, id)
-        var table = loadTable.table
+        table = loadTable.table
         $.each(tableValues.seats, function(seatId, seatValues){
+          console.log(seatValues)
           new LoadChair(seatValues.positionX, seatValues.positionY, seatValues.width, seatValues.height, seatId, table)
         })
       })
+      // console.log(loadTable)
+    })
+    console.log(FloorPlan.tables)
+    $.each(FloorPlan.tables, function(key, table){
+      table.placeChairs()
     })
   }
 }
@@ -117,26 +123,32 @@ var LoadController = {
 //   table.group.add(this.drawing)
 // }
 
-function LoadChair(positionX, positionY, height, width, htmlId, table) {
-  this.positionX = positionX
-  this.positionY = positionY
-  this.height = height
-  this.width = width
+function LoadChair(positionX, positionY, width, height, htmlId, table) {
+  this.positionX = parseFloat(positionX)
+  console.log(this.positionX)
+  this.positionY = parseFloat(positionY)
+  console.log(this.positionY)
+  this.height = parseFloat(height)
+  this.width = parseFloat(width)
   this.htmlId = htmlId
   this.chair = new Chair(1, table.id, table.chairSize)
   this.chair.drawing.attr({class: 'chair', id: htmlId})
-  this.chair.drawing.size(width, height)
-  this.chair.drawing.center(positionX, positionY)
-  table.group.add(this.chair.drawing)  
+  this.chair.drawing.size(this.width, this.height)
+  this.chair.drawing.center(this.positionX, this.positionY)
+  table.chairs.push(this.chair)
+  table.group.add(this.chair.drawing) 
 }
 
 function LoadTable(positionX, positionY, height, width, htmlId) {
+  console.log(positionX)
+  console.log(positionY)
   this.positionX = positionX
   this.positionY = positionY
   this.height = height
   this.width = width
   this.htmlId = htmlId
   this.table = new Table()
+  // this.chairs = new Array
   this.table.drawing.attr({fill: 'white', class: 'table', id: this.htmlId})
   this.table.group.attr({id: 'group' + this.htmlId})
   this.table.drawing.size(width, height)
@@ -149,10 +161,10 @@ function LoadTable(positionX, positionY, height, width, htmlId) {
 $('document').ready(function() {
   if ($('#edit_floorplan').length){
     LoadTables.update('edit_floorplan')
-    // LoadController.init()
+    LoadController.init()
     // EditFloorPlan.init()
-    // AddTableButton.init()
-    // SaveButton.init()
+    AddTableButton.init()
+    SaveButton.init()
 
     var selectedItem = null
     $('body').on('click', 'ellipse', function(e){
