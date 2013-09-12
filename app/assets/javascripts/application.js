@@ -22,8 +22,6 @@ function UserException(message){
   this.message = message
   this.name = "UserException"
 }
-//maybe you want a list of tables that lets you select the one you click on the list
-//can you make it so that the item is only draggable if its inside the box?
 
 var FloorPlan = {
   init: function(){
@@ -63,17 +61,9 @@ function Chair(id, tableId, size) {
   this.width = size
   this.height = size
   var table = FloorPlan.getTableById(this.tableId)
-  this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
-  this.drawing.draggable()
   this.drawing = FloorPlan.drawing.rect(this.width,this.height).attr({class: 'chair', id: tableId + 'chair' + id})
   this.drawing.fill({color: 'black', opacity: 0.7})
   table.group.add(this.drawing)
-}
-
-Chair.prototype = {
-  clickEvent: function(){
-
-  }
 }
 
 var AddTableButton = {
@@ -110,22 +100,103 @@ function Table(id) {
   this.id = 'table' + id
   this.chairSize = 28
   this.counter = id
+  this.seatDistance = 1.5
   FloorPlan.tableGroups.push(this.group)
   this.addToList()
 }
 
 Table.prototype = {
 
-  //method for adding forms to the sidebar
   clickEvent: function(){
     this.appendAddChairsButton()
     this.appendTableSizeButtons()
     this.appendChairSizeButtons()
     this.appendDeleteButton()
+    this.appendSeatDistanceButtons()
+  },
+
+  createChairs: function(numChairs){
+    var tableId = this.drawing.attr('id')
+    if (this.chairs != null) {
+      $.each(this.chairs, function(key, chair) {
+        $('#' + chair.drawing.attr('id')).remove()
+      })
+    }
+    this.chairs = null
+    this.chairs = new Array()
+    for (var i = 0; i < numChairs; i++){
+      chair = new Chair(i,tableId, this.chairSize)
+      this.chairs.push(chair)
+    }
+    this.placeChairs()
+  },
+
+  placeChairs: function(){
+    var table = this
+    var seatDistance = this.seatDistance
+    var tableX= this.drawing.attr('cx')
+    var tableY= this.drawing.attr('cy')
+    var counter = 0
+    var hypotSide = (this.width / 2.0) * seatDistance
+    var degreeSpacing = 360.0 / this.chairs.length
+    $.each(this.chairs, function(index, value) {
+      var circleDegree = degreeSpacing * counter
+      var insideAngle = circleDegree % 90.0
+      var oppositeSide = (hypotSide * table.getSin(insideAngle) ) / table.getSin(90)
+      var otherAngle = 90 - insideAngle
+      var otherSide = (hypotSide * table.getSin(otherAngle) ) / table.getSin(90)
+      if (circleDegree >= 270){
+        value.drawing.center(tableX - otherSide, tableY - oppositeSide)
+      } else if (circleDegree >= 180) {
+        value.drawing.center(tableX - oppositeSide, tableY + otherSide)
+      } else if (circleDegree >= 90) {
+        value.drawing.center(tableX + otherSide, tableY + oppositeSide)
+      } else if (circleDegree > 0) {
+        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
+      } else if (circleDegree === 0) {
+        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
+      } else {
+        value.drawing.center(tableX + oppositeSide, tableY + otherSide)
+      }
+      counter += 1
+    })
+  },
+
+  seatDistanceIncreaseEvent: function(){
+    var table = this
+    $('#increase_d').on('click', function(event) {
+      table.seatDistance += 0.1
+      if (table.chairs != null) {
+        table.placeChairs()
+      }
+    })
+  },
+
+  seatDistanceDecreaseEvent: function(){
+    var table = this
+    $('#decrease_d').on('click', function(event) {
+      table.seatDistance -= 0.1
+      if (table.chairs != null) {
+        table.placeChairs()
+      }
+    })
+  },
+
+  appendSeatDistanceButtons: function(){
+    $('#form' + this.id).append('Seat Distance From Table <button id="increase_d"> Increase </button> <button id="decrease_d"> Decrease </button>')
+    this.seatDistanceIncreaseEvent()
+    this.seatDistanceDecreaseEvent()
+  },
+
+  getSin: function(degrees){
+    return Math.sin(degrees * (Math.PI / 180))
+  },
+
+  removeForms: function(){
+    $('#form' + this.id).remove()
   },
 
   addToList: function(){
-    console.log(this)
     $('#tables').append('<button data-id="'+ this.id +'" id="button' + this.id + '"class="list"> Table ' + this.counter + '</button>')
   },
 
@@ -144,7 +215,7 @@ Table.prototype = {
       table.width += 10
       table.height += 10
       if (table.chairs != null) {
-        table.placeChairs(table)
+        table.placeChairs()
       }
     })
   },
@@ -158,7 +229,7 @@ Table.prototype = {
       table.width -= 10
       table.height -= 10
       if (table.chairs != null) {
-        table.placeChairs(table)
+        table.placeChairs()
       }
     })
   },
@@ -194,7 +265,7 @@ Table.prototype = {
         })
       }
       table.chairSize -= 2
-      table.placeChairs(table)
+      table.placeChairs()
     })
   },
 
@@ -209,9 +280,8 @@ Table.prototype = {
         })
       }
       table.chairSize += 2
-      table.placeChairs(table)
+      table.placeChairs()
     })
-
   },
 
   appendDeleteButton: function(){
@@ -226,108 +296,6 @@ Table.prototype = {
       $('#form' + id).remove()
       $('#button' + id).remove()
     })
-<<<<<<< HEAD
-  }
-}
-
-function Table(id) {
-  var nested = FloorPlan.drawing.nested()
-  nested.attr({id: 'svg_table' + id})
-  // var nested = FloorPlan.drawing.nested()
-  // nested.attr({id: 'svg_table' + id})
-  this.width = 100
-  this.height = 100
-  this.drawing = FloorPlan.drawing.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: 'table' + id})
-  this.drawing.stroke({color: 'black', width: 2})
-  this.drawing.center(100, 150)
-  this.group = FloorPlan.drawing.group()
-  this.group.attr({id: 'groupTable' + id})
-  this.group.add(this.drawing)
-  // this.group.draggable()
-  console.log(this.group)
-  this.chairSize = 28
-  FloorPlan.tableGroups.push(this.group)
-  this.drawing.click(this.ClickEvent)
-}
-
-Table.prototype = {
-
-  clickEvent: function(){
-    var tableId = this.drawing.attr('id')
-    var tableMenu = new Form(tableId)
-=======
-  },
-
-  removeForms: function(){
-<<<<<<< HEAD
-    //triggered when the item is deselected
->>>>>>> enchanced OO, forms are now part of the table class
-=======
-    $('#form' + this.id).remove()
->>>>>>> added the ability to select chairs via a list
-  },
-
-  returnChairs: function(){
-    return this.chairs
-  },
-
-<<<<<<< HEAD
-  //you have to make sure you remove the old chair svg squares, fool
-=======
->>>>>>> added the ability to select chairs via a list
-  createChairs: function(numChairs){
-    var tableId = this.drawing.attr('id')
-    if (this.chairs != null) {
-      $.each(this.chairs, function(key, chair) {
-        $('#' + chair.drawing.attr('id')).remove()
-      })
-    }
-    this.chairs = null
-    this.chairs = new Array()
-    for (var i = 0; i < numChairs; i++){
-      chair = new Chair(i,tableId, this.chairSize)
-      this.chairs.push(chair)
-    }
-    this.placeChairs(this)
-  },
-
-  placeChairs: function(table){
-    var tableX = table.drawing.attr('cx')
-    var tableY = table.drawing.attr('cy')
-    var counter = 1
-    $.each(this.chairs, function(index, value) {
-      value.drawing.move(tableX, tableY + (75 * counter))
-    var scalar = table.chairs.length
-    var tableX= table.drawing.attr('cx')
-    var tableY= table.drawing.attr('cy')
-    var counter = 0
-    var hypotSide = (table.width / 2.0) * 1.5
-    var degreeSpacing = 360.0 / this.chairs.length
-    $.each(this.chairs, function(index, value) {
-      var circleDegree = degreeSpacing * counter
-      var insideAngle = circleDegree % 90.0
-      var oppositeSide = (hypotSide * table.getSin(insideAngle) ) / table.getSin(90)
-      var otherAngle = 90 - insideAngle
-      var otherSide = (hypotSide * table.getSin(otherAngle) ) / table.getSin(90)
-      if (circleDegree >= 270){
-        value.drawing.center(tableX - otherSide, tableY - oppositeSide)
-      } else if (circleDegree >= 180) {
-        value.drawing.center(tableX - oppositeSide, tableY + otherSide)
-      } else if (circleDegree >= 90) {
-        value.drawing.center(tableX + otherSide, tableY + oppositeSide)
-      } else if (circleDegree > 0) {
-        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
-      } else if (circleDegree === 0) {
-        value.drawing.center(tableX + oppositeSide, tableY - otherSide)
-      } else {
-        value.drawing.center(tableX + oppositeSide, tableY + otherSide)
-      }
-      counter += 1
-    })
-  },
-
-  getSin: function(degrees){
-    return Math.sin(degrees * (Math.PI / 180))
   }
 }
 
@@ -353,114 +321,19 @@ $('document').ready(function() {
     FloorPlan.init()
     AddTableButton.init()
     SaveButton.init()
-
     var selectedItem = null
-    // var nested = FloorPlan.drawing.nested()
     $('body').on('click', 'ellipse', function(e){
       if(this.id != selectedItem){
         var table = FloorPlan.getTableById(this.id)
-<<<<<<< HEAD
-=======
         if (selectedItem != null) {
           var lastItem = FloorPlan.getTableById(selectedItem)
           lastItem.removeForms()
           lastItem.drawing.fill({color: 'white'})
-          // lastItem.group.fill({color: 'black'})
         }
->>>>>>> added the ability to select chairs via a list
         table.clickEvent()
         selectedItem = this.id
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-        var id = table.group.attr('id')
-
-        var draggee = document.getElementById(id)
-        // $(draggee).draggable(
-
-
-        $(draggee).draggable({containment: '#floor', drag: function(event, ui) {
-          var left = ui.position.left
-          var top = ui.position.top
-          var id = table.group.attr('id')
-
-          var draggee = document.getElementById(id)
-
-          var floorSize = FloorPlan.drawing.rbox()
-          var width = floorSize.width
-          var height = floorSize.height
-
-        $(draggee).draggable({containment: '#floor', cursorAt: { left: 0, top: 0 },
-          drag: function(event, ui) {
-          // var position = table.group.node.attributes[1].value
-          // console.log(ui.position.left)
-          // console.log(ui.position.top)
-          // console.log(event.target.attributes)
-          var position = table.group.node.attributes[1].value
-          // console.log(position)
-
-          // var regex = /(\d+)/
-          // var result
-          // console.log(regex.exec(positio)
-
-          table.group.center({x: ui.position.left, y: ui.position.top})
-
-          // if (ui.position.left >= width) {
-          //   table.group.center({x: width, y: ui.position.top})
-          // }
-
-          // if (ui.position.top >= height) {
-          //   table.group.center({x: ui.position.left, y: height})
-          // }
-          // table.group.transform({x: ui.position.left, y: ui.position.top})
-
-          } 
-        })
-
-        $(draggee).on('dragstop', function(event, ui) {
-          var left = ui.position.left
-          var top = ui.position.top
-          console.log(left)
-          console.log(top)
-          
-          // table.group.center(ui.position.left, ui.position.top)
-        })
-          }
-        }) 
->>>>>>> using regex to get dragged position
-      }
-    })
-    // alert('body')
-    $('body').on("click", ".chair", function(e){
-      alert('wtf')
-    $('body').on("click", "rect", function(e){
-      if(this.id != selectedItem){
-        var chair = FloorPlan.getChairById(this.id)
-        chair.clickEvent()
-      }
-=======
-        // var groupId = table.group.attr('id')
-
-        //svg command for making things draggable
         table.group.draggable()
         table.drawing.fill({color: 'blue', opacity: 0.7})
-        // table.group.fill({color: 'blue', opacity: 0.7})
-        // var draggee = document.getElementById(groupId)
-
-        // $(draggee).draggable({containment: '#floor', 
-        //   drag: function(event, ui) {
-        //     var left = ui.position.left
-        //     var top = ui.position.top
-        //     var id = table.group.attr('id')
-        //     var draggee = document.getElementById(id)
-        //     var floorSize = FloorPlan.drawing.rbox()
-        //     var width = floorSize.width
-        //     var height = floorSize.height
-
-        //     table.group.transform({x: ui.position.left, y: ui.position.top})
-        //   }
-        // })
       }
     })
     $('body').on('click', '.list', function(event){
@@ -468,16 +341,12 @@ $('document').ready(function() {
         var id = $(this).data('id')
         var table = FloorPlan.getTableById(id)
         if (selectedItem != null) {
-            FloorPlan.getTableById(selectedItem).removeForms()
+          FloorPlan.getTableById(selectedItem).removeForms()
         }
         table.clickEvent()
         selectedItem = id
         table.group.draggable()
       }
-      // selectedItem = this.data(id)
-      // console.log(selectedItem)
-      // console.log(this)
->>>>>>> added the ability to select chairs via a list
     })
   } 
 });
