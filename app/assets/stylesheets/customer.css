@@ -174,8 +174,8 @@ a {
 body{
   margin: 0;
   background-color: #F5F3EE;
-/*  background: url(rest.jpg) no-repeat center center fixed;
-  background-size: cover;*/
+  /*background: url(pixel_weave.png);*/
+  /*background-size: cover;*/
   /*background-color: #E3DEC1;*/
   font-family: Signika-Regular;
 }
@@ -201,6 +201,7 @@ header .log-out {
 
 .logout{
   line-height: 35px;
+  color: white;
 }
 
 #page1{
@@ -238,6 +239,7 @@ input {
   font-weight: bold;
   font-size: 20px;
   width: 250px;
+  text-align: center;
 }
 
 .results {
@@ -266,6 +268,7 @@ input {
   width: 200px;
   height: 35px;
   opacity: 1;
+  color: white;
 }
 
 .find-restaurant {
@@ -309,6 +312,18 @@ li{
   border: 1px solid black;
 }
 
+.accordion a:focus {
+  outline: none;
+}
+
+.accordion .category_name {
+  background-color: #7D1935;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 40px;
+  color: white;
+}
+
 .accordion .hidden_item {
   overflow: hidden;
   margin: auto;
@@ -332,7 +347,7 @@ li{
   float: right;
   /*padding-top: 15px;
   padding-right: 5px;*/
-  margin-left: 70px;
+  margin-left: 60px;
   margin-right: 10px;
 }
 
@@ -390,23 +405,28 @@ li{
   margin-top: 0;
   margin-bottom: 0;
   line-height: 64px;
+  /*text-align: center;*/
 }
 
 .customer_nav ul li{
   font-size: 24px;
   width: 50%;
   display: inline;
+  margin: auto;
 }
+
 .right_option{
-  float:right;
+  padding-left: 15px;
   border-left: 1px solid black;
   text-align: center;
   padding-bottom: 10px;
+
 }
 
 .left_option{
   /*margin-left: 20px;*/
   text-align: center;
+  float: left;
 }
 
 .customer_nav a{
