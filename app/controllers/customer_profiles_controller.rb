@@ -49,6 +49,7 @@ class CustomerProfilesController < ApplicationController
     queries.each do |query|
      @restaurants = RestaurantProfile.where([sql, query, query, query])
     end
+    @customer = current_customer_profile
     render "customer_profiles/find"
   end
 end
