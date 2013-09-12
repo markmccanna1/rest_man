@@ -1,11 +1,12 @@
 class CartsController < ApplicationController
-  
+
   before_filter :confirm_logged_in
   before_filter :authorize_restaurant, :except => [:edit, :show, :update]
 
   def index
     id = current_restaurant_profile.id
     @confirmed_carts = Cart.confirmed(id)
+    @confirmed_carts.order("updated_at DESC")
     @confirmed_carts.each do |cart|
       @seat = CustomerProfile.find(cart.customer_profile_id).seat
       @table = @seat.table
