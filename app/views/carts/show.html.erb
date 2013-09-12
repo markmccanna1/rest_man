@@ -4,7 +4,11 @@
   <li><%= link_to "Back to Dashboard", restaurant_dashboard_url %></li>
 </ul>
 <% end %>
+<% if current_restaurant_profile %>
 <h1 class="title">Items for Table <%= @table.id %> Seat <%= @seat.id %></h1>
+<% else %>
+<h1 class="title">Total Order</h1>
+<% end %>
 <div class="container">
   <% @cart.orders.each do |order| %>
   <ul class="seat_order">
@@ -14,13 +18,19 @@
   <% end %>
   <% if current_customer_profile %>
   <hr>
-  <p class="item">TOTAL</p>
-  <p>$<%= @cart.total %></p>
+  <div class="order_total">
+    <p class="item">TOTAL</p>
+    <p class="total">$<%= @cart.total %></p>
+  </div>
   <% end %>
   <br><br><br>
 
   <% if @cart.status == "confirmed" %>
   Order Status: Pending - (Order has not been completed)
+  <% if session[:restaurant_profile_id] %>
+  <br>
+  <%= link_to "Mark Order as Processed", close_cart_path(@cart), method: :post, :class => "close_out" %>
+  <% end %>
   <% elsif @cart.status == "completed" %>
   Order Status: Closed - (Order received and delivered to customer/processed)
   <% elsif @cart.status == "open"%>
@@ -29,11 +39,12 @@
   <br>
   <% end %>
 </div>
-<% if session[:restaurant_profile_id] %>
-<br>
-<%= link_to "Close Out This Order", close_cart_path(@cart), method: :post %>
-<% end %>
 
+<% if current_customer_profile %>
 <nav class="customer_nav">
-  <%= link_to "Back to Menu", restaurant_profile_path(@restaurant)%>
+  <ul>
+  <li class="left_option"><%= link_to "Back to Menu", restaurant_profile_path(@restaurant)%></li>
+  <li class="right_option"><%= link_to "Edit Profile", edit_customer_profile_url(current_customer_profile) %></li>
+  </ul>
 </nav>
+<% end %>
