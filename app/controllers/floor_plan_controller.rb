@@ -41,6 +41,8 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
   def save_floorplan
     offsets = params[:offsets]
     floor_plan = params[:floorplan]
+    p offsets
+    p floor_plan
     @floorplan = FloorPlan.create(restaurant_profile_id: current_restaurant_profile.id)
     @restaurant = @floorplan.restaurant_profile
     floor_plan.each do |key, value|
@@ -50,7 +52,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
           table.seats.find_or_create_by_html_id(position_x: (value[:positionX].to_f + offsets[table.html_id]["xOffset"].to_f).to_s, position_y: (value[:positionY].to_f + offsets[table.html_id]["yOffset"].to_f).to_s, height: value[:height], width: value[:width], html_id: key, floor_plan_id: @floorplan.id)
         end
       end
-    render :js => "window.location.href = '#{floor_plan_url(@floorplan)}'"
+    # render :js => "window.location.href = '#{floor_plan_url(@floorplan)}'"
   end
 
   def get_floor_plan
