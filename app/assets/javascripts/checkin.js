@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
   $('#get_floorplan').on('click', 'rect', function(e){
     var url_id = window.location.pathname.split('/').reverse()[0]
@@ -8,8 +10,8 @@ $(document).ready(function(){
       $.post('/check_out', {seat_id: seat_id, url_id: url_id, authenticity_token: token})
         $(this).attr('rect[class="seat"]');
     }
-    if ($(this).closest('rect').attr('class') === 'seat'){
-
+    if ($(this).closest('rect').attr('class') === 'seat' && $('h1').attr('id') === 'hide-confirm') {
+       alert('hello');
         $('#dialog').dialog({
           autoOpen: false, width: 400, resizable: false, modal: true,
           buttons: {
