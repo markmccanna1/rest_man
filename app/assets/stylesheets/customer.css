@@ -174,9 +174,6 @@ a {
 body{
   margin: 0;
   background-color: #F5F3EE;
-  /*background: url(pixel_weave.png);*/
-  /*background-size: cover;*/
-  /*background-color: #E3DEC1;*/
   font-family: Signika-Regular;
 }
 
@@ -420,11 +417,9 @@ li{
   border-left: 1px solid black;
   text-align: center;
   padding-bottom: 10px;
-
 }
 
 .left_option{
-  /*margin-left: 20px;*/
   text-align: center;
   float: left;
 }
