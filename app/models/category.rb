@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   validates_presence_of :title
 
   belongs_to :menu
-  has_many :menu_items
+  has_many :menu_items, dependent: :destroy
 
   accepts_nested_attributes_for :menu_items
   

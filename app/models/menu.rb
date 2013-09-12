@@ -3,6 +3,6 @@ class Menu < ActiveRecord::Base
   validates_presence_of :title
 
   belongs_to :restaurant_profile
-  has_many :categories
+  has_many :categories, dependent: :destroy
 end
 
