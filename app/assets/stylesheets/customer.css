@@ -165,7 +165,7 @@ a {
 
 /* ============MOBILE ===================*/
 
-@media (max-width: 600px){
+@media handheld, screen and (max-width: 600px){
 @viewport{
     zoom: 1.0;
     width: device-width;
@@ -240,7 +240,7 @@ input {
 }
 
 .results {
-  background-color: #E3DEC1;
+  background-color: #7D1935;
   margin: auto;
   width: 250px;
   border-radius: 5px;
@@ -254,6 +254,7 @@ input {
   display: block;
   font-weight: bold;
   font-size: 24px;
+  color: white;
 }
 
 .restaurant_name {
@@ -287,6 +288,14 @@ li{
 
 .submit{
   margin: auto;
+}
+
+h3.title {
+  margin-top: 0;
+}
+
+#hide-confirm {
+  margin-bottom: 0;
 }
 
 
@@ -431,6 +440,7 @@ li{
 #floor {
   border: 2px solid black;
   margin: 10px;
+  margin-left: 0;
   background-color: #487075;
 }
 
