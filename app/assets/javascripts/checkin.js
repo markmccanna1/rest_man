@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
   $('#get_floorplan').on('click', 'rect', function(e){
     var url_id = window.location.pathname.split('/').reverse()[0]
