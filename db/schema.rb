@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20130911133737) do
     t.string   "zip_code"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
-    t.datetime "last_cart_processed_at",    :default => '2013-09-12 02:09:45'
+    t.datetime "last_cart_processed_at",    :default => '2013-09-12 21:05:38'
   end
 
   add_index "restaurant_profiles", ["city"], :name => "index_restaurant_profiles_on_city"

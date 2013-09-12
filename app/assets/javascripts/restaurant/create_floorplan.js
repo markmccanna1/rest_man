@@ -3,37 +3,37 @@ function UserException(message){
   this.name = "UserException"
 }
 
-var FloorPlan = {
-  init: function(svgDiv){
-    this.drawing = SVG(svgDiv).size('100%','100%')
-    this.drawing.attr({id: 'floor'})
-    this.drawing.stroke({color: 'black', width: 2})
-    this.tables = new Array()
-    this.tableGroups = new Array()
-  },
+// var FloorPlan = {
+//   init: function(svgDiv){
+//     this.drawing = SVG(svgDiv).size('100%','100%')
+//     this.drawing.attr({id: 'floor'})
+//     this.drawing.stroke({color: 'black', width: 2})
+//     this.tables = new Array()
+//     this.tableGroups = new Array()
+//   },
 
-  getTableById: function(id){
-    var table = FloorPlan.tables.filter(function(element) {
-      return element.drawing.attr('id') === id
-    })
-    return table[0]
-  },
+//   getTableById: function(id){
+//     var table = FloorPlan.tables.filter(function(element) {
+//       return element.drawing.attr('id') === id
+//     })
+//     return table[0]
+//   },
 
-  getChairById: function(id){
-    var chairs = new Array()
-    $.each(this.tables, function(index, value) {
-      $.each(value.chairs, function(index, value) {
-        chairs.push(value)
-      })
-    })
-    var chair = chairs.filter(function(element) {return element.drawing.attr('id') === id})
-    if (chair.length > 0) {
-    return chair[0]
-    } else {
-      throw new UserException("ChairNotFound");
-    }
-  }
-}
+//   getChairById: function(id){
+//     var chairs = new Array()
+//     $.each(this.tables, function(index, value) {
+//       $.each(value.chairs, function(index, value) {
+//         chairs.push(value)
+//       })
+//     })
+//     var chair = chairs.filter(function(element) {return element.drawing.attr('id') === id})
+//     if (chair.length > 0) {
+//     return chair[0]
+//     } else {
+//       throw new UserException("ChairNotFound");
+//     }
+//   }
+// }
 
 var AddTableButton = {
   init: function(){
@@ -63,6 +63,7 @@ function Chair(id, tableId, size) {
   this.width = size
   this.height = size
   var table = FloorPlan.getTableById(this.tableId)
+  console.log(FloorPlan.drawing)
   this.drawing = FloorPlan.drawing.rect(this.width,this.height).attr({class: 'chair', id: tableId + 'chair' + id})
   this.drawing.fill({color: 'black', opacity: 0.7})
   table.group.add(this.drawing)
@@ -75,12 +76,13 @@ function Table(id) {
   this.drawing.stroke({color: 'black', width: 2})
   this.drawing.center(100, 150)
   this.group = FloorPlan.drawing.group()
-  console.log(this.group)
+  // console.log(this.group)
   this.group.attr({id: 'grouptable' + id})
   this.group.add(this.drawing)
   this.id = 'table' + id
   this.chairSize = 28
   this.counter = id
+  this.chairs = new Array
   this.seatDistance = 1.5
   FloorPlan.tableGroups.push(this.group)
   this.addToList()
@@ -287,10 +289,10 @@ var SaveButton = {
       SaveButton.groupTransformValues = {}
       $.each(FloorPlan.tables, function(Tableindex, table){
         SaveButton.tablesHash[table.drawing.attr('id')] = {positionX: table.drawing.attr('cx'), positionY: table.drawing.attr('cy'), width: table.width, height: table.height, chairs: {}}
+        SaveButton.groupTransformValues[table.drawing.attr('id')] = {xOffset: table.group.trans.x, yOffset: table.group.trans.y}
+        console.log(table.group)
         console.log(table.group.trans.x)
         console.log(table.group.trans.y)
-
-        SaveButton.groupTransformValues[table.drawing.attr('id')] = {xOffset: table.group.trans.x, yOffset: table.group.trans.y}
           $.each(table.chairs, function(index, chair) {
             SaveButton.tablesHash[table.drawing.attr('id')].chairs[chair.drawing.attr('id')] = {positionX: chair.drawing.attr('x'), positionY: chair.drawing.attr('y'), width: chair.drawing.attr('width'), height: chair.drawing.attr('height')}
           })
@@ -299,8 +301,7 @@ var SaveButton = {
       console.log(SaveButton.groupTransformValues)
       var token = $('meta[name="csrf-token"]').attr('content')
       console.log(SaveButton.tablesHash)
-      $.post('/save_floorplan', {authenticity_token: token, floorplan: SaveButton.tablesHash, offsets: SaveButton.groupTransformValues}
-      )
+      $.post('/save_floorplan', {authenticity_token: token, floorplan: SaveButton.tablesHash, offsets: SaveButton.groupTransformValues})
     })
   }
 }
@@ -319,7 +320,7 @@ $('document').ready(function() {
           lastItem.removeForms()
           lastItem.drawing.fill({color: 'white'})
         }
-        console.log(table)
+        // console.log(table)
         table.clickEvent()
         selectedItem = this.id
         table.group.draggable()

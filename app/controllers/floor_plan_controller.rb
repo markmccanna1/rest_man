@@ -52,7 +52,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
           table.seats.find_or_create_by_html_id(position_x: (value[:positionX].to_f + offsets[table.html_id]["xOffset"].to_f).to_s, position_y: (value[:positionY].to_f + offsets[table.html_id]["yOffset"].to_f).to_s, height: value[:height], width: value[:width], html_id: key, floor_plan_id: @floorplan.id)
         end
       end
-    # render :js => "window.location.href = '#{floor_plan_url(@floorplan)}'"
+    render :js => "window.location.href = '#{floor_plan_url(@floorplan)}'"
   end
 
   def get_floor_plan
@@ -60,8 +60,10 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
     @tables = @floor_plan.tables
     response_hash = {}
     @tables.each do |table|
+      p table
       response_hash[table.html_id] = {positionX: table.position_x, positionY: table.position_y, height: table.height, width: table.width, seats: {}}
       table.seats.each do |seat|
+        p seat
         response_hash[table.html_id][:seats][seat.html_id] = {positionX: seat.position_x, positionY: seat.position_y, height: seat.height, width: seat.width}
       end
     end
