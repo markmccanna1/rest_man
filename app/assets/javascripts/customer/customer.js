@@ -43,7 +43,7 @@ var loadTables = {
 
   update: function(){
     this.floorPlan = null
-  var url_id = window.location.pathname.split('/').reverse()[0];
+    var url_id = window.location.pathname.split('/').reverse()[0];
 
     $.ajax({
       type: "GET",
