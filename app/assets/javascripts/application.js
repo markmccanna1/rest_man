@@ -109,6 +109,7 @@ function Table(id) {
   this.group.add(this.drawing)
   this.id = 'table' + id
   this.chairSize = 28
+  this.counter = id
   FloorPlan.tableGroups.push(this.group)
   this.addToList()
 }
@@ -125,7 +126,7 @@ Table.prototype = {
 
   addToList: function(){
     console.log(this)
-    $('#tables').append('<button data-id="'+ this.id +'" id="button' + this.id + '"class="list">' + this.id + '</button>')
+    $('#tables').append('<button data-id="'+ this.id +'" id="button' + this.id + '"class="list"> Table ' + this.counter + '</button>')
   },
 
   appendTableSizeButtons: function(){
@@ -163,7 +164,7 @@ Table.prototype = {
   },
 
   appendAddChairsButton: function(){
-    $('#input_forms').append('<div id="form'+ this.id + '">' + this.id + '<form id="chairsForm"> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>')
+    $('#input_forms').append('<div id="form'+ this.id + '"> Table ' + this.counter + '<form id="chairsForm"> Number of Chairs <input id="numChairs" type="text"><input type="submit"></form></div>')
     this.addChairsEvent()
   },
 
