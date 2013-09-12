@@ -24,6 +24,7 @@ class Cart < ActiveRecord::Base
     self.orders.each do |order|
         cost << order.menu_item.price
     end
-    cost.reduce(:+).round(2) / 100
+    total = cost.reduce(:+).round(2) / 100
+    # sprintf('%.2f', total)
   end
 end

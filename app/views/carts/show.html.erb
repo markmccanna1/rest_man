@@ -18,9 +18,11 @@
   <% end %>
   <% if current_customer_profile %>
   <hr>
-  <div class="order_total">
-    <p class="item">TOTAL</p>
-    <p class="total">$<%= @cart.total %></p>
+  <div>
+    <ul class="order_total">
+      <li class="item">TOTAL</li>
+      <li class="total">$<%= @cart.total %></li>
+    </ul>
   </div>
   <% end %>
   <br><br><br>
@@ -38,7 +40,9 @@
   <%= link_to "Confirm my order", edit_cart_path(@cart) %>
   <br>
   <% end %>
-  <%= render :partial => 'charges/form' %>
+  <% if current_customer_profile %>
+    <%= render :partial => 'charges/form' %>
+  <% end %>
 </div>
 
 <% if current_customer_profile %>
