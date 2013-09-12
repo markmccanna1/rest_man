@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RestMan</title>
+  <title>ServeMe</title>
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -13,7 +13,7 @@
 </head>
 <body class="<%= params[:controller] %>">
   <header>
-    <h2>RestMan</h2>
+    <h2>ServeMe</h2>
     <% if current_customer_profile || current_restaurant_profile %>
       <div class="log-out">
         <span><%= link_to "Log Out", logout_path, method: :post, :class => "logout"%></span>

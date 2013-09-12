@@ -1,45 +1,44 @@
 <div data-role="collapsible-set">
     <div data-role="collapsible" data-collapsed="false" class="wrapper">
-
-            <%= form_tag("/orders", :method => "post") do%>
-            <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
-            <% @restaurant.menus.each do |menu| %>
-            <h1 class="category_name"><%= menu.title %></h1>
-            <% menu.categories.each do |category| %>
-            <section class="accordion">
-                <a href="#<%= category.title %>" id="<%= category.title %>">
-                    <h2 class="category_name"><%= category.title %></h2>
-                </a>
-                <div class="hidden_item">
+        <%= form_tag("/orders", :method => "post") do%>
+        <input type="hidden" value="<%= @restaurant.id %>" name="profile_id">
+        <% @restaurant.menus.each do |menu| %>
+        <h1 class="category_name"><%= menu.title %></h1>
+        <% menu.categories.each do |category| %>
+        <section class="accordion">
+            <a href="#<%= category.title %>" id="<%= category.title %>">
+                <h2 class="category_name"><%= category.title %></h2>
+            </a>
+            <div class="hidden_item">
                 <% category.menu_items.each do |item| %>
-                        <div class="menu_div">
-                            <ul class="menu_item">
-                                <li><%= item.name %></li>
-                                <li><%= item.description %></li>
-                                <li><%= item.price %></li>
-                            </ul>
-                        </div>
-                        <div class="checkbox">
-                            <%= check_box_tag "item_ids[]", item.id%>
-                            <%= label_tag :order_item, "Order this Item!" %>
-                        </div>
-                <% end %>
+                <div class="menu_div">
+                    <ul class="menu_item">
+                        <li><%= item.name %></li>
+                        <li><%= item.description %></li>
+                        <li><%= item.price %></li>
+                    </ul>
                 </div>
-            </section>
-            <% end %>
-            <% end %>
-            <div class='submit'>
-            <%= submit_tag("Submit Order", :class => "button center") %>
+                <div class="checkbox">
+                    <%= check_box_tag "item_ids[]", item.id%>
+                    <%= label_tag :order_item, "Order this Item!" %>
+                </div>
+                <% end %>
             </div>
-            <% end %>
+        </section>
+        <% end %>
+        <% end %>
+        <div class='submit'>
+            <%= submit_tag("Submit Order", :class => "button center") %>
+        </div>
+        <% end %>
 
     </div>
     <nav class="customer_nav">
         <ul>
-            <li class="left_option"><%= link_to "Something" %></li>
-        <% if @cart %>
+            <li class="left_option"><%= link_to "Edit Profile", edit_customer_profile_url(current_customer_profile) %></li>
+            <% if @cart %>
             <li class="right_option"><%= link_to "My cart", cart_url(@cart) %></li>
-        <% end %>
+            <% end %>
         </ul>
     </nav>
 </div>
