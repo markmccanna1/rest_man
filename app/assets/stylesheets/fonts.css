@@ -4,3 +4,45 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Cabin-Regular';
+  src:url('Cabin-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cabin-SemiBold';
+  src:url('Cabin-SemiBold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JustOldFashion';
+  src:url('JustOldFashion.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Signika-Regular';
+  src:url('Signika-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Signika-Semibold';
+  src:url('Signika-Semibold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpicyRice-Regular';
+  src:url('SpicyRice-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}

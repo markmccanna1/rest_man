@@ -4,6 +4,7 @@ class CartsController < ApplicationController
   before_filter :authorize_restaurant, :except => [:edit, :show, :update]
 
   def index
+    @restaurant = current_restaurant_profile
     id = current_restaurant_profile.id
     @confirmed_carts = Cart.confirmed(id)
     @confirmed_carts.order("updated_at DESC")

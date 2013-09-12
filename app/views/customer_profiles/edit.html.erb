@@ -1,5 +1,10 @@
 <div class="container">
   <h1>Edit Profile</h1>
-    <p><%= link_to "Find a Restaurant", customer_find_restaurant_profiles_url %></p>
     <%= render partial: "form" %>
 </div>
+<nav class="customer_nav">
+  <ul>
+  <li class="left_option"><%= link_to "Find Restaurant", customer_find_restaurant_profiles_url %></li>
+  <li class="right_option"><%= link_to "Edit Profile", edit_customer_profile_url(current_customer_profile) %></li>
+  </ul>
+</nav>
