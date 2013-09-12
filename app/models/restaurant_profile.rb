@@ -3,11 +3,10 @@ class RestaurantProfile < ActiveRecord::Base
                   :account_holder_last_name, :city, :state, :zip_code, :user_attributes,
                   :last_cart_processed_at
 
-  has_one :user, as: :profileable
-  has_many :menus
-  has_many :examples
-  has_one :floor_plan
-  has_many :carts
+  has_one :user, as: :profileable, dependent: :destroy
+  has_many :menus, dependent: :destroy
+  has_one :floor_plan, dependent: :destroy
+  has_many :carts, dependent: :destroy
 
   validates_presence_of :restaurant_name, :street_address, :account_holder_first_name, :account_holder_last_name, :city, :state, :zip_code
 

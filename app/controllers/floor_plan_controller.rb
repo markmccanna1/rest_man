@@ -38,7 +38,7 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
     # when you save you destroy everything in it to make sure there are no duplicates
     # if you save a table and it has less tables than it had before, there will be a hanger-on
     floor_plan = params[:floorplan]
-    @floorplan = FloorPlan.create(restaurant_profile_id: current_restaurant_profile.id)
+    @floorplan = FloorPlan.find_or_create_by_restaurant_profile_id(current_restaurant_profile.id)
     @restaurant = @floorplan.restaurant_profile
     floor_plan.each do |key, value|
       table = @floorplan.tables.find_or_create_by_html_id(position_x: value[:positionX], position_y: value[:positionY], height: value[:height], width: value[:width], html_id: key)
