@@ -66,6 +66,7 @@ function Chair(id, tableId, size) {
   this.drawing = nested.rect(50,50).attr({class: 'chair', id: tableId + 'chair' + id})
   this.drawing.draggable()
   this.drawing = FloorPlan.drawing.rect(this.width,this.height).attr({class: 'chair', id: tableId + 'chair' + id})
+  this.drawing.fill({color: 'black', opacity: 0.7})
   table.group.add(this.drawing)
 }
 
@@ -360,7 +361,10 @@ $('document').ready(function() {
 <<<<<<< HEAD
 =======
         if (selectedItem != null) {
-          FloorPlan.getTableById(selectedItem).removeForms()
+          var lastItem = FloorPlan.getTableById(selectedItem)
+          lastItem.removeForms()
+          lastItem.drawing.fill({color: 'white'})
+          // lastItem.group.fill({color: 'black'})
         }
 >>>>>>> added the ability to select chairs via a list
         table.clickEvent()
@@ -439,6 +443,8 @@ $('document').ready(function() {
 
         //svg command for making things draggable
         table.group.draggable()
+        table.drawing.fill({color: 'blue', opacity: 0.7})
+        // table.group.fill({color: 'blue', opacity: 0.7})
         // var draggee = document.getElementById(groupId)
 
         // $(draggee).draggable({containment: '#floor', 
