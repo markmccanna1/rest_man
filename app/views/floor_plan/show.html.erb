@@ -1,3 +1,4 @@
+
 <head>
   <script type="text/javascript">
      var floorPlanId = $('h1').attr('data-id')
@@ -15,7 +16,7 @@
   </ul>
   <% end %>
   <% if current_customer_profile %>
-    <h1 class="title">Check-In to a Seat</h1>
+    <h1 id="hide-confirm" class="title">Check-In to a Seat</h1>
   <% elsif current_restaurant_profile %>
     <h1 class="title" id="check-seats" data-id=<%= @floor_plan.id %>>Your Current Seating Plan</h1>
   <% end %>
