@@ -5,4 +5,8 @@ class MenuItem < ActiveRecord::Base
   belongs_to :category
 
   validates_presence_of :name, :description, :price
+
+   def to_dollars
+    (self.price / 100.0)
+  end
 end

@@ -5,11 +5,11 @@
      <%= form_tag( {:controller => :carts, :action => :update, :id => @cart.id}, {:method => :put} ) do %>
       <% @cart.orders.each do |order|%>
         <% if order.status == "pending" %>
-        <div>
+
+      <div>
           <ul class="menu_item">
             <li><%= order.menu_item.name %></li>
-            <li><%= order.menu_item.description %></li>
-            <li><%= order.menu_item.price %></li>
+            <li>$<%= order.menu_item.to_dollars %></li>
           </ul>
         <div class="checkbox">
           <%= check_box_tag "item_ids[]", order.menu_item.id, checked = true%>
@@ -28,6 +28,7 @@
 
 <nav class="customer_nav">
   <ul>
+    <li class="left_option"><%= link_to "Edit Profile", edit_customer_profile_url(current_customer_profile) %></li>
     <li class="right_option"><%= link_to "My cart", cart_path(@cart)%></li>
   </ul>
 </nav>

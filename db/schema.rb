@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20130911133737) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "examples", :force => true do |t|
+    t.string   "text"
+    t.integer  "restaurant_profile_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
   create_table "floor_plans", :force => true do |t|
     t.integer  "restaurant_profile_id"
     t.datetime "created_at",            :null => false
@@ -57,8 +64,10 @@ ActiveRecord::Schema.define(:version => 20130911133737) do
   add_index "menu_items", ["category_id"], :name => "index_menu_items_on_category_id"
 
   create_table "menus", :force => true do |t|
-    t.string  "title"
-    t.integer "restaurant_profile_id"
+    t.string   "title"
+    t.integer  "restaurant_profile_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   add_index "menus", ["restaurant_profile_id"], :name => "index_menus_on_restaurant_profile_id"
@@ -87,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20130911133737) do
     t.string   "zip_code"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
-    t.datetime "last_cart_processed_at",    :default => '2013-09-11 13:53:12'
+    t.datetime "last_cart_processed_at",    :default => '2013-09-07 21:50:15'
   end
 
   add_index "restaurant_profiles", ["city"], :name => "index_restaurant_profiles_on_city"
