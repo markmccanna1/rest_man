@@ -19,12 +19,13 @@ var Carts = {
 }
 
 var Seats = {
+
   init: function(){
     window.setInterval(this.update, 5000)
   },
 
   update: function(){
-    var floorPlanId = $('h1').attr('data-id')
+      var floorPlanId = $('h1').attr('data-id')
     $.get('/floor_plan/' + floorPlanId, function(response) {
       var div = $('#get_floorplan', $(response))
       $('div.second').html(response)
@@ -47,15 +48,20 @@ var newMenu = {
       e.preventDefault();
     })
   }
-}
-
+} 
+  
 $('document').ready(function() {
+
+  newMenu.init();
+
+  if ($('#check-seats').length){
+    Seats.init()
+  }
+
   if ($('.active-carts').length){
     Carts.init()
   }
-  newMenu.init();
-  if ($('.check-seats').length){
-    Seats.init()
+
   $('body').on('submit', '.create-menu-form', function(e){
       e.preventDefault();
       var token = $('meta[name="csrf-token"]').attr('content')
@@ -66,5 +72,4 @@ $('document').ready(function() {
         $('.create-menu-form').remove()
       })
     })
-  }
 });

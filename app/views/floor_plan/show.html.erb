@@ -1,3 +1,12 @@
+<head>
+  <script type="text/javascript">
+     var floorPlanId = $('h1').attr('data-id')
+    $.get('/floor_plan/' + floorPlanId, function(response) {
+      var div = $('#get_floorplan', $(response))
+      $('div.second').html(response)
+    })
+   </script>
+</head>
 <div id="customer-floor-plan">
   <% if current_restaurant_profile %>
   <ul class="restaurant_nav">
@@ -8,7 +17,7 @@
   <% if current_customer_profile %>
     <h1 class="title">Check-In to Your Seat at <%= @floor_plan.restaurant_profile.restaurant_name %></h1>
   <% elsif current_restaurant_profile %>
-    <h1 class="title" class="check-seats" data-id=<%= @floor_plan.id %>>Your Current Seating Plan</h1>
+    <h1 class="title" id="check-seats" data-id=<%= @floor_plan.id %>>Your Current Seating Plan</h1>
   <% end %>
   <div id="dialog" class="ui-helper-hidden" title="Seat Confirmation Required">Are you sure you want to check-in to this seat?</div>
 
