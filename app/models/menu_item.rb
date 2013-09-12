@@ -7,6 +7,7 @@ class MenuItem < ActiveRecord::Base
   validates_presence_of :name, :description, :price
 
    def to_dollars
-    (self.price / 100.0)
+    num = (self.price / 100.00)
+    sprintf('%.2f', num)
   end
 end
