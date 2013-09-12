@@ -24,10 +24,10 @@ class RestaurantProfilesController < ApplicationController
   end
 
   def show
-    if session[:cart_id]
-      @cart = Cart.find(session[:cart_id])
-    end
-    @restaurant = RestaurantProfile.find(params[:id])
+    # if session[:cart_id]
+    #   @cart = Cart.find(session[:cart_id])
+    # end
+    @restaurant = RestaurantProfile.find(params[:id]).include(:menus)
     @menu = @restaurant.menus.first
     @order = Order.new
   end
