@@ -48,6 +48,7 @@ class CustomerProfilesController < ApplicationController
     sql = "restaurant_name LIKE ? OR city LIKE ? OR state LIKE?" 
     queries.each do |query|
      @restaurants = RestaurantProfile.where([sql, query, query, query])
+     @customer = CustomerProfile.find(session[:custumer_profile_id])
     end
     render "customer_profiles/find"
   end
