@@ -1,11 +1,13 @@
 @media (min-width: 600px){
 body{
   margin: 0;
+  font-family: DEFTONE;
 }
 
 header {
   background-color: #E3DEC9;
   height: 35px;
+  font-family: DEFTONE;
 }
 
 header h2 {

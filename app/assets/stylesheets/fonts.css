@@ -1,4 +1,6 @@
 @font-face {
-  font-family: 'Deftone-Stylus';
-  src: url('<%= asset_path('DEFTONE.ttf')%>');
+  font-family: 'DEFTONE';
+  src:url('DEFTONE.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
