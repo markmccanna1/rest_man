@@ -22,9 +22,8 @@ class Cart < ActiveRecord::Base
   def total
     cost = []
     self.orders.each do |order|
-        cost << order.menu_item.to_dollars
+        cost << order.menu_item.price
     end
-
-    cost.inject{ |sum, p| sum + p}.round(2)
+    cost.reduce(:+).round(2) / 100
   end
 end

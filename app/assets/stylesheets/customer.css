@@ -163,6 +163,7 @@ header .log-out {
   margin: 10% auto;
   border-radius: 10px;
   opacity: .95;
+  margin-bottom: 80px;
 }
 
 a{
@@ -232,6 +233,11 @@ li{
   list-style-type: none;
   padding: 5px;
 }
+
+.submit{
+  margin: auto;
+}
+
 
 /* *************** MENU ************** */
 
@@ -347,12 +353,18 @@ li{
   color: white;
 }
 
-/* ========================================= */
-
 #floor {
   border: 2px solid black;
   margin: 10px;
   background-color: #487075;
+}
+
+.category_name{
+  text-align: center;
+}
+
+.item{
+  float:left;
 }
 
 }
