@@ -41,8 +41,6 @@ before_filter :authorize_restaurant, :except => [:get_floor_plan, :show]
   def save_floorplan
     offsets = params[:offsets]
     floor_plan = params[:floorplan]
-    p offsets
-    p floor_plan
     @floorplan = FloorPlan.create(restaurant_profile_id: current_restaurant_profile.id)
     @restaurant = @floorplan.restaurant_profile
     floor_plan.each do |key, value|
