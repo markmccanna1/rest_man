@@ -83,10 +83,6 @@ var LoadController = {
       })
     })
   }
-
-  // filterIds: function(){
-    
-  // }
 }
 
 function LoadChair(positionX, positionY, width, height, htmlId, table) {

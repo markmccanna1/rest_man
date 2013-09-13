@@ -138,7 +138,7 @@ Table.prototype = {
   },
 
   appendSeatDistanceButtons: function(){
-    $('#form' + this.id).append('Seat Distance From Table <button id="increase_d"> Increase </button> <button id="decrease_d"> Decrease </button>')
+    $('#form' + this.id).append('Seat Distance From Table <button class="button" id="increase_d"> Increase </button> <button class="button" id="decrease_d"> Decrease </button>').trigger("create")
     this.seatDistanceIncreaseEvent()
     this.seatDistanceDecreaseEvent()
   },
@@ -152,11 +152,11 @@ Table.prototype = {
   },
 
   addToList: function(htmlId){
-    $('#tables').append('<button data-id="'+ this.id +'" id="button' + this.id + '"class="list"> Table ' + this.counter + '</button>')
+    $('#tables').append('<button class="button" data-id="'+ this.id +'" id="button' + this.id + '"class="list"> Table ' + this.counter + '</button>')
   },
 
   appendTableSizeButtons: function(){
-    $('#form' + this.id).append('Size of Table <button id="increase_t"> Increase </button> <button id="decrease_t"> Decrease </button>')
+    $('#form' + this.id).append('Size of Table <button class="button" id="increase_t"> Increase </button> <button class="button" id="decrease_t"> Decrease </button>')
     this.tableSizeIncreaseEvent()
     this.tableSizeDecreaseEvent()
   },
@@ -204,7 +204,7 @@ Table.prototype = {
   },
 
   appendChairSizeButtons: function(){
-    $('#form' + this.id).append('Size of Chairs <button id="increase_c"> Increase </button> <button id="decrease_c"> Decrease </button>')
+    $('#form' + this.id).append('Size of Chairs <button class="button" id="increase_c"> Increase </button> <button class="button" id="decrease_c"> Decrease </button>')
     this.chairSizeIncreaseEvent()
     this.chairSizeDecreaseEvent()
   },
@@ -240,7 +240,7 @@ Table.prototype = {
   },
 
   appendDeleteButton: function(){
-    $('#form' + this.id).append('<button id="delete"> Delete Table </button>')
+    $('#form' + this.id).append('<button class="button" id="delete"> Delete Table </button>')
     this.deleteButtonEvent()
   },
 
@@ -287,6 +287,7 @@ $('document').ready(function() {
           lastItem.drawing.fill({color: 'white'})
         }
         table.clickEvent()
+        $('#form').trigger('create')
         selectedItem = this.id
         table.group.draggable()
         table.drawing.fill({color: 'blue', opacity: 0.7})
