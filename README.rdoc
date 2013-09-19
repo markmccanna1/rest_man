@@ -3,7 +3,7 @@
 This app was created to serve 2 types of users: restaurants, and their customers.
 
 A restaurant user signs up, uploads a menu and creates a custom floorplan, which 
-customers can then use to check into a particular seat, order food, and even pay. 
+customers can then use to check into a particular seat, order food, and even pay with their smartphone. 
 This allows tabs to easily be split amongst friends, the digitization of 
 restaurant sales and customer information, and restaurant logistics (such as how
 long a particular user spends at restaurants)
