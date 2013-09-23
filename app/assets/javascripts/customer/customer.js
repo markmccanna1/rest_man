@@ -10,8 +10,7 @@ function drawTable(positionX, positionY, height, width, htmlId) {
 drawTable.prototype = {
 
   draw: function() {
-    var nested = loadTables.drawing.nested()
-    this.drawing = nested.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: this.htmlId})
+    this.drawing = loadTables.drawing.circle(this.width,this.height).attr({fill: 'white', class: 'table', id: this.htmlId})
     this.drawing.stroke({color: 'black', width: 2})
     this.drawing.center(this.positionX, this.positionY)
   }
@@ -29,8 +28,7 @@ function drawChair(positionX, positionY, height, width, htmlId) {
 drawChair.prototype = {
 
   draw: function() {
-  var nested = loadTables.drawing.nested()
-  this.drawing = nested.rect(this.width, this.height).attr({class: 'seat', id: this.htmlId})
+  this.drawing = loadTables.drawing.rect(this.width, this.height).attr({class: 'seat', id: this.htmlId})
   this.drawing.move(this.positionX, this.positionY)
   }
 }
@@ -43,7 +41,7 @@ var loadTables = {
 
   update: function(){
     this.floorPlan = null
-  var url_id = window.location.pathname.split('/').reverse()[0];
+    var url_id = window.location.pathname.split('/').reverse()[0];
 
     $.ajax({
       type: "GET",
@@ -54,11 +52,11 @@ var loadTables = {
         loadTables.floorPlan = data
       }
     })
-    this.drawPlan()
+    this.drawPlan('get_floorplan')
   },
 
-  drawPlan: function(){
-    this.drawing = SVG('get_floorplan').size('100%','100%')
+  drawPlan: function(svgDiv){
+    this.drawing = SVG(svgDiv).size('100%','100%')
     this.drawing.attr({id: 'floor'})
     this.drawing.stroke({color: 'black', width: 2})
 
@@ -71,8 +69,6 @@ var loadTables = {
         })
       })
     })
-    var chair = new drawChair(0,0,0,0,0)
-    var table = new drawTable(0,0,0,0,0)
   }
 }
 

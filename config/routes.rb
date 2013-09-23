@@ -105,7 +105,7 @@ RestMan::Application.routes.draw do
 
   root :to => 'sessions#new'
 
-  post 'test', :to => 'floor_plan#test', :as => 'test'
+  post '/save_floorplan', :to => 'floor_plan#save_floorplan', :as => 'save_floorplan'
   get 'check_in', to: 'restaurant#check_in', as: :check_in
   get 'get_floor_plan', :to => 'floor_plan#get_floor_plan', as: :get_floor_plan
 
