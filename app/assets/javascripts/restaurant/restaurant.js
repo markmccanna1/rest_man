@@ -10,7 +10,7 @@ var Carts = {
       var test = $.each(data, function(k,v) {
         $.each(v, function(i, l){
           if($("#" + l.id + "").length == 0) {
-          $('.pending-carts').append('<li><a id="' + l.id + '" href="carts/' + l.id + '">' + l.id + '</a></li>')
+          $('.pending-carts').append('<li class="order"><a id="' + l.id + '" href="carts/' + l.id + '">' + 'Cart #'  + l.id + 'Table' + l.table.id + 'Seat' + l.seat.id +  '</a></li>')
           }
         })
       })
@@ -28,7 +28,7 @@ var Seats = {
       var floorPlanId = $('h1').attr('data-id')
     $.get('/floor_plan/' + floorPlanId, function(response) {
       var div = $('#get_floorplan', $(response))
-      $('div.second').html(response)
+      $('#get_floorplan').html(response)
     })
   }
 }
